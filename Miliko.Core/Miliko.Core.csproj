@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Miliko.Attributes</RootNamespace>
+        <LangVersion>11</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Builder\Sea" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AgileObjects.ReadableExpressions" Version="3.3.0" />
+    </ItemGroup>
+
+</Project>
