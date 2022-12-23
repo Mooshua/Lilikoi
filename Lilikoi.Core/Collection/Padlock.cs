@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::Padlock.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -24,7 +24,7 @@ namespace Lilikoi.Core.Collection;
 public class Padlock
 {
 	private Key currentKey;
-	private bool isLocked;
+	private bool isLocked = false;
 
 	public Padlock()
 	{

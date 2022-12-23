@@ -1,22 +1,24 @@
 # Lilikoi
 A C# framework for frameworks
 
-[![edge](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=edge)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml)
-[![stable](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=stable)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml)
+`edge`: [![edge](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=edge)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml)
+
+`stable`: [![stable](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=stable)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml)
 
 > **Warning**: Lilikoi is in active, early development and should not be used unless you accept the risk that everything may change or break.
 
 ### Status
 
-| Feature | Status |
-| ------- | ------ |
-| Property Injection | ✔️ |
-| Parameter Injection | 🏗️ |
-| Hooks ("Wraps") | 🏗️ |
-| Contexts ("Mounts") | ⏳ |
-| Builder Attributes | ⏳ |
-| Configuration | ⏳ |
-| NuGet Release | ⏳ |
+| Feature             | Status |
+|---------------------| --- |
+| Property Injection  | ✔️ |
+| Parameter Injection | ️️️✔️ |
+| Hooks ("Wraps")     | 🏗️ |
+| Contexts ("Mounts") | ✔️ |
+| Builder Attributes  | 🏗️ |
+| Configuration       | 🏗️ |
+| Integrations        | ⏳ |
+| NuGet Release       | ⏳ |
 
 ### What is it?
 

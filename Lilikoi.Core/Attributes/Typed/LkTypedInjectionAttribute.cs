@@ -14,6 +14,8 @@
 using System;
 using System.Runtime.CompilerServices;
 
+using Lilikoi.Core.Context;
+
 #endregion
 
 namespace Lilikoi.Core.Attributes.Typed;
@@ -28,10 +30,10 @@ namespace Lilikoi.Core.Attributes.Typed;
 public abstract class LkTypedInjectionAttribute<TInject> : LkInjectionAttribute
 	where TInject : class
 {
-	public sealed override TInjectable Inject<TInjectable>()
+	public sealed override TInjectable Inject<TInjectable>(Mount context)
 		where TInjectable : class
 	{
-		var input = Inject();
+		var input = Inject(context);
 
 		var casted = input as TInjectable;
 
@@ -41,7 +43,7 @@ public abstract class LkTypedInjectionAttribute<TInject> : LkInjectionAttribute
 		return casted;
 	}
 
-	public override void Deject<TInjectable>(TInjectable injected)
+	public override void Deject<TInjectable>(Mount context, TInjectable injected)
 		where TInjectable : class
 	{
 		var casted = injected as TInject;
@@ -49,7 +51,7 @@ public abstract class LkTypedInjectionAttribute<TInject> : LkInjectionAttribute
 		if (casted is null)
 			throw new InvalidCastException($"Cannot cast {injected.GetType().Name} to {typeof(TInject).Name}. (Result of 'as' is null)");
 
-		Deject(casted);
+		Deject(context, casted);
 	}
 
 	public sealed override bool IsInjectable<TInjectable>()
@@ -59,9 +61,9 @@ public abstract class LkTypedInjectionAttribute<TInject> : LkInjectionAttribute
 
 	#region Abstract
 
-	public abstract TInject Inject();
+	public abstract TInject Inject(Mount context);
 
-	public virtual void Deject(TInject injected)
+	public virtual void Deject(Mount context, TInject injected)
 	{
 		return;
 	}

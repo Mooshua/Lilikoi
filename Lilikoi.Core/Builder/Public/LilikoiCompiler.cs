@@ -33,6 +33,7 @@ public class LilikoiCompiler
 	{
 		Internal.ParameterSafety();
 		Internal.InjectionsFor(Internal.Method.Host);
+		Internal.ParametersFor();
 		Internal.Apex();
 
 		return new LilikoiContainer()

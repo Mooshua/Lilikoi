@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::MahoganyMethod.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Lilikoi.Core.Generator;
+using Lilikoi.Core.Builder.Mahogany.Generator;
 
 #endregion
 
@@ -38,11 +38,13 @@ public class MahoganyMethod
 
 	protected List<Expression> Body { get; set; } = new();
 
+	protected List<Expression> Unordered { get; } = new();
+
 	public ParameterExpression AsUnorderedVariable(Expression input)
 	{
 		var value = CommonGenerator.ToVariable(input, out var variable);
 
-		Append(value);
+		Unordered.Add(value);
 		Temporaries.Add(variable);
 
 		return variable;
@@ -82,7 +84,7 @@ public class MahoganyMethod
 					//Named(MahoganyConstants.HOST_VAR), Named(MahoganyConstants.INPUT_VAR),
 					Named(MahoganyConstants.OUTPUT_VAR)
 				},
-				Expression.Block(Body), Named(MahoganyConstants.OUTPUT_VAR))),
+				Expression.Block( Expression.Block(Unordered), Expression.Block(Body)), Named(MahoganyConstants.OUTPUT_VAR))),
 			Named(MahoganyConstants.HOST_VAR),
 			Named(MahoganyConstants.INPUT_VAR));
 	}

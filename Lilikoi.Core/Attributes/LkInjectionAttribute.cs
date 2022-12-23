@@ -14,6 +14,7 @@
 using System;
 
 using Lilikoi.Core.Attributes.Builders;
+using Lilikoi.Core.Context;
 
 #endregion
 
@@ -40,11 +41,8 @@ public abstract class LkInjectionAttribute : LkInjectionBuilderAttribute
 	///     Take parameters and produce an object to be injected into the container
 	/// </summary>
 	/// <returns></returns>
-	public virtual TInjectable Inject<TInjectable>()
-		where TInjectable : class
-	{
-		throw new NotImplementedException();
-	}
+	public abstract TInjectable Inject<TInjectable>(Mount context)
+		where TInjectable : class;
 
 
 	/// <summary>
@@ -52,7 +50,7 @@ public abstract class LkInjectionAttribute : LkInjectionBuilderAttribute
 	///     executing.
 	/// </summary>
 	/// <param name="injected"></param>
-	public virtual void Deject<TInjectable>(TInjectable injected)
+	public virtual void Deject<TInjectable>(Mount context, TInjectable injected)
 		where TInjectable : class
 	{
 		throw new NotImplementedException();
