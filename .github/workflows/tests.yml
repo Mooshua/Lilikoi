@@ -1,17 +1,17 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: dotnet test
+name: Lilikoi.Tests
 
 on: [push, pull_request]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        framework-version: [ 'net47', 'net48', 'netcoreapp3.0', 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0' ]
+        framework-version: [ 'net47', 'net48', 'net5.0', 'net6.0', 'net7.0' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -25,4 +25,4 @@ jobs:
       - name: Build for ${{ matrix.framework-version }}
         run: dotnet build Lilikoi.Tests --framework ${{ matrix.framework-version }} --configuration Release --no-restore
       - name: Test for ${{ matrix.framework-version }}
-        run: dotnet test Lilikoi.Tests --framework ${{ matrix.framework-version }} --no-build --no-restore --verbosity normal
+        run: dotnet test Lilikoi.Tests --framework ${{ matrix.framework-version }} --configuration Release --no-build --no-restore --verbosity normal
