@@ -10,12 +10,13 @@
 //
 //       ========================
 using Lilikoi.Core.Attributes.Typed;
+using Lilikoi.Core.Context;
 
 namespace Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
 
 public class SimpleInjectorAttribute : LkTypedInjectionAttribute<Simple>
 {
-	public override Simple Inject()
+	public override Simple Inject(Mount mount)
 	{
 		return Simple.Create();
 	}

@@ -1,17 +1,18 @@
 ﻿//       ========================
 //       Lilikoi.Tests::AllMethodsCalledAttribute.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
 using Lilikoi.Core.Attributes.Typed;
+using Lilikoi.Core.Context;
 
 #endregion
 
@@ -21,14 +22,14 @@ public class AllMethodsCalledAttribute : LkTypedInjectionAttribute<AllMethodsCal
 {
 	public AllMethodsCalledTest Test = AllMethodsCalledTest.Instance;
 
-	public override AllMethodsCalledInject Inject()
+	public override AllMethodsCalledInject Inject(Mount context)
 	{
 		Test.InjectCalled = true;
 
 		return new AllMethodsCalledInject();
 	}
 
-	public override void Deject(AllMethodsCalledInject injected)
+	public override void Deject(Mount context, AllMethodsCalledInject injected)
 	{
 		Test.DejectCalled = true;
 	}

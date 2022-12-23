@@ -27,10 +27,9 @@ internal static class InjectionGenerator
 {
 	internal static MethodInfo LkInjectionBuilderAttribute_Build = typeof(LkInjectionBuilderAttribute).GetMethod("Build");
 
-
-	public static MethodInfo LkInjectionAttribute_Inject = typeof(LkInjectionAttribute).GetMethod("Inject");
-	public static MethodInfo LkInjectionAttribute_Deject = typeof(LkInjectionAttribute).GetMethod("Deject");
-	public static MethodInfo LkInjectionAttribute_IsInjectable = typeof(LkInjectionAttribute).GetMethod("IsInjectable");
+	internal static MethodInfo LkInjectionAttribute_Inject = typeof(LkInjectionAttribute).GetMethod("Inject");
+	internal static MethodInfo LkInjectionAttribute_Deject = typeof(LkInjectionAttribute).GetMethod("Deject");
+	internal static MethodInfo LkInjectionAttribute_IsInjectable = typeof(LkInjectionAttribute).GetMethod("IsInjectable");
 
 	#region Build
 
