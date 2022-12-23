@@ -38,11 +38,13 @@ public class MahoganyMethod
 
 	protected List<Expression> Body { get; set; } = new();
 
+	protected List<Expression> Unordered { get; } = new();
+
 	public ParameterExpression AsUnorderedVariable(Expression input)
 	{
 		var value = CommonGenerator.ToVariable(input, out var variable);
 
-		Append(value);
+		Unordered.Add(value);
 		Temporaries.Add(variable);
 
 		return variable;
@@ -67,7 +69,7 @@ public class MahoganyMethod
 
 	public void Append(Expression block)
 	{
-		Body.Insert(0, block);
+		Body.Add(block);
 	}
 
 	public LambdaExpression Lambda()
@@ -82,7 +84,7 @@ public class MahoganyMethod
 					//Named(MahoganyConstants.HOST_VAR), Named(MahoganyConstants.INPUT_VAR),
 					Named(MahoganyConstants.OUTPUT_VAR)
 				},
-				Expression.Block(Body), Named(MahoganyConstants.OUTPUT_VAR))),
+				Expression.Block( Expression.Block(Unordered), Expression.Block(Body)), Named(MahoganyConstants.OUTPUT_VAR))),
 			Named(MahoganyConstants.HOST_VAR),
 			Named(MahoganyConstants.INPUT_VAR));
 	}

@@ -1,19 +1,20 @@
 ﻿//       ========================
 //       Lilikoi.Tests::HelloWorldTest.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
 using System.Reflection;
 
 using Lilikoi.Core.Builder.Public;
+using Lilikoi.Core.Context;
 
 #endregion
 
@@ -31,6 +32,7 @@ public class HelloWorldTest
 		var build = LilikoiMethod.FromMethodInfo((MethodInfo)typeof(HelloWorldHost).GetMethod("HelloWorld"))
 			.Input<object>()
 			.Output<object>()
+			.Mount(new Mount())
 			.Build()
 			.Finish();
 

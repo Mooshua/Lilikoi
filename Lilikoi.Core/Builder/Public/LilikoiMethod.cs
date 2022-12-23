@@ -17,6 +17,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using Lilikoi.Core.Builder.Mahogany;
+using Lilikoi.Core.Context;
 
 #endregion
 
@@ -38,7 +39,7 @@ public class LilikoiMethod
 				Host = method.DeclaringType,
 				NamedVariables = new Dictionary<string, ParameterExpression>()
 				{
-					{ MahoganyConstants.HOST_VAR, Expression.Parameter(method.DeclaringType, MahoganyConstants.HOST_VAR) }
+					{ MahoganyConstants.HOST_VAR, Expression.Parameter(method.DeclaringType, MahoganyConstants.HOST_VAR) },
 				}
 			}
 		};
@@ -62,6 +63,14 @@ public class LilikoiMethod
 		Implementation.Result = typeof(TOutput);
 		Implementation.NamedVariables.Add(MahoganyConstants.OUTPUT_VAR, Expression.Parameter(typeof(TOutput), MahoganyConstants.OUTPUT_VAR));
 
+
+		return this;
+	}
+
+	public LilikoiMethod Mount(Mount mount)
+	{
+		var mountVar = Implementation.AsUnorderedVariable(Expression.Constant(mount));
+		Implementation.NamedVariables.Add(MahoganyConstants.MOUNT_VAR, mountVar);
 
 		return this;
 	}

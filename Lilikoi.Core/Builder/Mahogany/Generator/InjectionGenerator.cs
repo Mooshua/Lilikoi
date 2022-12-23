@@ -49,16 +49,16 @@ internal static class InjectionGenerator
 	/// </summary>
 	/// <param name="result"></param>
 	/// <returns></returns>
-	public static Expression InjectValue(Expression attribute, Type result)
+	public static Expression InjectValue(MahoganyMethod method, Expression attribute, Type result)
 	{
 		//	var0 = injectionAttribute.Inject();	//	EXCEPTION POSSIBLE HERE
 		//	return var0 as result //  NULL REFERENCE POSSIBLE HERE
 
-		var method = LkInjectionAttribute_Inject.MakeGenericMethod(result);
+		var invoke = LkInjectionAttribute_Inject.MakeGenericMethod(result);
 
 
 		return //Expression.TypeAs(
-			Expression.Call(attribute, method); //, result);
+			Expression.Call(attribute, invoke, method.Named(MahoganyConstants.MOUNT_VAR)); //, result);
 	}
 
 	/// <summary>
@@ -75,7 +75,7 @@ internal static class InjectionGenerator
 		//	if (object[property] == null)
 		//		throw ArgumentNullException(...)	//	duh...
 
-		var setter = method.AsVariable(InjectValue(attribute, property.PropertyType), out var value);
+		var setter = method.AsVariable(InjectValue(method, attribute, property.PropertyType), out var value);
 
 		return Expression.Block(
 			//CommonGenerator.GuardAgainstNull(source, new ArgumentNullException($"__host")),
@@ -94,17 +94,6 @@ internal static class InjectionGenerator
 			);
 	}
 
-	/// <summary>
-	///     Returns a value suitable as a parameter injectable
-	/// </summary>
-	/// <param name="source"></param>
-	/// <param name="parameter"></param>
-	/// <returns></returns>
-	public static Expression InjectValueAsParameter(ParameterExpression attribute, ParameterInfo parameter)
-	{
-		return InjectValue(attribute, parameter.ParameterType);
-	}
-
 	#endregion
 
 
@@ -115,13 +104,13 @@ internal static class InjectionGenerator
 	/// </summary>
 	/// <param name="value"></param>
 	/// <returns></returns>
-	public static Expression DejectValue(Expression attribute, Expression value)
+	public static Expression DejectValue(MahoganyMethod method, Expression attribute, Expression value)
 	{
 		//	injectionAttribute.Deject(var0)	//	EXCEPTION POSSIBLE HERE
 
-		var method = LkInjectionAttribute_Deject.MakeGenericMethod(value.Type);
+		var invoke = LkInjectionAttribute_Deject.MakeGenericMethod(value.Type);
 
-		return Expression.Call(attribute, method, value);
+		return Expression.Call(attribute, invoke, method.Named(MahoganyConstants.MOUNT_VAR), value);
 	}
 
 	/// <summary>
@@ -130,24 +119,14 @@ internal static class InjectionGenerator
 	/// <param name="source"></param>
 	/// <param name="property"></param>
 	/// <returns></returns>
-	public static Expression DejectValueAsProperty(Expression attribute, ParameterExpression source, PropertyInfo property)
+	public static Expression DejectValueAsProperty(MahoganyMethod method, Expression attribute, ParameterExpression source, PropertyInfo property)
 	{
 		//	DejectValue<property>(object[parameter])	//	EXCEPTION POSSIBLE HERE
 		return DejectValue(
+			method,
 			attribute,
 			Expression.Property(source, property)
 			);
-	}
-
-	/// <summary>
-	///     Currently a pointless wrapper around <see cref="DejectValue" />
-	/// </summary>
-	/// <param name="source"></param>
-	/// <param name="parameter"></param>
-	/// <returns></returns>
-	public static Expression DejectValueAsParameter(ParameterExpression attribute, ParameterExpression source, ParameterInfo parameter)
-	{
-		return DejectValue(attribute, source);
 	}
 
 	#endregion

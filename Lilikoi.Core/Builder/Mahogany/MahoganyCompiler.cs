@@ -230,7 +230,10 @@ public class MahoganyCompiler
 
 	public void Apex()
 	{
-		var filled = ParameterFillingForMethod(Method.MethodInjects, new Dictionary<Type, ParameterExpression>(), Method.Entry);
+		var filled = ParameterFillingForMethod(Method.MethodInjects, new Dictionary<Type, ParameterExpression>()
+		{
+			{ Method.Input, Method.Named(MahoganyConstants.INPUT_VAR) }
+		}, Method.Entry);
 
 		Stack.Apex(
 			Expression.Block(

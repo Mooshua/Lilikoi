@@ -31,7 +31,7 @@ internal static class ParameterGenerator
 	{
 		return
 			Expression.Call(
-				Expression.Constant(builderAttribute, typeof(LkInjectionBuilderAttribute)),
+				Expression.Constant(builderAttribute, typeof(LkParameterBuilderAttribute)),
 				LkParameterBuilderAttribute_Build);
 	}
 

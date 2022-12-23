@@ -45,7 +45,7 @@ public class MahoganyInjectStep
 			InjectionGenerator.InjectValueAsProperty(Method, instance, Method.Named(MahoganyConstants.HOST_VAR), PropertyInfo);
 
 		var exit =
-			InjectionGenerator.DejectValueAsProperty(instance, Method.Named(MahoganyConstants.HOST_VAR), PropertyInfo);
+			InjectionGenerator.DejectValueAsProperty(Method, instance, Method.Named(MahoganyConstants.HOST_VAR), PropertyInfo);
 
 		return (entry, exit);
 	}
