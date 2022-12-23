@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::InjectionGenerator.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -25,21 +25,21 @@ namespace Lilikoi.Core.Generator;
 
 internal static class InjectionGenerator
 {
-	internal static MethodInfo MkInjectionBuilderAttribute_Build = typeof(MkInjectionBuilderAttribute).GetMethod("Build");
+	internal static MethodInfo LkInjectionBuilderAttribute_Build = typeof(LkInjectionBuilderAttribute).GetMethod("Build");
 
 
-	public static MethodInfo MkInjectionAttribute_Inject = typeof(MkInjectionAttribute).GetMethod("Inject");
-	public static MethodInfo MkInjectionAttribute_Deject = typeof(MkInjectionAttribute).GetMethod("Deject");
-	public static MethodInfo MkInjectionAttribute_IsInjectable = typeof(MkInjectionAttribute).GetMethod("IsInjectable");
+	public static MethodInfo LkInjectionAttribute_Inject = typeof(LkInjectionAttribute).GetMethod("Inject");
+	public static MethodInfo LkInjectionAttribute_Deject = typeof(LkInjectionAttribute).GetMethod("Deject");
+	public static MethodInfo LkInjectionAttribute_IsInjectable = typeof(LkInjectionAttribute).GetMethod("IsInjectable");
 
 	#region Build
 
-	internal static Expression Builder(MkInjectionBuilderAttribute builderAttribute)
+	internal static Expression Builder(LkInjectionBuilderAttribute builderAttribute)
 	{
 		return
 			Expression.Call(
-				Expression.Constant(builderAttribute, typeof(MkInjectionBuilderAttribute)),
-				MkInjectionBuilderAttribute_Build);
+				Expression.Constant(builderAttribute, typeof(LkInjectionBuilderAttribute)),
+				LkInjectionBuilderAttribute_Build);
 	}
 
 	#endregion
@@ -56,7 +56,7 @@ internal static class InjectionGenerator
 		//	var0 = injectionAttribute.Inject();	//	EXCEPTION POSSIBLE HERE
 		//	return var0 as result //  NULL REFERENCE POSSIBLE HERE
 
-		var method = MkInjectionAttribute_Inject.MakeGenericMethod(result);
+		var method = LkInjectionAttribute_Inject.MakeGenericMethod(result);
 
 
 		return //Expression.TypeAs(
@@ -121,7 +121,7 @@ internal static class InjectionGenerator
 	{
 		//	injectionAttribute.Deject(var0)	//	EXCEPTION POSSIBLE HERE
 
-		var method = MkInjectionAttribute_Deject.MakeGenericMethod(value.Type);
+		var method = LkInjectionAttribute_Deject.MakeGenericMethod(value.Type);
 
 		return Expression.Call(attribute, method, value);
 	}

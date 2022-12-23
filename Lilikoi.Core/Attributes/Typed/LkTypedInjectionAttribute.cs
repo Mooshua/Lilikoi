@@ -25,7 +25,7 @@ namespace Lilikoi.Core.Attributes.Typed;
 /// </summary>
 /// <typeparam name="TIn"></typeparam>
 /// <typeparam name="TOut"></typeparam>
-public abstract class MkTypedInjectionAttribute<TInject> : MkInjectionAttribute
+public abstract class LkTypedInjectionAttribute<TInject> : LkInjectionAttribute
 	where TInject : class
 {
 	public sealed override TInjectable Inject<TInjectable>()

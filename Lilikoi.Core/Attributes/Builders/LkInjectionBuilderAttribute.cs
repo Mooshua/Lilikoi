@@ -18,13 +18,13 @@ using System;
 namespace Lilikoi.Core.Attributes.Builders;
 
 [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
-public abstract class MkInjectionBuilderAttribute : Attribute
+public abstract class LkInjectionBuilderAttribute : Attribute
 {
 	/// <summary>
 	///     Build the MkInjectionAttribute that this builder will replace.
 	/// </summary>
 	/// <returns></returns>
-	public abstract MkInjectionAttribute Build();
+	public abstract LkInjectionAttribute Build();
 
 	/// <summary>
 	///     Whether or not the provided generic type is handled by this injector.

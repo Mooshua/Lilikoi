@@ -34,7 +34,7 @@ public class MahoganyCompiler
 
 	public const BindingFlags FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-	internal static bool IsInjectable(MkInjectionBuilderAttribute attribute, Type test)
+	internal static bool IsInjectable(LkInjectionBuilderAttribute attribute, Type test)
 	{
 		//	This is REAL C# done by REAL C# programmers!
 		//	Look at what they have been doing behind our backs!!!
@@ -43,7 +43,7 @@ public class MahoganyCompiler
 			?.Invoke(attribute, new object[0]) ?? false);
 	}
 
-	internal static bool IsWrappable(MkWrapBuilderAttribute attribute, Type input, Type output)
+	internal static bool IsWrappable(LkWrapBuilderAttribute attribute, Type input, Type output)
 	{
 		var inputOk = (bool)(attribute.GetType().GetMethod("IsAcceptableInput")
 			?.MakeGenericMethod(input)
@@ -62,10 +62,10 @@ public class MahoganyCompiler
 
 		foreach (var propertyInfo in host.GetProperties())
 		foreach (var attribute in propertyInfo.GetCustomAttributes()
-			         .Where(obj => obj.GetType().IsSubclassOf(typeof(MkInjectionBuilderAttribute))))
+			         .Where(obj => obj.GetType().IsSubclassOf(typeof(LkInjectionBuilderAttribute))))
 			try
 			{
-				var builders = (MkInjectionBuilderAttribute)attribute;
+				var builders = (LkInjectionBuilderAttribute)attribute;
 
 				if (!IsInjectable(builders, propertyInfo.PropertyType))
 					throw new InvalidCastException($"Injectable '{builders.GetType().FullName}' is unable to inject type '{propertyInfo.PropertyType.FullName}' into property '{propertyInfo.Name}' of '{host.FullName}'");

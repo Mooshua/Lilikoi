@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::MkInjectionAttribute.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -24,14 +24,14 @@ namespace Lilikoi.Core.Attributes;
 /// </summary>
 /// <typeparam name="TInjectable"></typeparam>
 [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
-public abstract class MkInjectionAttribute : MkInjectionBuilderAttribute
+public abstract class LkInjectionAttribute : LkInjectionBuilderAttribute
 {
 	/// <summary>
 	///     This is a static injection attribute, not a dynamic one.
 	///     Do not allow inheriting classes to fiddle with this.
 	/// </summary>
 	/// <returns></returns>
-	public sealed override MkInjectionAttribute Build()
+	public sealed override LkInjectionAttribute Build()
 	{
 		return this;
 	}

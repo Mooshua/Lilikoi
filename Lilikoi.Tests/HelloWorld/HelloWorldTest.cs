@@ -28,7 +28,7 @@ public class HelloWorldTest
 
 		Assert.IsNotNull(attr.Build());
 
-		var build = MilikoMethod.FromMethodInfo((MethodInfo)typeof(HelloWorldHost).GetMethod("HelloWorld"))
+		var build = LilikoiMethod.FromMethodInfo((MethodInfo)typeof(HelloWorldHost).GetMethod("HelloWorld"))
 			.Input<object>()
 			.Output<object>()
 			.Build()

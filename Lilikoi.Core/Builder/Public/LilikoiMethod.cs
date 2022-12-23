@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::MilikoMethod.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -22,13 +22,13 @@ using Lilikoi.Core.Builder.Mahogany;
 
 namespace Lilikoi.Core.Builder.Public;
 
-public class MilikoMethod
+public class LilikoiMethod
 {
 	internal MahoganyMethod Implementation { get; set; }
 
-	public static MilikoMethod FromMethodInfo(MethodInfo method)
+	public static LilikoiMethod FromMethodInfo(MethodInfo method)
 	{
-		return new MilikoMethod()
+		return new LilikoiMethod()
 		{
 			Implementation = new MahoganyMethod()
 			{
@@ -49,7 +49,7 @@ public class MilikoMethod
 	/// </summary>
 	/// <typeparam name="TInput"></typeparam>
 	/// <returns></returns>
-	public MilikoMethod Input<TInput>()
+	public LilikoiMethod Input<TInput>()
 	{
 		Implementation.Input = typeof(TInput);
 		Implementation.NamedVariables.Add(MahoganyConstants.INPUT_VAR, Expression.Parameter(typeof(TInput), MahoganyConstants.INPUT_VAR));
@@ -57,7 +57,7 @@ public class MilikoMethod
 		return this;
 	}
 
-	public MilikoMethod Output<TOutput>()
+	public LilikoiMethod Output<TOutput>()
 	{
 		Implementation.Result = typeof(TOutput);
 		Implementation.NamedVariables.Add(MahoganyConstants.OUTPUT_VAR, Expression.Parameter(typeof(TOutput), MahoganyConstants.OUTPUT_VAR));
@@ -66,11 +66,11 @@ public class MilikoMethod
 		return this;
 	}
 
-	public MilikoCompiler Build()
+	public LilikoiCompiler Build()
 	{
 		var internalMethod = Implementation;
 
-		return new MilikoCompiler()
+		return new LilikoiCompiler()
 		{
 			Internal = new MahoganyCompiler()
 			{

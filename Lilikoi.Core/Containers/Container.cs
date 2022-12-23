@@ -35,7 +35,7 @@ public class Container
 
 	internal MethodInfo EntryPoint { get; set; }
 
-	internal List<MkInjectionBuilderAttribute> Injections { get; set; }
+	internal List<LkInjectionBuilderAttribute> Injections { get; set; }
 
-	internal List<MkWrapBuilderAttribute> Wraps { get; set; }
+	internal List<LkWrapBuilderAttribute> Wraps { get; set; }
 }

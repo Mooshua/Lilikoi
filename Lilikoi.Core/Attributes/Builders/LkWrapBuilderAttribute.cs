@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::MkWrapBuilderAttribute.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -18,9 +18,9 @@ using System;
 namespace Lilikoi.Core.Attributes.Builders;
 
 [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
-public abstract class MkWrapBuilderAttribute : Attribute
+public abstract class LkWrapBuilderAttribute : Attribute
 {
-	public abstract MkWrapAttribute Build();
+	public abstract LkWrapAttribute Build();
 
 	/// <summary>
 	///     Whether or not this input type will be accepted

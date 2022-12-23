@@ -23,7 +23,7 @@ namespace Lilikoi.Core.Builder.Mahogany;
 
 public class MahoganyInjectStep
 {
-	public MahoganyInjectStep(MahoganyMethod method, PropertyInfo propertyInfo, MkInjectionBuilderAttribute builder)
+	public MahoganyInjectStep(MahoganyMethod method, PropertyInfo propertyInfo, LkInjectionBuilderAttribute builder)
 	{
 		Method = method;
 		PropertyInfo = propertyInfo;
@@ -34,7 +34,7 @@ public class MahoganyInjectStep
 
 	public PropertyInfo PropertyInfo { get; set; }
 
-	public MkInjectionBuilderAttribute Builder { get; set; }
+	public LkInjectionBuilderAttribute Builder { get; set; }
 
 	public (Expression, Expression) Generate()
 	{

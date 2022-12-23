@@ -34,7 +34,7 @@ public class AllMethodsCalledTest
 
 		Instance = this;
 
-		var build = MilikoMethod.FromMethodInfo(method)
+		var build = LilikoiMethod.FromMethodInfo(method)
 			.Input<object>()
 			.Output<object>()
 			.Build()

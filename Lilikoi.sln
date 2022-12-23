@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lilikoi.Core", "Lilikoi.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lilikoi.Tests", "Lilikoi.Tests\Lilikoi.Tests.csproj", "{D925FF7A-334A-46BC-A55D-837F70D6403B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lilikoi.Benchmarks", "Lilikoi.Benchmarks\Lilikoi.Benchmarks.csproj", "{4DC59046-57CE-476F-9456-F2279AC08A28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{D925FF7A-334A-46BC-A55D-837F70D6403B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D925FF7A-334A-46BC-A55D-837F70D6403B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D925FF7A-334A-46BC-A55D-837F70D6403B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC59046-57CE-476F-9456-F2279AC08A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC59046-57CE-476F-9456-F2279AC08A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC59046-57CE-476F-9456-F2279AC08A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC59046-57CE-476F-9456-F2279AC08A28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

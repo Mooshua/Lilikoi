@@ -17,7 +17,7 @@ using Lilikoi.Core.Attributes.Typed;
 
 namespace Lilikoi.Tests.HelloWorld;
 
-public class ConsoleAttribute : MkTypedInjectionAttribute<ConsoleInj>
+public class ConsoleAttribute : LkTypedInjectionAttribute<ConsoleInj>
 {
 	public override ConsoleInj Inject()
 	{

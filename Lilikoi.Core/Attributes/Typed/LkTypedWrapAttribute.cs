@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::MkTypedWrapAttribute.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -24,7 +24,7 @@ namespace Lilikoi.Core.Attributes.Typed;
 /// <typeparam name="TIn"></typeparam>
 /// <typeparam name="TOut"></typeparam>
 [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
-public abstract class MkTypedWrapAttribute<TIn, TOut> : MkWrapAttribute
+public abstract class LkTypedWrapAttribute<TIn, TOut> : LkWrapAttribute
 	where TIn : class
 	where TOut : class
 {

@@ -17,7 +17,7 @@ using Lilikoi.Core.Attributes.Typed;
 
 namespace Lilikoi.Tests.Injections.AllMethodsCalled;
 
-public class AllMethodsCalledAttribute : MkTypedInjectionAttribute<AllMethodsCalledInject>
+public class AllMethodsCalledAttribute : LkTypedInjectionAttribute<AllMethodsCalledInject>
 {
 	public AllMethodsCalledTest Test = AllMethodsCalledTest.Instance;
 
