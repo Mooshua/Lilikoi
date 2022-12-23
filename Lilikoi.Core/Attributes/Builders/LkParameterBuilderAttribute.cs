@@ -30,6 +30,7 @@ public abstract class LkParameterBuilderAttribute : Attribute
 	/// <typeparam name="TInput"></typeparam>
 	/// <returns></returns>
 	public abstract bool IsInjectable<TParameter, TInput>()
+		where TParameter : class
 		where TInput : class;
 
 }

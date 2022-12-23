@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::CommonGenerator.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -16,7 +16,7 @@ using System.Linq.Expressions;
 
 #endregion
 
-namespace Lilikoi.Core.Generator;
+namespace Lilikoi.Core.Builder.Mahogany.Generator;
 
 public static class CommonGenerator
 {

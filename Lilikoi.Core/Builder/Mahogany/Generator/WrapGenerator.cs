@@ -1,15 +1,15 @@
 ﻿//       ========================
 //       Lilikoi.Core::WrapGenerator.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
-namespace Lilikoi.Core.Generator;
+namespace Lilikoi.Core.Builder.Mahogany.Generator;
 /*
 internal static class WrapGenerator
 {

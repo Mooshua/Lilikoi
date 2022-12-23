@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Core::MahoganyMethod.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Lilikoi.Core.Generator;
+using Lilikoi.Core.Builder.Mahogany.Generator;
 
 #endregion
 
@@ -67,7 +67,7 @@ public class MahoganyMethod
 
 	public void Append(Expression block)
 	{
-		Body.Add(block);
+		Body.Insert(0, block);
 	}
 
 	public LambdaExpression Lambda()

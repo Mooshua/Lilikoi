@@ -17,11 +17,10 @@ using System.Reflection;
 
 using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Attributes.Builders;
-using Lilikoi.Core.Builder.Mahogany;
 
 #endregion
 
-namespace Lilikoi.Core.Generator;
+namespace Lilikoi.Core.Builder.Mahogany.Generator;
 
 internal static class InjectionGenerator
 {

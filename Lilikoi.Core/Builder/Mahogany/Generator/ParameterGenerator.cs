@@ -9,13 +9,14 @@
 //
 //
 //       ========================
+
 using System.Linq.Expressions;
 using System.Reflection;
 
 using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Attributes.Builders;
 
-namespace Lilikoi.Core.Generator;
+namespace Lilikoi.Core.Builder.Mahogany.Generator;
 
 internal static class ParameterGenerator
 {
@@ -36,5 +37,27 @@ internal static class ParameterGenerator
 
 	#endregion
 
+	#region Inject
+
+	public static Expression Inject(MahoganyMethod method, Expression source, ParameterInfo info)
+	{
+		//	var param_x = source.Inject<Input, Parameter>()
+
+		var invoke = LkParameterAttribute_Inject.MakeGenericMethod(info.ParameterType, method.Input);
+
+		var inject = Expression.Call(
+			source, invoke,
+			method.Named(MahoganyConstants.MOUNT_VAR),
+			method.Named(MahoganyConstants.INPUT_VAR)
+			);
+
+		var setter = method.AsVariable(inject, out var variable);
+
+		method.MethodInjects[info] = variable;
+
+		return setter;
+	}
+
+	#endregion
 
 }
