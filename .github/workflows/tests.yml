@@ -22,7 +22,7 @@ jobs:
           dotnet-quality: 'ga'
       - name: Install dependencies
         run: dotnet restore
-      - name: Build for ${{ matrix.dotnet-version }}
-        run: dotnet build --framework ${{ matrix.framework-version }} --configuration Release --no-restore
-      - name: Test for ${{ matrix.dotnet-version }}
-        run: dotnet test --framework ${{ matrix.framework-version }} --no-build --no-restore --verbosity normal
+      - name: Build for ${{ matrix.framework-version }}
+        run: dotnet build Lilikoi.Tests --framework ${{ matrix.framework-version }} --configuration Release --no-restore
+      - name: Test for ${{ matrix.framework-version }}
+        run: dotnet test Lilikoi.Tests --framework ${{ matrix.framework-version }} --no-build --no-restore --verbosity normal
