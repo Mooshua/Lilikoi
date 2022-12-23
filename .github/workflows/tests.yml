@@ -1,28 +1,28 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: dotnet test
 
-on:
-  push:
-    branches: [ "edge" ]
-  pull_request:
-    branches: [ "edge" ]
+on: [push, pull_request]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        framework-version: [ 'net47', 'net48', 'netcoreapp3.0', 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0' ]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+          dotnet-quality: 'ga'
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build for ${{ matrix.dotnet-version }}
+        run: dotnet build --framework ${{ matrix.framework-version }} --configuration Release --no-restore
+      - name: Test for ${{ matrix.dotnet-version }}
+        run: dotnet test --framework ${{ matrix.framework-version }} --no-build --no-restore --verbosity normal
