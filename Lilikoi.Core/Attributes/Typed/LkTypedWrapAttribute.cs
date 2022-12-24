@@ -13,6 +13,8 @@
 
 using System;
 
+using Lilikoi.Core.Context;
+
 #endregion
 
 namespace Lilikoi.Core.Attributes.Typed;
@@ -48,14 +50,10 @@ public abstract class LkTypedWrapAttribute<TIn, TOut> : LkWrapAttribute
 		After(ref casted);
 	}
 
-	public sealed override bool IsAcceptableInput<TInput>()
+	public sealed override bool IsWrappable<TInput, TOutput>(Mount mount)
 	{
-		return typeof(TIn).IsAssignableFrom(typeof(TInput));
-	}
-
-	public sealed override bool IsAcceptableOutput<TOutput>()
-	{
-		return typeof(TOut).IsAssignableFrom(typeof(TOutput));
+		return typeof(TIn).IsAssignableFrom(typeof(TInput)) &&
+			typeof(TOut).IsAssignableFrom(typeof(TOutput));
 	}
 
 	#region Abstract

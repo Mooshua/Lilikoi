@@ -34,12 +34,12 @@ public static class CommonGenerator
 				);
 	}
 
-	public static Expression ToVariable(Expression input, out ParameterExpression variable)
+	public static Expression ToVariable(Expression input, out ParameterExpression variable, string name = "temp")
 	{
 		//	var var0 = input()
 		//	return var0
 
-		variable = Expression.Variable(input.Type, "temp");
+		variable = Expression.Variable(input.Type, name);
 
 		var block =
 			Expression.Assign(variable, input);

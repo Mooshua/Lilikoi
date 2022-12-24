@@ -69,8 +69,9 @@ public class LilikoiMethod
 
 	public LilikoiMethod Mount(Mount mount)
 	{
-		var mountVar = Implementation.AsUnorderedVariable(Expression.Constant(mount));
+		var mountVar = Implementation.AsHoistedVariable(Expression.Constant(mount));
 		Implementation.NamedVariables.Add(MahoganyConstants.MOUNT_VAR, mountVar);
+		Implementation.Mount = mount;
 
 		return this;
 	}

@@ -83,7 +83,9 @@ class MyAttribute : Lk___Attribute
 
 ## Property Injection
 
-Property injection is the simplest form of injection to understand.
+Property injection is the simplest form of injection to understand. 
+They are universal and will work anywhere their return type is supported (and when the mount is set up correctly) as they are
+not exposed to any container-specific types.
 When a container is invoked, any properties with your attribute will have the following calls made:
 
 - `Builder.Build()`, to retrieve a temporary instance of an `LkInjectionAttribute`
@@ -103,6 +105,7 @@ class ToBeInjected
 Results in the following calls:
 - `MyInjectable.Build()`
 - `BuildResult.Inject<MyInterface>(Mount mount)`
+- `ToBeInjected.set_MyImpl(InjectResult)`
 - Execution...
 - `BuildResult.Deject<MyInterface>(Mount mount, MyInterface InjectResult)`
 

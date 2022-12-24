@@ -13,6 +13,8 @@
 
 using System;
 
+using Lilikoi.Core.Context;
+
 #endregion
 
 namespace Lilikoi.Core.Attributes.Builders;
@@ -23,17 +25,11 @@ public abstract class LkWrapBuilderAttribute : Attribute
 	public abstract LkWrapAttribute Build();
 
 	/// <summary>
-	///     Whether or not this input type will be accepted
+	///     Whether or not this input type and output type will be accepted
 	/// </summary>
 	/// <typeparam name="TInput"></typeparam>
-	/// <returns></returns>
-	public abstract bool IsAcceptableInput<TInput>();
-
-	/// <summary>
-	///     Whether or not this output type will be accepted.
-	///     Used during container instantiation to guard types.
-	/// </summary>
 	/// <typeparam name="TOutput"></typeparam>
 	/// <returns></returns>
-	public abstract bool IsAcceptableOutput<TOutput>();
+	public abstract bool IsWrappable<TInput, TOutput>(Mount mount);
+
 }

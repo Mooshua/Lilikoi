@@ -8,3 +8,17 @@ Containers consist of the following components:
 4. An **output**, the return type of the entry point.
 
 > **Note**: The output (entry point return) cannot be `void`. This functionality may be added in the future.
+
+
+```cs
+public class Host
+{
+    [Factory]
+    public Interface Injection { get; set }
+    
+    public Output EntryPoint(Input input, [ParameterInjection] Interface parameterInjection)
+    {
+        return new Output();
+    }
+}
+```

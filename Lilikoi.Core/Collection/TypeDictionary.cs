@@ -45,6 +45,11 @@ public class TypeDictionary
 		return _underlying[typeof(TValue)] as TValue;
 	}
 
+	public bool Has<TValue>()
+	{
+		return _underlying.ContainsKey(typeof(TValue));
+	}
+
 	public void Set<TValue>(TValue obj)
 	{
 		if (mutable.IsLocked())

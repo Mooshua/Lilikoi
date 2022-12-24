@@ -13,6 +13,8 @@
 
 using System;
 
+using Lilikoi.Core.Context;
+
 #endregion
 
 namespace Lilikoi.Core.Attributes.Builders;
@@ -31,6 +33,6 @@ public abstract class LkInjectionBuilderAttribute : Attribute
 	/// </summary>
 	/// <typeparam name="TInjectable"></typeparam>
 	/// <returns></returns>
-	public abstract bool IsInjectable<TInjectable>()
+	public abstract bool IsInjectable<TInjectable>(Mount mount)
 		where TInjectable : class;
 }

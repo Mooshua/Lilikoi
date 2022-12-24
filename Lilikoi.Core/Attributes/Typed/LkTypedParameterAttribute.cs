@@ -19,7 +19,7 @@ public abstract class LkTypedParameterAttribute<TOutput, TInput> : LkParameterAt
 	where TInput : class
 	where TOutput : class
 {
-	public override bool IsInjectable<TParameter, TIn>()
+	public override bool IsInjectable<TParameter, TIn>(Mount mount)
 	{
 		return typeof(TParameter).IsAssignableFrom(typeof(TOutput)) &&
 		       typeof(TInput).IsAssignableFrom(typeof(TIn));

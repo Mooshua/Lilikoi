@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Lilikoi.Core\Lilikoi.Core.csproj"/>
+        <ProjectReference Include="..\Lilikoi.Core\Lilikoi.Core.csproj" />
     </ItemGroup>
 
 </Project>

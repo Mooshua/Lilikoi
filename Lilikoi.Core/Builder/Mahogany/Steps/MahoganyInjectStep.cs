@@ -39,7 +39,7 @@ public class MahoganyInjectStep
 	public (Expression, Expression) Generate()
 	{
 		var instance =
-			Method.AsUnorderedVariable(InjectionGenerator.Builder(Builder));
+			Method.AsHoistedVariable(InjectionGenerator.Builder(Builder));
 
 		var entry =
 			InjectionGenerator.InjectValueAsProperty(Method, instance, Method.Named(MahoganyConstants.HOST_VAR), PropertyInfo);

@@ -11,6 +11,8 @@
 //       ========================
 using System;
 
+using Lilikoi.Core.Context;
+
 namespace Lilikoi.Core.Attributes.Builders;
 
 [AttributeUsage(AttributeTargets.Parameter, Inherited = true, AllowMultiple = false)]
@@ -29,7 +31,7 @@ public abstract class LkParameterBuilderAttribute : Attribute
 	/// <typeparam name="TParameter"></typeparam>
 	/// <typeparam name="TInput"></typeparam>
 	/// <returns></returns>
-	public abstract bool IsInjectable<TParameter, TInput>()
+	public abstract bool IsInjectable<TParameter, TInput>(Mount mount)
 		where TParameter : class
 		where TInput : class;
 

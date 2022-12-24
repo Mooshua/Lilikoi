@@ -13,39 +13,40 @@ using System;
 using System.Reflection;
 
 using Lilikoi.Core.Attributes.Builders;
+using Lilikoi.Core.Context;
 
 namespace Lilikoi.Core.Builder.Mahogany;
 
 internal static class MahoganyValidator
 {
-	internal static bool ValidInjectable(LkInjectionBuilderAttribute attribute, Type test)
+	internal static bool ValidInjectable(LkInjectionBuilderAttribute attribute, Type test, Mount mount)
 	{
 		//	This is REAL C# done by REAL C# programmers!
 		//	Look at what they have been doing behind our backs!!!
 		return (bool)(attribute.GetType().GetMethod("IsInjectable")
 			?.MakeGenericMethod(test)
-			?.Invoke(attribute, new object[0]) ?? false);
+			?.Invoke(attribute, new []{mount}) ?? false);
 	}
 
-	internal static void ValidateInjection(LkInjectionBuilderAttribute attribute, PropertyInfo propertyInfo)
+	internal static void ValidateInjection(LkInjectionBuilderAttribute attribute, PropertyInfo propertyInfo, Mount mount)
 	{
-		if (!ValidInjectable(attribute, propertyInfo.PropertyType))
+		if (!ValidInjectable(attribute, propertyInfo.PropertyType, mount))
 			throw new InvalidCastException($"Injectable '{attribute.GetType().FullName}'" +
 			                               $" is unable to inject type '{propertyInfo.PropertyType.FullName}'" +
 			                               $" into property '{propertyInfo.Name}'" +
 			                               $" of '{propertyInfo.DeclaringType.FullName}'");
 	}
 
-	internal static bool ValidParameter(LkParameterBuilderAttribute attribute, Type input, Type output)
+	internal static bool ValidParameter(LkParameterBuilderAttribute attribute, Type input, Type output, Mount mount)
 	{
 		return (bool)(attribute.GetType().GetMethod("IsInjectable")
 			?.MakeGenericMethod(output, input)
-			?.Invoke(attribute, new object[0]) ?? false);
+			?.Invoke(attribute, new [] {mount}) ?? false);
 	}
 
-	internal static void ValidateParameter(LkParameterBuilderAttribute attribute, MethodInfo method, Type input, ParameterInfo parameterInfo)
+	internal static void ValidateParameter(LkParameterBuilderAttribute attribute, MethodInfo method, Type input, ParameterInfo parameterInfo, Mount mount)
 	{
-		if (!ValidParameter(attribute, input, parameterInfo.ParameterType))
+		if (!ValidParameter(attribute, input, parameterInfo.ParameterType, mount))
 			throw new InvalidCastException($"Parameter injection '{attribute.GetType().FullName}'" +
 			                               $" on parameter '{parameterInfo.Name}'" +
 			                               $" on method '{method.Name}'" +
@@ -53,17 +54,11 @@ internal static class MahoganyValidator
 			                               $" '{parameterInfo.ParameterType.FullName}'(out)");
 	}
 
-	internal static bool ValidWrap(LkWrapBuilderAttribute attribute, Type input, Type output)
+	internal static bool ValidWrap(LkWrapBuilderAttribute attribute, Type input, Type output, Mount mount)
 	{
-		var inputOk = (bool)(attribute.GetType().GetMethod("IsAcceptableInput")
-			?.MakeGenericMethod(input)
-			?.Invoke(attribute, new object[0]) ?? false);
-
-		var outputOk = (bool)(attribute.GetType().GetMethod("IsAcceptableOutput")
-			?.MakeGenericMethod(output)
-			?.Invoke(attribute, new object[0]) ?? false);
-
-		return inputOk && outputOk;
+		return (bool)(attribute.GetType().GetMethod("Iswrappable")
+			?.MakeGenericMethod(input, output)
+			?.Invoke(attribute, new [] {mount}) ?? false);
 	}
 
 

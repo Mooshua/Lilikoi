@@ -54,7 +54,7 @@ public abstract class LkTypedInjectionAttribute<TInject> : LkInjectionAttribute
 		Deject(context, casted);
 	}
 
-	public sealed override bool IsInjectable<TInjectable>()
+	public sealed override bool IsInjectable<TInjectable>(Mount mount)
 	{
 		return typeof(TInjectable) == typeof(TInject);
 	}

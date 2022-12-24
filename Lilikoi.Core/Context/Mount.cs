@@ -29,4 +29,6 @@ public class Mount
 	{
 		return Dictionary.Get<T>();
 	}
+
+	public bool Has<T>() => Dictionary.Has<T>();
 }

@@ -27,7 +27,7 @@ namespace Lilikoi.Core.Builder.Public.Utilities;
 
 public static class LilikoiInjector
 {
-	internal static void InjectsForClass(List<Expression> injects, List<ParameterExpression> variables, ParameterExpression host, ParameterExpression mount, Type type)
+	internal static void InjectsForClass(List<Expression> injects, List<ParameterExpression> variables, ParameterExpression host, ParameterExpression mount, Mount mountVal, Type type)
 	{
 		foreach (PropertyInfo propertyInfo in type.GetProperties())
 		foreach (LkInjectionBuilderAttribute attribute in
@@ -35,7 +35,7 @@ public static class LilikoiInjector
 			         .OfType<LkInjectionBuilderAttribute>())
 		{
 
-			MahoganyValidator.ValidateInjection(attribute, propertyInfo);
+			MahoganyValidator.ValidateInjection(attribute, propertyInfo, mountVal);
 
 			var setter = CommonGenerator.ToVariable(
 				InjectionGenerator.Builder(attribute),
@@ -60,7 +60,7 @@ public static class LilikoiInjector
 
 		body.Add(Expression.Assign(mountVar, Expression.Constant(mount)));
 
-		InjectsForClass(body, variables, hostVar, mountVar, host);
+		InjectsForClass(body, variables, hostVar, mountVar, mount, host);
 
 		var injectsBody = Expression.Block(variables, body);
 		var allBody = Expression.Block(new[] { mountVar }, injectsBody);

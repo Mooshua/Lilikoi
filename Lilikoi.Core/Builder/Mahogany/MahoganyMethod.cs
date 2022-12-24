@@ -17,6 +17,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using Lilikoi.Core.Builder.Mahogany.Generator;
+using Lilikoi.Core.Context;
 
 #endregion
 
@@ -40,9 +41,9 @@ public class MahoganyMethod
 
 	protected List<Expression> Unordered { get; } = new();
 
-	public ParameterExpression AsUnorderedVariable(Expression input)
+	public ParameterExpression AsHoistedVariable(Expression input)
 	{
-		var value = CommonGenerator.ToVariable(input, out var variable);
+		var value = CommonGenerator.ToVariable(input, out var variable, $"hoist{Unordered.Count}");
 
 		Unordered.Add(value);
 		Temporaries.Add(variable);
@@ -52,7 +53,7 @@ public class MahoganyMethod
 
 	public Expression AsVariable(Expression input, out ParameterExpression variable)
 	{
-		var value = CommonGenerator.ToVariable(input, out variable);
+		var value = CommonGenerator.ToVariable(input, out variable, $"var{Temporaries.Count}");
 
 		Temporaries.Add(variable);
 
@@ -107,6 +108,8 @@ public class MahoganyMethod
 	public Type Host { get; set; }
 
 	public MethodInfo Entry { get; set; }
+
+	public Mount Mount { get; set; }
 
 	#endregion
 

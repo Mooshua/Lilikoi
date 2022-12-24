@@ -49,7 +49,7 @@ public class MahoganyCompiler
 			{
 				var builders = (LkParameterBuilderAttribute)attribute;
 
-				MahoganyValidator.ValidateParameter(builders, method.Entry, method.Input, parameterInfo);
+				MahoganyValidator.ValidateParameter(builders, method.Entry, method.Input, parameterInfo, method.Mount);
 
 				var step = new MahoganyParameterStep(method, parameterInfo, builders);
 
@@ -75,7 +75,7 @@ public class MahoganyCompiler
 			{
 				var builders = (LkInjectionBuilderAttribute)attribute;
 
-				MahoganyValidator.ValidateInjection(builders, propertyInfo);
+				MahoganyValidator.ValidateInjection(builders, propertyInfo, method.Mount);
 
 				var step = new MahoganyInjectStep(method, propertyInfo, builders);
 
