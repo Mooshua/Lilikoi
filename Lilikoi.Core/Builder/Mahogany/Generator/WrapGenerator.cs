@@ -9,6 +9,10 @@
 //
 //
 //       ========================
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
+
 namespace Lilikoi.Core.Builder.Mahogany.Generator;
 /*
 internal static class WrapGenerator
@@ -42,7 +46,7 @@ internal static class WrapGenerator
 	/// <param name="input"></param>
 	/// <param name="output"></param>
 	/// <returns></returns>
-	internal static Expression Before(ContainerBuilder builder, Expression attribute, Expression inputSource, Type input, Type output)
+	internal static Expression Before(MahoganyMethod method, Expression attribute, Expression inputSource)
 	{
 		//	var var0 = attribute.Before<input, output>(inputSource)
 		//	if (var0.stop == true)
@@ -63,9 +67,9 @@ internal static class WrapGenerator
 			invocation);
 	}
 
-	internal static Expression Before(ContainerBuilder builder, Expression attribute, Expression inputSource)
+	internal static Expression Before(MahoganyMethod method, Expression attribute, Expression inputSource)
 	{
-		return Before(builder, attribute, inputSource, builder.Input, builder.Output);
+		return Before(method, attribute, inputSource);
 	}
 
 	/// <summary>

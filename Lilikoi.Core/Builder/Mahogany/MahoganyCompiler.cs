@@ -35,34 +35,7 @@ public class MahoganyCompiler
 
 	public const BindingFlags FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-	internal static bool ValidInjectable(LkInjectionBuilderAttribute attribute, Type test)
-	{
-		//	This is REAL C# done by REAL C# programmers!
-		//	Look at what they have been doing behind our backs!!!
-		return (bool)(attribute.GetType().GetMethod("IsInjectable")
-			?.MakeGenericMethod(test)
-			?.Invoke(attribute, new object[0]) ?? false);
-	}
 
-	internal static bool ValidParameter(LkParameterBuilderAttribute attribute, Type input, Type output)
-	{
-		return (bool)(attribute.GetType().GetMethod("IsInjectable")
-			?.MakeGenericMethod(output, input)
-			?.Invoke(attribute, new object[0]) ?? false);
-	}
-
-	internal static bool ValidWrap(LkWrapBuilderAttribute attribute, Type input, Type output)
-	{
-		var inputOk = (bool)(attribute.GetType().GetMethod("IsAcceptableInput")
-			?.MakeGenericMethod(input)
-			?.Invoke(attribute, new object[0]) ?? false);
-
-		var outputOk = (bool)(attribute.GetType().GetMethod("IsAcceptableOutput")
-			?.MakeGenericMethod(output)
-			?.Invoke(attribute, new object[0]) ?? false);
-
-		return inputOk && outputOk;
-	}
 
 	public static List<MahoganyParameterStep> ParameterStepBuilder(MahoganyMethod method)
 	{
@@ -76,12 +49,7 @@ public class MahoganyCompiler
 			{
 				var builders = (LkParameterBuilderAttribute)attribute;
 
-				if (!ValidParameter(builders, method.Input, parameterInfo.ParameterType))
-					throw new InvalidCastException($"Parameter injection '{builders.GetType().FullName}'" +
-					                               $" on parameter '{parameterInfo.Name}'" +
-					                               $" on method '{method.Entry.Name}'" +
-					                               $" rejected input-output pair '{method.Input.FullName}'(in)" +
-					                               $" '{parameterInfo.ParameterType.Name}'(out)");
+				MahoganyValidator.ValidateParameter(builders, method.Entry, method.Input, parameterInfo);
 
 				var step = new MahoganyParameterStep(method, parameterInfo, builders);
 
@@ -107,8 +75,7 @@ public class MahoganyCompiler
 			{
 				var builders = (LkInjectionBuilderAttribute)attribute;
 
-				if (!ValidInjectable(builders, propertyInfo.PropertyType))
-					throw new InvalidCastException($"Injectable '{builders.GetType().FullName}' is unable to inject type '{propertyInfo.PropertyType.FullName}' into property '{propertyInfo.Name}' of '{host.FullName}'");
+				MahoganyValidator.ValidateInjection(builders, propertyInfo);
 
 				var step = new MahoganyInjectStep(method, propertyInfo, builders);
 

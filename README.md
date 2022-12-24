@@ -7,6 +7,8 @@ A C# framework for frameworks
 
 > **Warning**: Lilikoi is in active, early development and should not be used unless you accept the risk that everything may change or break.
 
+> **Note**: Lilikoi requires the .NET 7 SDK in order to be compiled, but can be used (and is tested on) on any .NET Standard 2.0 platform.
+
 ### Status
 
 | Feature             | Status |
@@ -17,7 +19,10 @@ A C# framework for frameworks
 | Contexts ("Mounts") | ✔️ |
 | Builder Attributes  | 🏗️ |
 | Configuration       | 🏗️ |
+| Headless/Portable   | 🏗️ |
 | Integrations        | ⏳ |
+| Async/Await         | ⏳ |
+| Debugging           | ⏳ |
 | NuGet Release       | ⏳ |
 
 ### What is it?
@@ -28,8 +33,6 @@ This allows programmers to write framework agnostic code that runs anywhere Lili
 
 Lilikoi consists of "Containers", which contain a class ("Host") and a method defined on that class (the "Entry Point").
 Using C# reflection APIs, a method is created which injects values into an instance of the host class and then executes the entry point.
-
-The possibilities of a framework using Lilikoi are endless. 
 
 ```cs
 public class SampleInjectionAttribute : MkTypedInjectionAttribute<SampleClass>
@@ -54,6 +57,12 @@ class Program
 }
 ```
 
+### Headless
+
+Like injecting things but don't want a full framework? 
+Lilikoi's headless injectors build minimal `Action<T>`s which behave
+similarly to the full framework, giving you full control over the when and where.
+
 ### Performance
 
 Lilikoi is designed with performance in mind, so that projects of any scale can benefit from it's paradigms.
@@ -62,9 +71,16 @@ In order to maximize performance and prevent diving into .NET reflection, Liliko
 which behave just like a normal method.
 
 Expression trees are no golden ticket to performanceville, 
-but proper runtime code generation makes Lilikoi's overhead as low as **40ns** 
-(yes, nanoseconds) per injection.
+but proper runtime code generation makes Lilikoi's overhead as low as **40ns** per injection
 
+| Framework      | Task     | Speed  |
+|:---------------|:---------|--------|
+| .NET 7/6       | Inject   | 22 ns  |
+| .NET Framework | Inject   | 40 ns  |
+| .NET 7/6       | Compile  | 305 us |
+| .NET Framework | Compile  | 440 us |
+
+> Note: The "inject" task is a single inject and does not include the post-execution disposal invocation.
 ### What could finished Lilikoi look like?
 
 Lilikoi could be used in any framework which heavily uses event-based programming,

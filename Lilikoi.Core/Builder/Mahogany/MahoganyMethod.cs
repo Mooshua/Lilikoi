@@ -30,13 +30,13 @@ public class MahoganyMethod
 	///     A list of parameters that are to be injected into the method, indexed by the parameter they
 	///     will be filling.
 	/// </summary>
-	public Dictionary<ParameterInfo, ParameterExpression> MethodInjects { get; set; } = new();
+	public Dictionary<ParameterInfo, ParameterExpression> MethodInjects { get; } = new();
 
 	public Dictionary<string, ParameterExpression> NamedVariables { get; set; } = new();
 
 	public Dictionary<Type, ParameterExpression> Wildcards { get; set; } = new();
 
-	protected List<Expression> Body { get; set; } = new();
+	protected List<Expression> Body { get; } = new();
 
 	protected List<Expression> Unordered { get; } = new();
 

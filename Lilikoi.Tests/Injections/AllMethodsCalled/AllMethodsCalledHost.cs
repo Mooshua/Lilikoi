@@ -17,7 +17,7 @@ public class AllMethodsCalledHost
 	[AllMethodsCalled]
 	public AllMethodsCalledInject Inject { get; set; }
 
-	public object Entry(AllMethodsCalledTest test, [AllMethodsCalledParameter] object param)
+	public object Entry(AllMethodsCalledTest.AllMethodsCalledCounter test, [AllMethodsCalledParameter] object param)
 	{
 		test.EntryCalled = true;
 

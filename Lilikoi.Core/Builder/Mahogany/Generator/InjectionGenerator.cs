@@ -78,14 +78,8 @@ internal static class InjectionGenerator
 		var setter = method.AsVariable(InjectValue(method, attribute, property.PropertyType), out var value);
 
 		return Expression.Block(
-			//CommonGenerator.GuardAgainstNull(source, new ArgumentNullException($"__host")),
-
-			//Expression.Call(typeof(Console).GetMethod("WriteLine", new Type[] {typeof(object)}), attribute),
 			CommonGenerator.GuardAgainstNull(attribute, new ArgumentNullException($"__builder {attribute.Type.Name}")),
 			setter,
-
-			//Expression.Call(typeof(Console).GetMethod("WriteLine", new Type[] {typeof(object)}), value),
-			//Expression.Call(typeof(Console).GetMethod("WriteLine", new Type[] {typeof(string)}), Expression.Constant("Assert")),
 			CommonGenerator.GuardAgainstNull(value, new ArgumentNullException(property.Name, $"Injectable {attribute.Type.Name} returned null value.")),
 			Expression.Assign(
 				Expression.Property(source, property),
@@ -93,6 +87,37 @@ internal static class InjectionGenerator
 				)
 			);
 	}
+
+	#region Headless
+
+	public static Expression InjectValueHeadless(Expression attribute, Type result, ParameterExpression mount)
+	{
+		//	var0 = injectionAttribute.Inject();	//	EXCEPTION POSSIBLE HERE
+		//	return var0 as result //  NULL REFERENCE POSSIBLE HERE
+
+		var invoke = LkInjectionAttribute_Inject.MakeGenericMethod(result);
+
+
+		return //Expression.TypeAs(
+			Expression.Call(attribute, invoke, mount); //, result);
+	}
+
+	public static Expression InjectValueAsPropertyHeadless(Expression attribute, ParameterExpression host, ParameterExpression mount, PropertyInfo property, out ParameterExpression value)
+	{
+		var setter = CommonGenerator.ToVariable(InjectValueHeadless(attribute, property.PropertyType, mount), out value);
+
+		return Expression.Block(
+			CommonGenerator.GuardAgainstNull(attribute, new ArgumentNullException($"__builder {attribute.Type.Name}")),
+			setter,
+			CommonGenerator.GuardAgainstNull(value, new ArgumentNullException(property.Name, $"Injectable {attribute.Type.Name} returned null value.")),
+			Expression.Assign(
+				Expression.Property(host, property),
+				value
+				)
+			);
+	}
+
+	#endregion
 
 	#endregion
 

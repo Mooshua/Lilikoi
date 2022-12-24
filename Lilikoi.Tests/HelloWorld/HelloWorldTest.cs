@@ -23,7 +23,7 @@ namespace Lilikoi.Tests.HelloWorld;
 public class HelloWorldTest
 {
 	[Test]
-	public void HelloWorld()
+	public async Task HelloWorld()
 	{
 		var attr = new ConsoleAttribute();
 
