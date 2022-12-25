@@ -15,6 +15,7 @@ using System.Reflection;
 
 using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Attributes.Builders;
+using Lilikoi.Core.Context;
 
 namespace Lilikoi.Core.Builder.Mahogany.Generator;
 
@@ -34,9 +35,9 @@ internal static class WrapGenerator
 	/// </summary>
 	/// <param name="builderAttribute"></param>
 	/// <returns></returns>
-	internal static Expression Builder(LkWrapBuilderAttribute builderAttribute)
+	internal static Expression Builder(LkWrapBuilderAttribute builderAttribute, Mount mount)
 	{
-		return Expression.Call(Expression.Constant(builderAttribute), MkWrapBuilderAttribute_Build);
+		return Expression.Call(Expression.Constant(builderAttribute), MkWrapBuilderAttribute_Build, Expression.Constant(mount));
 	}
 
 	/// <summary>

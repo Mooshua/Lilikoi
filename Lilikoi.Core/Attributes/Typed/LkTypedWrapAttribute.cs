@@ -13,6 +13,7 @@
 
 using System;
 
+using Lilikoi.Core.Builder.Public.Utilities;
 using Lilikoi.Core.Context;
 
 #endregion
@@ -32,6 +33,7 @@ public abstract class LkTypedWrapAttribute<TIn, TOut> : LkWrapAttribute
 {
 	public sealed override WrapResult<TOutput> Before<TInput, TOutput>(Mount mount, ref TInput input)
 	{
+
 		var casted = input as TIn;
 
 		if (casted is null)

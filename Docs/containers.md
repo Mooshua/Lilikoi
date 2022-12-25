@@ -14,7 +14,7 @@ Containers consist of the following components:
 public class Host
 {
     [Factory]
-    public Interface Injection { get; set }
+    public Interface Injection;
     
     public Output EntryPoint(Input input, [ParameterInjection] Interface parameterInjection)
     {
@@ -37,10 +37,8 @@ so that programmers have ways to hurl opaque data around the entry point of a co
 ## Steps
 
 1. Injection attributes present on host
-2. Injection attributes present on wraps 
 3. Wrap before execution (Possible halt)
 3. Parameter injection
 4. Entry point
 5. Wrap after execution
-6. Dejection of wraps
 7. Dejection of host

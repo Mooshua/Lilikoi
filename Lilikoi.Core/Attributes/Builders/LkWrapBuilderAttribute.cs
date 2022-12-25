@@ -22,7 +22,7 @@ namespace Lilikoi.Core.Attributes.Builders;
 [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
 public abstract class LkWrapBuilderAttribute : Attribute
 {
-	public abstract LkWrapAttribute Build();
+	public abstract LkWrapAttribute Build(Mount mount);
 
 	/// <summary>
 	///     Whether or not this input type and output type will be accepted

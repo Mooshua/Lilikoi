@@ -14,8 +14,7 @@ namespace Lilikoi.Tests.Injections.AllMethodsCalled;
 public class AllMethodsCalledHost
 {
 
-	[AllMethodsCalled]
-	public AllMethodsCalledInject Inject { get; set; }
+	[AllMethodsCalled] public AllMethodsCalledInject Inject;
 
 	public object Entry(AllMethodsCalledTest.AllMethodsCalledCounter test, [AllMethodsCalledParameter] object param)
 	{

@@ -1,13 +1,13 @@
 ﻿//       ========================
 //       Lilikoi.Tests::HelloWorldHost.cs
 //       Distributed under the MIT License.
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 22.12.2022
-// 
+//
 // ->    Purpose:
-// 
-// 
+//
+//
 //       ========================
 #region
 
@@ -17,8 +17,7 @@ namespace Lilikoi.Tests.HelloWorld;
 
 public class HelloWorldHost
 {
-	[Console]
-	public ConsoleInj ConsoleImpl { get; set; }
+	[Console] public ConsoleInj ConsoleImpl;
 
 	public object HelloWorld()
 	{

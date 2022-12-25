@@ -32,7 +32,7 @@ namespace Lilikoi.Benchmarks.Mahogany;
 public class HeadlessInjectBenchmark
 {
 	public SimpleInjectHost SimpleHost = new SimpleInjectHost();
-	public Action<SimpleInjectHost> SimpleInjector;
+	public LilikoiInjector.Injector<SimpleInjectHost> SimpleInjector;
 
 	[GlobalSetup]
 	public void Setup()

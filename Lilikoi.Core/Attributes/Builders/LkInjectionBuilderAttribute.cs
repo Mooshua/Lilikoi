@@ -19,14 +19,14 @@ using Lilikoi.Core.Context;
 
 namespace Lilikoi.Core.Attributes.Builders;
 
-[AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
 public abstract class LkInjectionBuilderAttribute : Attribute
 {
 	/// <summary>
 	///     Build the MkInjectionAttribute that this builder will replace.
 	/// </summary>
 	/// <returns></returns>
-	public abstract LkInjectionAttribute Build();
+	public abstract LkInjectionAttribute Build(Mount mount);
 
 	/// <summary>
 	///     Whether or not the provided generic type is handled by this injector.

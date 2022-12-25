@@ -1,5 +1,5 @@
 ﻿//       ========================
-//       Lilikoi.Tests::WrapWithInjectionAttribute.cs
+//       Lilikoi.Tests::MutateInputWrapAttribute.cs
 //       Distributed under the MIT License.
 //
 // ->    Created: 24.12.2022
@@ -11,15 +11,11 @@
 //       ========================
 using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Context;
-using Lilikoi.Tests.HelloWorld;
 
 namespace Lilikoi.Tests.Wraps.Invocations;
 
-public class WrapWithInjectionAttribute : LkWrapAttribute
+public class MutateInputWrapAttribute : LkWrapAttribute
 {
-	[Console]
-	public ConsoleInj Injected { get; set; }
-
 	public override bool IsWrappable<TInput, TOutput>(Mount mount)
 	{
 		return true;
@@ -27,17 +23,13 @@ public class WrapWithInjectionAttribute : LkWrapAttribute
 
 	public override WrapResult<TOutput> Before<TInput, TOutput>(Mount mount, ref TInput input)
 	{
-		Assert.IsNotNull(Injected);
-		Injected.Log("Before");
+		input = "Modified" as TInput;
 
 		return WrapResult<TOutput>.Continue();
 	}
 
 	public override void After<TOutput>(Mount mount, ref TOutput output)
 	{
-		Assert.IsNotNull(Injected);
-		Injected.Log("After");
-
-		Assert.Pass("Reached after with valid state");
+		Assert.Fail("Pass block in Entry point not hit.");
 	}
 }

@@ -17,7 +17,7 @@ namespace Lilikoi.Core.Attributes;
 public abstract class LkParameterAttribute : LkParameterBuilderAttribute
 {
 
-	public sealed override LkParameterAttribute Build()
+	public sealed override LkParameterAttribute Build(Mount mount)
 	{
 		return this.MemberwiseClone() as LkParameterAttribute;
 	}

@@ -16,7 +16,7 @@ using Lilikoi.Tests.Wraps.Invocations;
 
 namespace Lilikoi.Tests.Wraps;
 
-public class RespectsWrapResultTest
+public class WrapTests
 {
 	public class DummyHost
 	{
@@ -42,9 +42,11 @@ public class RespectsWrapResultTest
 			return "Entry";
 		}
 
-		[WrapWithInjection]
-		public string HasInjection()
+		[MutateInputWrap]
+		public string ShouldModifyInput(string input)
 		{
+			Assert.AreEqual(input, "Modified");
+			Assert.Pass("Modified entry");
 			return "Entry";
 		}
 	}
@@ -107,12 +109,12 @@ public class RespectsWrapResultTest
 	}
 
 	[Test]
-	public void Injects()
+	public void ModifiesInput()
 	{
-		var method = typeof(DummyHost).GetMethod("HasInjection");
+		var method = typeof(DummyHost).GetMethod("ShouldModifyInput");
 
 		var build = LilikoiMethod.FromMethodInfo(method)
-			.Input<object>()
+			.Input<string>()
 			.Output<string>()
 			.Mount(new Mount())
 			.Build()
@@ -120,8 +122,7 @@ public class RespectsWrapResultTest
 
 		Console.WriteLine(build.ToString());
 
-		var output = build.Run<DummyHost, object, string>(new DummyHost(), new object());
-
-		Assert.Fail("Did not evaluate Assert.Pass() in WrapWithInjectionAttribute.");
+		var output = build.Run<DummyHost, string, string>(new DummyHost(), "Input");
 	}
+
 }

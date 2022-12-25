@@ -15,6 +15,7 @@ using System.Reflection;
 
 using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Attributes.Builders;
+using Lilikoi.Core.Context;
 
 namespace Lilikoi.Core.Builder.Mahogany.Generator;
 
@@ -27,12 +28,12 @@ internal static class ParameterGenerator
 
 	#region Builder
 
-	internal static Expression Builder(LkParameterBuilderAttribute builderAttribute)
+	internal static Expression Builder(LkParameterBuilderAttribute builderAttribute, Mount mount)
 	{
 		return
 			Expression.Call(
 				Expression.Constant(builderAttribute, typeof(LkParameterBuilderAttribute)),
-				LkParameterBuilderAttribute_Build);
+				LkParameterBuilderAttribute_Build, Expression.Constant(mount));
 	}
 
 	#endregion

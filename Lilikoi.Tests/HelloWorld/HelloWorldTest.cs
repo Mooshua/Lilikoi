@@ -27,7 +27,7 @@ public class HelloWorldTest
 	{
 		var attr = new ConsoleAttribute();
 
-		Assert.IsNotNull(attr.Build());
+		Assert.IsNotNull(attr.Build(new Mount()));
 
 		var build = LilikoiMethod.FromMethodInfo((MethodInfo)typeof(HelloWorldHost).GetMethod("HelloWorld"))
 			.Input<object>()

@@ -93,7 +93,7 @@ public class MahoganyCompiler
 	{
 		var steps = new List<MahoganyInjectStep>();
 
-		foreach (var propertyInfo in host.GetProperties(FLAGS))
+		foreach (var propertyInfo in host.GetFields(FLAGS))
 		foreach (var attribute in propertyInfo.GetCustomAttributes()
 			         .Where(obj => obj.GetType().IsSubclassOf(typeof(LkInjectionBuilderAttribute))))
 			try

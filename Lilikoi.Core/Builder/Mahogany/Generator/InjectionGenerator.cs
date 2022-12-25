@@ -17,6 +17,7 @@ using System.Reflection;
 
 using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Attributes.Builders;
+using Lilikoi.Core.Context;
 
 #endregion
 
@@ -32,12 +33,12 @@ internal static class InjectionGenerator
 
 	#region Build
 
-	internal static Expression Builder(LkInjectionBuilderAttribute builderAttribute)
+	internal static Expression Builder(LkInjectionBuilderAttribute builderAttribute, Mount mount)
 	{
 		return
 			Expression.Call(
 				Expression.Constant(builderAttribute, typeof(LkInjectionBuilderAttribute)),
-				LkInjectionBuilderAttribute_Build);
+				LkInjectionBuilderAttribute_Build, Expression.Constant(mount));
 	}
 
 	#endregion
@@ -82,7 +83,28 @@ internal static class InjectionGenerator
 			setter,
 			CommonGenerator.GuardAgainstNull(value, new ArgumentNullException(property.Name, $"Injectable {attribute.Type.Name} returned null value.")),
 			Expression.Assign(
-				Expression.Property(source, property.GetSetMethod(true)),
+				Expression.Property(source, property.SetMethod),
+				value
+				)
+			);
+	}
+
+	public static Expression InjectValueAsField(MahoganyMethod method, Expression attribute, ParameterExpression source, FieldInfo field)
+	{
+		//	if (InjectValue == null)
+		//		throw ArgumentNullException("builder")
+		//	object[property] = InjectValue<property>()	//	EXCEPTION POSSIBLE HERE
+		//	if (object[property] == null)
+		//		throw ArgumentNullException(...)	//	duh...
+
+		var setter = method.AsVariable(InjectValue(method, attribute, field.FieldType), out var value);
+
+		return Expression.Block(
+			CommonGenerator.GuardAgainstNull(attribute, new ArgumentNullException($"__builder {attribute.Type.Name}")),
+			setter,
+			CommonGenerator.GuardAgainstNull(value, new ArgumentNullException(field.Name, $"Injectable {attribute.Type.Name} returned null value.")),
+			Expression.Assign(
+				Expression.Field(source, field),
 				value
 				)
 			);
@@ -112,6 +134,21 @@ internal static class InjectionGenerator
 			CommonGenerator.GuardAgainstNull(value, new ArgumentNullException(property.Name, $"Injectable {attribute.Type.Name} returned null value.")),
 			Expression.Assign(
 				Expression.Property(host, property),
+				value
+				)
+			);
+	}
+
+	public static Expression InjectValueAsFieldHeadless(Expression attribute, ParameterExpression host, ParameterExpression mount, FieldInfo field, out ParameterExpression value)
+	{
+		var setter = CommonGenerator.ToVariable(InjectValueHeadless(attribute, field.FieldType, mount), out value);
+
+		return Expression.Block(
+			CommonGenerator.GuardAgainstNull(attribute, new ArgumentNullException($"__builder {attribute.Type.Name}")),
+			setter,
+			CommonGenerator.GuardAgainstNull(value, new ArgumentNullException(field.Name, $"Injectable {attribute.Type.Name} returned null value.")),
+			Expression.Assign(
+				Expression.Field(host, field),
 				value
 				)
 			);
@@ -153,6 +190,39 @@ internal static class InjectionGenerator
 			Expression.Property(source, property)
 			);
 	}
+
+	public static Expression DejectValueAsField(MahoganyMethod method, Expression attribute, ParameterExpression source, FieldInfo field)
+	{
+		//	DejectValue<property>(object[parameter])	//	EXCEPTION POSSIBLE HERE
+		return DejectValue(
+			method,
+			attribute,
+			Expression.Field(source, field)
+			);
+	}
+
+	#region Headless
+
+	public static Expression DejectValueHeadless(ParameterExpression mountVar, Expression attribute, Expression value)
+	{
+		//	injectionAttribute.Deject(var0)	//	EXCEPTION POSSIBLE HERE
+
+		var invoke = LkInjectionAttribute_Deject.MakeGenericMethod(value.Type);
+
+		return Expression.Call(attribute, invoke, mountVar, value);
+	}
+
+	public static Expression DejectValueAsFieldHeadless(ParameterExpression mountVar, Expression attribute, ParameterExpression source, FieldInfo field)
+	{
+		//	DejectValue<property>(object[parameter])	//	EXCEPTION POSSIBLE HERE
+		return DejectValueHeadless(
+			mountVar,
+			attribute,
+			Expression.Field(source, field)
+			);
+	}
+
+	#endregion
 
 	#endregion
 }

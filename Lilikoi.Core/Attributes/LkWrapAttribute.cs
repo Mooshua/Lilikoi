@@ -27,8 +27,9 @@ public abstract class LkWrapAttribute : LkWrapBuilderAttribute
 	///     This is a static definition, not a dynamic one.
 	///     Do not allow inherited classes to mess with this.
 	/// </summary>
+	/// <param name="mount"></param>
 	/// <returns></returns>
-	public sealed override LkWrapAttribute Build()
+	public sealed override LkWrapAttribute Build(Mount mount)
 	{
 		return this.MemberwiseClone() as LkWrapAttribute;
 	}

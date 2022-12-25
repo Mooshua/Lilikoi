@@ -39,24 +39,26 @@ public class MahoganyWrapStep
 	{
 		var setter =
 			Method.AsVariable(
-				Expression.TypeAs( WrapGenerator.Builder(Builder), Actual ), out var instance);
+				 WrapGenerator.Builder(Builder, Method.Mount), out var instance);
 
-		var injects = MahoganyCompiler.InjectStepBuilder(Actual, Method);
+		//var injects = MahoganyCompiler.InjectStepBuilder(Actual, Method);
 
-		var pairs = injects.Select(x => x.GenerateFor(instance))
-			.DefaultIfEmpty( (Expression.Empty(), Expression.Empty()));
+		//var pairs = injects.Select(x => x.GenerateFor(instance))
+		//	.DefaultIfEmpty( (Expression.Empty(), Expression.Empty()));
 
-		var enterInj = Expression.Block( pairs.Select(x => x.Item1) );
-		var exitInj = Expression.Block( pairs.Select(x => x.Item2) );
+		//var enterInj = Expression.Block( pairs.Select(x => x.Item1) );
+		//var exitInj = Expression.Block( pairs.Select(x => x.Item2) );
 
 		var entry =
 			Expression.Block(
 				setter,
-				enterInj,
+				//enterInj,
 				WrapGenerator.Before(Method, instance)
 			);
 		var exit =
-			Expression.Block(exitInj, WrapGenerator.After(Method, instance));
+			Expression.Block(
+				//exitInj,
+				WrapGenerator.After(Method, instance));
 
 
 		return (entry, exit);

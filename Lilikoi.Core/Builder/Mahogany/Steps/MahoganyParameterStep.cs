@@ -35,7 +35,7 @@ public class MahoganyParameterStep
 	public Expression Generate()
 	{
 		var instance =
-			Method.AsHoistedVariable(ParameterGenerator.Builder(Builder));
+			Method.AsHoistedVariable(ParameterGenerator.Builder(Builder, Method.Mount));
 
 		return ParameterGenerator.Inject(Method, instance, ParameterInfo);
 	}

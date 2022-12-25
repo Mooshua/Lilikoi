@@ -81,12 +81,12 @@ class MyAttribute : Lk___Attribute
 }
 ```
 
-## Property Injection
+## Field Injection
 
-Property injection is the simplest form of injection to understand. 
+Field injection is the simplest form of injection to understand. 
 They are universal and will work anywhere their return type is supported (and when the mount is set up correctly) as they are
 not exposed to any container-specific types.
-When a container is invoked, any properties with your attribute will have the following calls made:
+When a container is invoked, any fields with your attribute will have the following calls made:
 
 - `Builder.Build()`, to retrieve a temporary instance of an `LkInjectionAttribute`
 - `Injector.Inject<T>(Mount mount)`, to retrieve the value to be injected as a property,
@@ -99,17 +99,15 @@ When a container is invoked, any properties with your attribute will have the fo
 class ToBeInjected
 {
     [MyInjectable]
-    public MyInterface MyImpl { get; set; }
+    public MyInterface MyImpl;
 }
 ```
 Results in the following calls:
 - `MyInjectable.Build()`
 - `BuildResult.Inject<MyInterface>(Mount mount)`
-- `ToBeInjected.set_MyImpl(InjectResult)`
+- `ToBeInjected.MyImpl = InjectResult`
 - Execution...
 - `BuildResult.Deject<MyInterface>(Mount mount, MyInterface InjectResult)`
-
-results
 
 ## Parameter Injection
 
@@ -148,3 +146,14 @@ Results in the following calls:
 The presence of a builder attribute should do two things:
 1. Act as an attribute which declares a method as an entry point when Lilikoi is managing the start of a program
 2. When an entry point is compiled, the builder should oversee the compilation process (eg, injecting it's own wildcards or wraps)
+
+## Wraps (Hooks)
+
+Wraps allow you to execute before or after the entry point which modifies the input or output, or prevents the entry point
+from running altogether.
+
+> **Warning**: Wraps *do not* support property injection by default. 
+>
+> You can use `LilikoiInjector.Inject(mount, this)` and `LilikoiInjector.Deject(mount, this)` to emulate standard injection in the before and after methods, respectively.
+> 
+> (If you do this, it is **highly** recommended to call `Deject` at the end of your `After` function as the injections may rely on this to prevent leaks.)

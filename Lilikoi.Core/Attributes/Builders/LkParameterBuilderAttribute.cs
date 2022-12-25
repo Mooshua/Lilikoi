@@ -23,7 +23,7 @@ public abstract class LkParameterBuilderAttribute : Attribute
 	/// A function which returns the parameter injector to use for this parameter.
 	/// </summary>
 	/// <returns></returns>
-	public abstract LkParameterAttribute Build();
+	public abstract LkParameterAttribute Build(Mount mount);
 
 	/// <summary>
 	/// Whether or not this parameter can handle an input of <see cref="TInput"/> and provide an output of <see cref="TParameter"/>.

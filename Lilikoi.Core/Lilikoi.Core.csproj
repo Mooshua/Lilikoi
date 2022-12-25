@@ -11,4 +11,8 @@
         <PackageReference Include="AgileObjects.ReadableExpressions" Version="3.3.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Builder\Mahogany\Runtime" />
+    </ItemGroup>
+
 </Project>

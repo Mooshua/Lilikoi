@@ -23,29 +23,29 @@ namespace Lilikoi.Core.Builder.Mahogany.Steps;
 
 public class MahoganyInjectStep
 {
-	public MahoganyInjectStep(MahoganyMethod method, PropertyInfo propertyInfo, LkInjectionBuilderAttribute builder)
+	public MahoganyInjectStep(MahoganyMethod method, FieldInfo fieldInfo, LkInjectionBuilderAttribute builder)
 	{
 		Method = method;
-		PropertyInfo = propertyInfo;
+		FieldInfo = fieldInfo;
 		Builder = builder;
 	}
 
 	public MahoganyMethod Method { get; set; }
 
-	public PropertyInfo PropertyInfo { get; set; }
+	public FieldInfo FieldInfo { get; set; }
 
 	public LkInjectionBuilderAttribute Builder { get; set; }
 
 	public (Expression, Expression) Generate()
 	{
 		var instance =
-			Method.AsHoistedVariable(InjectionGenerator.Builder(Builder));
+			Method.AsHoistedVariable(InjectionGenerator.Builder(Builder, Method.Mount));
 
 		var entry =
-			InjectionGenerator.InjectValueAsProperty(Method, instance, Method.Named(MahoganyConstants.HOST_VAR), PropertyInfo);
+			InjectionGenerator.InjectValueAsField(Method, instance, Method.Named(MahoganyConstants.HOST_VAR), FieldInfo);
 
 		var exit =
-			InjectionGenerator.DejectValueAsProperty(Method, instance, Method.Named(MahoganyConstants.HOST_VAR), PropertyInfo);
+			InjectionGenerator.DejectValueAsField(Method, instance, Method.Named(MahoganyConstants.HOST_VAR), FieldInfo);
 
 		return (entry, exit);
 	}
@@ -53,13 +53,13 @@ public class MahoganyInjectStep
 	public (Expression, Expression) GenerateFor(ParameterExpression target)
 	{
 		var instance =
-			Method.AsHoistedVariable(InjectionGenerator.Builder(Builder));
+			Method.AsHoistedVariable(InjectionGenerator.Builder(Builder, Method.Mount));
 
 		var entry =
-			InjectionGenerator.InjectValueAsProperty(Method, instance, target, PropertyInfo);
+			InjectionGenerator.InjectValueAsField(Method, instance, target, FieldInfo);
 
 		var exit =
-			InjectionGenerator.DejectValueAsProperty(Method, instance, target, PropertyInfo);
+			InjectionGenerator.DejectValueAsField(Method, instance, target, FieldInfo);
 
 		return (entry, exit);
 	}

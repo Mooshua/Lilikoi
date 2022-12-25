@@ -24,7 +24,7 @@ namespace Lilikoi.Core.Attributes;
 ///     An attribute which provides an object to be injected into a container.
 /// </summary>
 /// <typeparam name="TInjectable"></typeparam>
-[AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
 public abstract class LkInjectionAttribute : LkInjectionBuilderAttribute
 {
 	/// <summary>
@@ -32,7 +32,7 @@ public abstract class LkInjectionAttribute : LkInjectionBuilderAttribute
 	///     Do not allow inheriting classes to fiddle with this.
 	/// </summary>
 	/// <returns></returns>
-	public sealed override LkInjectionAttribute Build()
+	public sealed override LkInjectionAttribute Build(Mount mount)
 	{
 		return this.MemberwiseClone() as LkInjectionAttribute;
 	}

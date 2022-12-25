@@ -28,13 +28,13 @@ internal static class MahoganyValidator
 			?.Invoke(attribute, new []{mount}) ?? false);
 	}
 
-	internal static void ValidateInjection(LkInjectionBuilderAttribute attribute, PropertyInfo propertyInfo, Mount mount)
+	internal static void ValidateInjection(LkInjectionBuilderAttribute attribute, FieldInfo fieldInfo, Mount mount)
 	{
-		if (!ValidInjectable(attribute, propertyInfo.PropertyType, mount))
+		if (!ValidInjectable(attribute, fieldInfo.FieldType, mount))
 			throw new InvalidCastException($"Injectable '{attribute.GetType().FullName}'" +
-			                               $" is unable to inject type '{propertyInfo.PropertyType.FullName}'" +
-			                               $" into property '{propertyInfo.Name}'" +
-			                               $" of '{propertyInfo.DeclaringType.FullName}'");
+			                               $" is unable to inject type '{fieldInfo.FieldType.FullName}'" +
+			                               $" into property '{fieldInfo.Name}'" +
+			                               $" of '{fieldInfo.DeclaringType.FullName}'");
 	}
 
 	internal static bool ValidParameter(LkParameterBuilderAttribute attribute, Type input, Type output, Mount mount)
