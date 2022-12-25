@@ -38,7 +38,7 @@ internal static class InjectionGenerator
 		return
 			Expression.Call(
 				Expression.Constant(builderAttribute, typeof(LkInjectionBuilderAttribute)),
-				LkInjectionBuilderAttribute_Build, Expression.Constant(mount));
+				LkInjectionBuilderAttribute_Build, Expression.Constant(mount, typeof(Mount)));
 	}
 
 	#endregion

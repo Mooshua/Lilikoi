@@ -13,7 +13,7 @@ A C# framework for frameworks
 
 | Feature             | Status |
 |---------------------|----|
-| Property Injection  | ✔️ |
+| Field Injection     | ✔️ |
 | Parameter Injection | ️️️✔️ |
 | Hooks ("Wraps")     | ✔️ |
 | Contexts ("Mounts") | ✔️ |
@@ -48,7 +48,7 @@ public class SampleInjectionAttribute : MkTypedInjectionAttribute<SampleClass>
 class Program
 {
     [SampleInjection]
-    public SampleClass InjectedClass { get; set; }
+    public SampleClass InjectedClass;
   
     //  Entry point
     public Task Entry()
@@ -74,14 +74,15 @@ which behave just like a normal method.
 Expression trees are no golden ticket to performanceville, 
 but proper runtime code generation makes Lilikoi's overhead as low as **40ns** per injection
 
-| Framework      | Task     | Speed  |
-|:---------------|:---------|--------|
-| .NET 7/6       | Inject   | 22 ns  |
-| .NET Framework | Inject   | 40 ns  |
-| .NET 7/6       | Compile  | 305 us |
-| .NET Framework | Compile  | 440 us |
+| Framework      | Task              | Speed    |
+|:---------------|:------------------|----------|
+| .NET CLR       | Inject            | 45 ns    |
+| .NET CLR       | Inject *(Debug)*  | 325 ns   |
+| .NET Framework | Inject            | 65 ns    |
+| .NET CLR       | Compile           | 0.330 ms |
+| .NET CLR       | Compile *(Debug)* | 0.015 ms |
+| .NET Framework | Compile           | 0.460 ms |
 
-> Note: The "inject" task is a single inject and does not include the post-execution disposal invocation.
 ### What could finished Lilikoi look like?
 
 Lilikoi could be used in any framework which heavily uses event-based programming,
@@ -97,13 +98,13 @@ public class ApiController
     /// DbContext is instantiated by a generic new() injector attribute
     /// EF Core will take care of the rest.
     [New]
-    public ApiContext Db { get; set; }
+    public ApiContext Db;
     
     /// You can imagine anything to go here--Because anything can!
     /// Lilikoi should be customizable to your heart's content.
     /// No more arbitrary framework restrictions!
     [ApiService]
-    public UserService Users { get; set; }
+    public UserService Users;
 
     /// POSTAttribute is a "builder" attribute
     /// with a method (similar to Inject()) that describes how to build the container to Lilikoi.
