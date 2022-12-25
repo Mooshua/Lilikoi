@@ -56,9 +56,15 @@ internal static class MahoganyValidator
 
 	internal static bool ValidWrap(LkWrapBuilderAttribute attribute, Type input, Type output, Mount mount)
 	{
-		return (bool)(attribute.GetType().GetMethod("Iswrappable")
+		return (bool)(attribute.GetType().GetMethod("IsWrappable")
 			?.MakeGenericMethod(input, output)
 			?.Invoke(attribute, new [] {mount}) ?? false);
+	}
+
+	internal static void ValidateWrap(LkWrapBuilderAttribute attribute, MahoganyMethod method)
+	{
+		if (!ValidWrap(attribute, method.Input, method.Result, method.Mount))
+			throw new InvalidCastException($"Wrap '{attribute.GetType().FullName}'" + $"rejected input-output pair on method '{method.Entry.Name}'");
 	}
 
 

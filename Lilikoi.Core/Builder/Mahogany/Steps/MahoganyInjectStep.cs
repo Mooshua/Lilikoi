@@ -49,4 +49,18 @@ public class MahoganyInjectStep
 
 		return (entry, exit);
 	}
+
+	public (Expression, Expression) GenerateFor(ParameterExpression target)
+	{
+		var instance =
+			Method.AsHoistedVariable(InjectionGenerator.Builder(Builder));
+
+		var entry =
+			InjectionGenerator.InjectValueAsProperty(Method, instance, target, PropertyInfo);
+
+		var exit =
+			InjectionGenerator.DejectValueAsProperty(Method, instance, target, PropertyInfo);
+
+		return (entry, exit);
+	}
 }

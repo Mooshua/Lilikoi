@@ -116,6 +116,13 @@ results
 Parameter injection augments the input of a container's entry point by allowing parameters to be
 sourced from the container's input and compile-time mount.
 
+Parameters have two types:
+1. **Attribute-defined**, where the presence of an attribute declares that attribute is responsible for it's sourcing, and
+2. **Wildcard-defined**, where the presence of a specific type as a parameter declares a certain subroutine as responsible for it's sourcing.
+
+Currently, Lilikoi only exposes attribute-defined parameter injection (and uses wildcard defined injection for the `input` type),
+but wildcard functionality may be exposed to builder attributes.
+
 Unlike standard property injection, **parameter injection is exposed to the input type of the container.** While ignoring this is possible,
 you must ensure compatibility with the input you are attempting to use.
 
@@ -134,3 +141,10 @@ Results in the following calls:
 - `MyInject.Build()`
 - `BuildResult.Inject<string, ContainerInput>(containerInput)`
 - `MethodToBeInjected(InjectResult)`
+
+## Builders
+> **Note**: This feature has not yet been created. This is purely speculative.
+
+The presence of a builder attribute should do two things:
+1. Act as an attribute which declares a method as an entry point when Lilikoi is managing the start of a program
+2. When an entry point is compiled, the builder should oversee the compilation process (eg, injecting it's own wildcards or wraps)

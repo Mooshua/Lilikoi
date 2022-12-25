@@ -19,7 +19,7 @@ public abstract class LkParameterAttribute : LkParameterBuilderAttribute
 
 	public sealed override LkParameterAttribute Build()
 	{
-		return this;
+		return this.MemberwiseClone() as LkParameterAttribute;
 	}
 
 	/// <summary>

@@ -34,7 +34,7 @@ public abstract class LkInjectionAttribute : LkInjectionBuilderAttribute
 	/// <returns></returns>
 	public sealed override LkInjectionAttribute Build()
 	{
-		return this;
+		return this.MemberwiseClone() as LkInjectionAttribute;
 	}
 
 	/// <summary>

@@ -30,24 +30,24 @@ public abstract class LkTypedWrapAttribute<TIn, TOut> : LkWrapAttribute
 	where TIn : class
 	where TOut : class
 {
-	public sealed override WrapResult<TOutput> Before<TInput, TOutput>(TInput input)
+	public sealed override WrapResult<TOutput> Before<TInput, TOutput>(Mount mount, ref TInput input)
 	{
 		var casted = input as TIn;
 
 		if (casted is null)
 			throw new InvalidCastException($"Cannot cast {input.GetType().Name} to {typeof(TIn).Name}. (Result of 'as' is null)");
 
-		return Before(ref casted).Cast<TOutput>();
+		return Before(mount, ref casted).Cast<TOutput>();
 	}
 
-	public sealed override void After<TOutput>(TOutput output)
+	public sealed override void After<TOutput>(Mount mount, ref TOutput output)
 	{
 		var casted = output as TOut;
 
 		if (casted is null)
 			throw new InvalidCastException($"Cannot cast {output.GetType().Name} to {typeof(TOut).Name}. (Result of 'as' is null)");
 
-		After(ref casted);
+		After(mount, ref casted);
 	}
 
 	public sealed override bool IsWrappable<TInput, TOutput>(Mount mount)
@@ -58,9 +58,9 @@ public abstract class LkTypedWrapAttribute<TIn, TOut> : LkWrapAttribute
 
 	#region Abstract
 
-	public abstract WrapResult<TOut> Before(ref TIn input);
+	public abstract WrapResult<TOut> Before(Mount mount, ref TIn input);
 
-	public abstract void After(ref TOut output);
+	public abstract void After(Mount mount, ref TOut output);
 
 	#endregion
 }

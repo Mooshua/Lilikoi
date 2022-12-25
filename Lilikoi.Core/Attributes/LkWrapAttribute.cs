@@ -14,6 +14,7 @@
 using System;
 
 using Lilikoi.Core.Attributes.Builders;
+using Lilikoi.Core.Context;
 
 #endregion
 
@@ -29,14 +30,14 @@ public abstract class LkWrapAttribute : LkWrapBuilderAttribute
 	/// <returns></returns>
 	public sealed override LkWrapAttribute Build()
 	{
-		return this;
+		return this.MemberwiseClone() as LkWrapAttribute;
 	}
 
-	public abstract WrapResult<TOutput> Before<TInput, TOutput>(TInput input)
+	public abstract WrapResult<TOutput> Before<TInput, TOutput>(Mount mount, ref TInput input)
 		where TInput : class
 		where TOutput : class;
 
-	public abstract void After<TOutput>(TOutput output)
+	public abstract void After<TOutput>(Mount mount, ref TOutput output)
 		where TOutput : class;
 
 

@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Transactions;
 
 using Lilikoi.Core.Attributes.Builders;
 using Lilikoi.Core.Builder.Mahogany.Generator;
@@ -64,11 +65,35 @@ public class MahoganyCompiler
 		return steps;
 	}
 
+	public static List<MahoganyWrapStep> WrapStepBuilder(MahoganyMethod method)
+	{
+		var steps = new List<MahoganyWrapStep>();
+
+		foreach (var attribute in method.Entry.GetCustomAttributes()
+			         .Where(obj => obj.GetType().IsSubclassOf(typeof(LkWrapBuilderAttribute))))
+			try
+			{
+				var asBuilder = attribute as LkWrapBuilderAttribute;
+
+				MahoganyValidator.ValidateWrap(asBuilder, method);
+
+				var step = new MahoganyWrapStep(method, asBuilder, attribute.GetType());
+
+				steps.Add(step);
+			}
+			catch (Exception e)
+			{
+				throw new AggregateException($"Unable to process '{attribute.GetType().FullName}'s wrap of '{method.Entry.Name}' for type '{method.Host.FullName}':", e);
+			}
+
+		return steps;
+	}
+
 	public static List<MahoganyInjectStep> InjectStepBuilder(Type host, MahoganyMethod method)
 	{
 		var steps = new List<MahoganyInjectStep>();
 
-		foreach (var propertyInfo in host.GetProperties())
+		foreach (var propertyInfo in host.GetProperties(FLAGS))
 		foreach (var attribute in propertyInfo.GetCustomAttributes()
 			         .Where(obj => obj.GetType().IsSubclassOf(typeof(LkInjectionBuilderAttribute))))
 			try
@@ -165,6 +190,17 @@ public class MahoganyCompiler
 	#endregion
 
 	#region Compiler
+
+	public void WrapsFor()
+	{
+		var steps = WrapStepBuilder(Method);
+
+		foreach (var mahoganyWrapStep in steps)
+		{
+			(var enter, var exit) = mahoganyWrapStep.Generate();
+			Stack.Push(enter,exit);
+		}
+	}
 
 	public void InjectionsFor(Type host)
 	{

@@ -12,18 +12,19 @@ A C# framework for frameworks
 ### Status
 
 | Feature             | Status |
-|---------------------| --- |
+|---------------------|----|
 | Property Injection  | ✔️ |
 | Parameter Injection | ️️️✔️ |
-| Hooks ("Wraps")     | 🏗️ |
+| Hooks ("Wraps")     | ✔️ |
 | Contexts ("Mounts") | ✔️ |
 | Builder Attributes  | 🏗️ |
 | Configuration       | 🏗️ |
 | Headless/Portable   | 🏗️ |
-| Integrations        | ⏳ |
-| Async/Await         | ⏳ |
-| Debugging           | ⏳ |
-| NuGet Release       | ⏳ |
+| Wildcards           | ⏳  |
+| Ecosystem           | ⏳  |
+| Async/Await         | ⏳  |
+| Debugging           | ⏳  |
+| NuGet Release       | ⏳  |
 
 ### What is it?
 

@@ -35,6 +35,7 @@ public class LilikoiMethod
 			{
 				Parameters = method.GetParameters().Select(x => x.ParameterType).ToList(),
 				Return = method.ReturnType,
+				HaltTarget = Expression.Label(method.ReturnType),
 				Entry = method,
 				Host = method.DeclaringType,
 				NamedVariables = new Dictionary<string, ParameterExpression>()

@@ -13,25 +13,28 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
+using Lilikoi.Core.Attributes;
+using Lilikoi.Core.Attributes.Builders;
+
 namespace Lilikoi.Core.Builder.Mahogany.Generator;
-/*
+
 internal static class WrapGenerator
 {
 
-	internal static MethodInfo MkWrapBuilderAttribute_Build = typeof(MkWrapBuilderAttribute).GetMethod("Build");
+	internal static MethodInfo MkWrapBuilderAttribute_Build = typeof(LkWrapBuilderAttribute).GetMethod("Build");
 
-	public static MethodInfo MkWrapAttribute_Before = typeof(MkWrapAttribute).GetMethod("Before");
-	public static MethodInfo MkWrapAttribute_After = typeof(MkWrapAttribute).GetMethod("After");
+	public static MethodInfo MkWrapAttribute_Before = typeof(LkWrapAttribute).GetMethod("Before");
+	public static MethodInfo MkWrapAttribute_After = typeof(LkWrapAttribute).GetMethod("After");
 
-	public const string WRAPRESULT_STOP = nameof(MkWrapAttribute.WrapResult<MkWrapAttribute>.stop);
-	public const string WRAPRESULT_VALUE = nameof(MkWrapAttribute.WrapResult<MkWrapAttribute>.stopWithValue);
+	public const string WRAPRESULT_STOP = nameof(LkWrapAttribute.WrapResult<LkWrapAttribute>.stop);
+	public const string WRAPRESULT_VALUE = nameof(LkWrapAttribute.WrapResult<LkWrapAttribute>.stopWithValue);
 
 	/// <summary>
 	/// Create an expression which creates an MkWrapAttribute.
 	/// </summary>
 	/// <param name="builderAttribute"></param>
 	/// <returns></returns>
-	internal static Expression Builder(MkWrapBuilderAttribute builderAttribute)
+	internal static Expression Builder(LkWrapBuilderAttribute builderAttribute)
 	{
 		return Expression.Call(Expression.Constant(builderAttribute), MkWrapBuilderAttribute_Build);
 	}
@@ -46,30 +49,30 @@ internal static class WrapGenerator
 	/// <param name="input"></param>
 	/// <param name="output"></param>
 	/// <returns></returns>
-	internal static Expression Before(MahoganyMethod method, Expression attribute, Expression inputSource)
+	internal static Expression Before(MahoganyMethod method, Expression attribute)
 	{
 		//	var var0 = attribute.Before<input, output>(inputSource)
 		//	if (var0.stop == true)
 		//		return var0.stopWithValue;
 
-		var method = MkWrapAttribute_Before.MakeGenericMethod(input, output);
+		var invoke = MkWrapAttribute_Before.MakeGenericMethod(method.Input, method.Result);
 
-		var invocation = Expression.Call(attribute, method, inputSource);
+		var invocation = Expression.Call(attribute, invoke, method.Named(MahoganyConstants.MOUNT_VAR), method.Named(MahoganyConstants.INPUT_VAR));
 
-		var guard = Expression.IfThen(
-			Expression.IsTrue(Expression.Field(invocation, WRAPRESULT_STOP)),
-			Expression.Goto(builder.Exit, Expression.Field(invocation, WRAPRESULT_VALUE))
-			);
+		var setter = method.AsVariable(invocation, out var result);
+
+		var guard =
+			Expression.Block(
+				setter,
+			Expression.IfThen(
+			Expression.IsTrue(Expression.Field(result, WRAPRESULT_STOP)),
+			Expression.Return(method.HaltTarget, Expression.Field(result, WRAPRESULT_VALUE))
+			));
 
 		return Expression.Block(
 			invocation,
 			guard,
 			invocation);
-	}
-
-	internal static Expression Before(MahoganyMethod method, Expression attribute, Expression inputSource)
-	{
-		return Before(method, attribute, inputSource);
 	}
 
 	/// <summary>
@@ -79,18 +82,19 @@ internal static class WrapGenerator
 	/// <param name="outputSource"></param>
 	/// <param name="output"></param>
 	/// <returns></returns>
-	internal static Expression After(Expression attribute, Expression outputSource, Type output)
+	internal static Expression After(Expression attribute, Expression mountSource, Expression outputSource, Type output)
 	{
 		//	attribute.After<output>(outputSource);
 
 		var method = MkWrapAttribute_After.MakeGenericMethod(output);
 
-		return Expression.Call(attribute, method, outputSource);
+		return Expression.Call(attribute, method, mountSource,  outputSource);
 	}
 
-	internal static Expression After(ContainerBuilder builder, Expression attribute, Expression outputSource)
+	internal static Expression After(MahoganyMethod method, Expression attribute)
 	{
-		return After(attribute, outputSource, builder.Output);
+		return After(attribute,  method.Named(MahoganyConstants.MOUNT_VAR), method.Named(MahoganyConstants.OUTPUT_VAR), method.Result);
 	}
+
+
 }
-*/

@@ -82,7 +82,7 @@ internal static class InjectionGenerator
 			setter,
 			CommonGenerator.GuardAgainstNull(value, new ArgumentNullException(property.Name, $"Injectable {attribute.Type.Name} returned null value.")),
 			Expression.Assign(
-				Expression.Property(source, property),
+				Expression.Property(source, property.GetSetMethod(true)),
 				value
 				)
 			);

@@ -3,7 +3,7 @@
 //       Distributed under the MIT License.
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
+// ->    Bumped: 24.12.2022
 //
 // ->    Purpose:
 //
@@ -25,6 +25,9 @@ namespace Lilikoi.Core.Builder.Mahogany;
 
 public class MahoganyMethod
 {
+
+	public LabelTarget HaltTarget { get; set; }
+
 	public List<ParameterExpression> Temporaries = new();
 
 	/// <summary>
@@ -85,7 +88,9 @@ public class MahoganyMethod
 					//Named(MahoganyConstants.HOST_VAR), Named(MahoganyConstants.INPUT_VAR),
 					Named(MahoganyConstants.OUTPUT_VAR)
 				},
-				Expression.Block( Expression.Block(Unordered), Expression.Block(Body)), Named(MahoganyConstants.OUTPUT_VAR))),
+				Expression.Block(Expression.Block(Unordered), Expression.Block(Body)), Expression.Label(HaltTarget, Named(MahoganyConstants.OUTPUT_VAR))
+				//,  Named(MahoganyConstants.OUTPUT_VAR)
+				)),
 			Named(MahoganyConstants.HOST_VAR),
 			Named(MahoganyConstants.INPUT_VAR));
 	}
