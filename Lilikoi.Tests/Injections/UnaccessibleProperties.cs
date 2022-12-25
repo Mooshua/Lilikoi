@@ -26,15 +26,10 @@ public class UnaccessibleProperties
 
 		[Console] protected ConsoleInj Protected;
 
-		[Console] readonly private ConsoleInj PrivateReadonly;
-
 		public string Entry()
 		{
 			Assert.IsNotNull(Private);
 			Assert.IsNotNull(Protected);
-
-			Assert.IsNull(PrivateReadonly);
-
 
 			//Assert.IsNotNull(PrivateAndRead);
 			//Assert.IsNotNull(PublicAndRead);
