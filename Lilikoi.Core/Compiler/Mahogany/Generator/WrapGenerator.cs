@@ -9,6 +9,7 @@
 //
 //
 //       ========================
+
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -17,7 +18,7 @@ using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Attributes.Builders;
 using Lilikoi.Core.Context;
 
-namespace Lilikoi.Core.Builder.Mahogany.Generator;
+namespace Lilikoi.Core.Compiler.Mahogany.Generator;
 
 internal static class WrapGenerator
 {

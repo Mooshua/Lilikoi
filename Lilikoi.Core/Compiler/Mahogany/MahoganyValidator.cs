@@ -9,13 +9,14 @@
 //
 //
 //       ========================
+
 using System;
 using System.Reflection;
 
 using Lilikoi.Core.Attributes.Builders;
 using Lilikoi.Core.Context;
 
-namespace Lilikoi.Core.Builder.Mahogany;
+namespace Lilikoi.Core.Compiler.Mahogany;
 
 internal static class MahoganyValidator
 {

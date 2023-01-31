@@ -11,8 +11,8 @@
 //       ========================
 using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Attributes.Builders;
-using Lilikoi.Core.Builder.Public;
-using Lilikoi.Core.Builder.Public.Utilities;
+using Lilikoi.Core.Compiler.Public;
+using Lilikoi.Core.Compiler.Public.Utilities;
 using Lilikoi.Core.Context;
 using Lilikoi.Tests.HelloWorld;
 

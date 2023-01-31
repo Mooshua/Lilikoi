@@ -9,13 +9,14 @@
 //
 //
 //       ========================
+
 using System.Linq.Expressions;
 using System.Reflection;
 
 using Lilikoi.Core.Attributes.Builders;
-using Lilikoi.Core.Builder.Mahogany.Generator;
+using Lilikoi.Core.Compiler.Mahogany.Generator;
 
-namespace Lilikoi.Core.Builder.Mahogany;
+namespace Lilikoi.Core.Compiler.Mahogany.Steps;
 
 public class MahoganyParameterStep
 {
@@ -37,6 +38,6 @@ public class MahoganyParameterStep
 		var instance =
 			Method.AsHoistedVariable(ParameterGenerator.Builder(Builder, Method.Mount));
 
-		return ParameterGenerator.Inject(Method, instance, ParameterInfo);
+		return ParameterGenerator.InjectParameter(Method, instance, ParameterInfo);
 	}
 }

@@ -12,7 +12,6 @@
 using BenchmarkDotNet.Attributes;
 
 using Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
-using Lilikoi.Core.Builder.Public;
 
 namespace Lilikoi.Benchmarks.Mahogany;
 

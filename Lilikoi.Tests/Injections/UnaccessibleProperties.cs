@@ -11,7 +11,7 @@
 //       ========================
 using System.Reflection;
 
-using Lilikoi.Core.Builder.Public;
+using Lilikoi.Core.Compiler.Public;
 using Lilikoi.Core.Context;
 using Lilikoi.Tests.HelloWorld;
 using Lilikoi.Tests.Injections.AllMethodsCalled;

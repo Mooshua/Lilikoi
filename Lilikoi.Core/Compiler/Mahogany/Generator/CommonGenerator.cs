@@ -16,7 +16,7 @@ using System.Linq.Expressions;
 
 #endregion
 
-namespace Lilikoi.Core.Builder.Mahogany.Generator;
+namespace Lilikoi.Core.Compiler.Mahogany.Generator;
 
 public static class CommonGenerator
 {

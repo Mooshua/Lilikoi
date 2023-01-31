@@ -14,17 +14,15 @@
 using System;
 using System.Linq.Expressions;
 
-using AgileObjects.ReadableExpressions;
-
 #endregion
 
-namespace Lilikoi.Core.Builder.Public;
+namespace Lilikoi.Core.Compiler.Public;
 
 public class LilikoiContainer
 {
 	internal LambdaExpression Body { get; set; }
 
-#if DEBUG
+/*#if DEBUG
 
 	public TOut Run<THost, TIn, TOut>(THost host, TIn input)
 	{
@@ -37,7 +35,7 @@ public class LilikoiContainer
 	{
 		return ((Expression)Body).ToReadableString(opt => { return opt; });
 	}
-#endif
+#endif*/
 
 #if !DEBUG
 	public TOut Run<THost, TIn, TOut>(THost host, TIn input)

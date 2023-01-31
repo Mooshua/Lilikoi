@@ -3,7 +3,7 @@
 //       Distributed under the MIT License.
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
+// ->    Bumped: 26.12.2022
 //
 // ->    Purpose:
 //
@@ -21,7 +21,7 @@ using Lilikoi.Core.Context;
 
 #endregion
 
-namespace Lilikoi.Core.Builder.Mahogany.Generator;
+namespace Lilikoi.Core.Compiler.Mahogany.Generator;
 
 internal static class InjectionGenerator
 {
@@ -63,12 +63,18 @@ internal static class InjectionGenerator
 	}
 
 	/// <summary>
-	///     Returns a binary expression that sets the property on the source to the injected value
+	/// Returns a binary expression that sets the property on the source to the injected value
 	/// </summary>
-	/// <param name="source">An expression that resolves to the type being injected.</param>
-	/// <param name="property"></param>
-	/// <returns></returns>
-	public static Expression InjectValueAsProperty(MahoganyMethod method, Expression attribute, ParameterExpression source, PropertyInfo property)
+	/// <param name="attribute">An expression that evaluates to the built attribute object.</param>
+	/// <param name="source">An expression that resolves to the object the result will be assigned to.</param>
+	/// <param name="property">The property that will be assigned.</param>
+	/// <param name="method">The compiler context, used for mount named variable.</param>
+	/// <returns>An expression that injects the value from <paramref name="attribute"/> and assigns it to <see cref="property"/></returns>
+	public static Expression InjectValueAsProperty(
+		MahoganyMethod method,
+		Expression attribute,
+		ParameterExpression source,
+		PropertyInfo property)
 	{
 		//	if (InjectValue == null)
 		//		throw ArgumentNullException("builder")
@@ -76,12 +82,19 @@ internal static class InjectionGenerator
 		//	if (object[property] == null)
 		//		throw ArgumentNullException(...)	//	duh...
 
-		var setter = method.AsVariable(InjectValue(method, attribute, property.PropertyType), out var value);
+		var setter = method.AsVariable(
+			InjectValue(method, attribute, property.PropertyType),
+			out var value);
 
 		return Expression.Block(
-			CommonGenerator.GuardAgainstNull(attribute, new ArgumentNullException($"__builder {attribute.Type.Name}")),
+			CommonGenerator.GuardAgainstNull(attribute,
+				new ArgumentNullException(
+					$"__builder {attribute.Type.Name}")),
 			setter,
-			CommonGenerator.GuardAgainstNull(value, new ArgumentNullException(property.Name, $"Injectable {attribute.Type.Name} returned null value.")),
+			CommonGenerator.GuardAgainstNull(value,
+				new ArgumentNullException(
+					property.Name,
+					$"Injectable {attribute.Type.Name} returned null value.")),
 			Expression.Assign(
 				Expression.Property(source, property.SetMethod),
 				value

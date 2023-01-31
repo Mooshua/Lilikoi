@@ -9,21 +9,19 @@
 //
 //
 //       ========================
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using AgileObjects.ReadableExpressions;
-
-using Lilikoi.Core.Attributes;
 using Lilikoi.Core.Attributes.Builders;
-using Lilikoi.Core.Builder.Mahogany;
-using Lilikoi.Core.Builder.Mahogany.Generator;
+using Lilikoi.Core.Compiler.Mahogany;
+using Lilikoi.Core.Compiler.Mahogany.Generator;
 using Lilikoi.Core.Context;
 
-namespace Lilikoi.Core.Builder.Public.Utilities;
+namespace Lilikoi.Core.Compiler.Public.Utilities;
 
 public static class LilikoiInjector
 {

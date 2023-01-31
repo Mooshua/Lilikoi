@@ -9,27 +9,22 @@
 //
 //
 //       ========================
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 
 using Lilikoi.Core.Attributes.Builders;
-using Lilikoi.Core.Builder.Mahogany.Generator;
+using Lilikoi.Core.Compiler.Mahogany.Generator;
 
-namespace Lilikoi.Core.Builder.Mahogany.Steps;
+namespace Lilikoi.Core.Compiler.Mahogany.Steps;
 
 public class MahoganyWrapStep
 {
-	public MahoganyWrapStep(MahoganyMethod method, LkWrapBuilderAttribute builder, Type actual)
+	public MahoganyWrapStep(MahoganyMethod method, LkWrapBuilderAttribute builder)
 	{
 		Method = method;
 		Builder = builder;
-		Actual = actual;
 	}
-
-	public Type Actual { get; set; }
 
 	public MahoganyMethod Method { get; set; }
 

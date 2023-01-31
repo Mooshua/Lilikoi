@@ -16,12 +16,12 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Lilikoi.Core.Builder.Mahogany.Generator;
+using Lilikoi.Core.Compiler.Mahogany.Generator;
 using Lilikoi.Core.Context;
 
 #endregion
 
-namespace Lilikoi.Core.Builder.Mahogany;
+namespace Lilikoi.Core.Compiler.Mahogany;
 
 public class MahoganyMethod
 {

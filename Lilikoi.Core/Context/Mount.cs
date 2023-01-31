@@ -17,18 +17,18 @@ public class Mount
 {
 	private TypeDictionary Dictionary = new TypeDictionary();
 
-	public void Store<T>(T value)
+	public virtual void Store<T>(T value)
 		where T : class
 	{
 		Dictionary.Set(value);
 	}
 
-	public T? Get<T>()
+	public virtual T? Get<T>()
 		where T : class
 
 	{
 		return Dictionary.Get<T>();
 	}
 
-	public bool Has<T>() => Dictionary.Has<T>();
+	public virtual bool Has<T>() => Dictionary.Has<T>();
 }

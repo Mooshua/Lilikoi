@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Builder\Mahogany\Runtime" />
+      <Folder Include="Compiler\Mahogany\Runtime" />
     </ItemGroup>
 
 </Project>

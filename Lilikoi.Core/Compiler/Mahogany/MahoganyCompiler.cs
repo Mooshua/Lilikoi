@@ -16,15 +16,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Transactions;
 
 using Lilikoi.Core.Attributes.Builders;
-using Lilikoi.Core.Builder.Mahogany.Generator;
-using Lilikoi.Core.Builder.Mahogany.Steps;
+using Lilikoi.Core.Compiler.Mahogany.Generator;
+using Lilikoi.Core.Compiler.Mahogany.Steps;
 
 #endregion
 
-namespace Lilikoi.Core.Builder.Mahogany;
+namespace Lilikoi.Core.Compiler.Mahogany;
 
 public class MahoganyCompiler
 {
@@ -35,8 +34,6 @@ public class MahoganyCompiler
 	#region Utilities
 
 	public const BindingFlags FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-
-
 
 	public static List<MahoganyParameterStep> ParameterStepBuilder(MahoganyMethod method)
 	{
@@ -77,7 +74,7 @@ public class MahoganyCompiler
 
 				MahoganyValidator.ValidateWrap(asBuilder, method);
 
-				var step = new MahoganyWrapStep(method, asBuilder, attribute.GetType());
+				var step = new MahoganyWrapStep(method, asBuilder);
 
 				steps.Add(step);
 			}
@@ -200,6 +197,22 @@ public class MahoganyCompiler
 			(var enter, var exit) = mahoganyWrapStep.Generate();
 			Stack.Push(enter,exit);
 		}
+	}
+
+	public void ImplicitWrap(LkWrapBuilderAttribute builder)
+	{
+		var step = new MahoganyWrapStep(Method, builder);
+
+		(var enter, var exit) = step.Generate();
+		Stack.Push(enter, exit);
+	}
+
+	public void ImplicitWildcard(LkParameterBuilderAttribute builder, Type type)
+	{
+		var step = new MahoganyParameterWildcardStep(Method, type, builder);
+
+		var expression = step.Generate();
+		Stack.Push(expression, Expression.Empty());
 	}
 
 	public void InjectionsFor(Type host)

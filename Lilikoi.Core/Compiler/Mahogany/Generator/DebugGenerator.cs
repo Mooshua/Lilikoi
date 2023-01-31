@@ -11,7 +11,7 @@
 //       ========================
 using System.Linq.Expressions;
 
-namespace Lilikoi.Core.Builder.Mahogany.Generator;
+namespace Lilikoi.Core.Compiler.Mahogany.Generator;
 
 public static class DebugGenerator
 {

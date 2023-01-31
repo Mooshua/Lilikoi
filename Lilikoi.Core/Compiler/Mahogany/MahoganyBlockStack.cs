@@ -17,7 +17,7 @@ using System.Linq.Expressions;
 
 #endregion
 
-namespace Lilikoi.Core.Builder.Mahogany;
+namespace Lilikoi.Core.Compiler.Mahogany;
 
 public class MahoganyBlockStack
 {

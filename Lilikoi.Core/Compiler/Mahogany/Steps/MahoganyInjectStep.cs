@@ -15,11 +15,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using Lilikoi.Core.Attributes.Builders;
-using Lilikoi.Core.Builder.Mahogany.Generator;
+using Lilikoi.Core.Compiler.Mahogany.Generator;
 
 #endregion
 
-namespace Lilikoi.Core.Builder.Mahogany.Steps;
+namespace Lilikoi.Core.Compiler.Mahogany.Steps;
 
 public class MahoganyInjectStep
 {

@@ -16,13 +16,20 @@ namespace Lilikoi.Standard;
 
 public class NewAttribute : LkInjectionAttribute
 {
+	protected object[] ConstructorParameters { get; set; }
+
+	public NewAttribute(params object[] constructor)
+	{
+		ConstructorParameters = constructor;
+	}
+
 	public override bool IsInjectable<TInjectable>(Mount mount)
 	{
-		return true;
+		return Activator.CreateInstance(typeof(TInjectable), ConstructorParameters) as TInjectable is not null;
 	}
 
 	public override TInjectable Inject<TInjectable>(Mount context)
 	{
-		return Activator.CreateInstance<TInjectable>();
+		return Activator.CreateInstance(typeof(TInjectable), ConstructorParameters) as TInjectable;
 	}
 }

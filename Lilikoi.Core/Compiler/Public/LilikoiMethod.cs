@@ -16,12 +16,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Lilikoi.Core.Builder.Mahogany;
+using Lilikoi.Core.Compiler.Mahogany;
 using Lilikoi.Core.Context;
 
 #endregion
 
-namespace Lilikoi.Core.Builder.Public;
+namespace Lilikoi.Core.Compiler.Public;
 
 public class LilikoiMethod
 {
