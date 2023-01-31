@@ -9,7 +9,7 @@
 //
 //
 //       ========================
-using Lilikoi.Core.Compiler.Public;
+using Lilikoi.Compiler.Public;
 
 namespace Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
 

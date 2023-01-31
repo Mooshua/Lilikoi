@@ -9,8 +9,8 @@
 //
 //
 //       ========================
-using Lilikoi.Core.Attributes.Typed;
-using Lilikoi.Core.Context;
+using Lilikoi.Attributes.Typed;
+using Lilikoi.Context;
 
 namespace Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
 

@@ -9,8 +9,8 @@
 //
 //
 //       ========================
-using Lilikoi.Core.Compiler.Public;
-using Lilikoi.Core.Context;
+using Lilikoi.Compiler.Public;
+using Lilikoi.Context;
 using Lilikoi.Tests.Injections.AllMethodsCalled;
 using Lilikoi.Tests.Wraps.Invocations;
 

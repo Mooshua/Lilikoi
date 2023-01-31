@@ -15,7 +15,7 @@ using BenchmarkDotNet.Diagnostics.Windows.Configs;
 using BenchmarkDotNet.Jobs;
 
 using Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
-using Lilikoi.Core.Compiler.Public.Utilities;
+using Lilikoi.Compiler.Public.Utilities;
 
 using Perfolizer.Mathematics.QuantileEstimators;
 

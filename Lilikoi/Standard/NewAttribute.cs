@@ -9,8 +9,8 @@
 //
 //
 //       ========================
-using Lilikoi.Core.Attributes;
-using Lilikoi.Core.Context;
+using Lilikoi.Attributes;
+using Lilikoi.Context;
 
 namespace Lilikoi.Standard;
 
@@ -30,6 +30,11 @@ public class NewAttribute : LkInjectionAttribute
 
 	public override TInjectable Inject<TInjectable>(Mount context)
 	{
-		return Activator.CreateInstance(typeof(TInjectable), ConstructorParameters) as TInjectable;
+		var instance = Activator.CreateInstance(typeof(TInjectable), ConstructorParameters) as TInjectable;
+
+		if (instance is null)
+			throw new InvalidOperationException();
+
+		return instance;
 	}
 }

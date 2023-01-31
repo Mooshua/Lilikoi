@@ -9,8 +9,8 @@
 //
 //
 //       ========================
-using Lilikoi.Core.Attributes;
-using Lilikoi.Core.Context;
+using Lilikoi.Attributes;
+using Lilikoi.Context;
 
 namespace Lilikoi.Standard;
 

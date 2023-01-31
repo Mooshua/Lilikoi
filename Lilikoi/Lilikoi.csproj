@@ -8,8 +8,5 @@
         <RootNamespace>Lilikoi</RootNamespace>
     </PropertyGroup>
     
-    <ItemGroup>
-        <ProjectReference Include="..\Lilikoi.Core\Lilikoi.Core.csproj" />
-    </ItemGroup>
 
 </Project>

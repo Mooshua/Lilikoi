@@ -9,7 +9,7 @@
 //
 //
 //       ========================
-using Lilikoi.Core.Compiler.Public.Utilities;
+using Lilikoi.Compiler.Public.Utilities;
 using Lilikoi.Tests.Injections.AllMethodsCalled;
 
 namespace Lilikoi.Tests.Injections.Headless;

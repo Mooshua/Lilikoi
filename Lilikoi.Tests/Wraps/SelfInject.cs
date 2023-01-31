@@ -9,11 +9,11 @@
 //
 //
 //       ========================
-using Lilikoi.Core.Attributes;
-using Lilikoi.Core.Attributes.Builders;
-using Lilikoi.Core.Compiler.Public;
-using Lilikoi.Core.Compiler.Public.Utilities;
-using Lilikoi.Core.Context;
+using Lilikoi.Attributes;
+using Lilikoi.Attributes.Builders;
+using Lilikoi.Compiler.Public;
+using Lilikoi.Compiler.Public.Utilities;
+using Lilikoi.Context;
 using Lilikoi.Tests.HelloWorld;
 
 namespace Lilikoi.Tests.Wraps;
