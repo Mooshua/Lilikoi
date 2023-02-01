@@ -5,7 +5,6 @@ branches:
   edge:
     regex: ^edge%
     source-branches: []
-    mode: Mainline
     label: edge.{BranchName}
     is-release-branch: false
     is-mainline: false
