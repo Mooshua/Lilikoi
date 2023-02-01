@@ -45,12 +45,6 @@ jobs:
           path: ./artifacts/*.nupkg
           if-no-files-found: error
 
-      - name: Upload debug artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: obj_debug
-          path: ./Lilikoi/obj/*
-
       - name: Publish to GitHub
         run: nuget push ./artifacts/*.nupkg -Source 'https://nuget.pkg.github.com/Mooshua/index.json' -ApiKey ${{secrets.GITHUB_TOKEN}}
 

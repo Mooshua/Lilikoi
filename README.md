@@ -1,9 +1,9 @@
 # Lilikoi
 A C# framework for frameworks
 
-`edge`: [![edge](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=edge)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml)
-
-`stable`: [![stable](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=stable)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml)
+| Main   | [![main](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml) |
+|--------| --- |
+| Stable | [![stable](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=stable)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml) |
 
 > **Warning**: Lilikoi is in active, early development and should not be used unless you accept the risk that everything may change or break.
 
@@ -14,17 +14,17 @@ A C# framework for frameworks
 | Feature             | Status |
 |---------------------|----|
 | Field Injection     | ✔️ |
-| Parameter Injection | ️️️✔️ |
+| Parameter Injection | ️️✔️ |
 | Hooks ("Wraps")     | ✔️ |
 | Contexts ("Mounts") | ✔️ |
 | Builder Attributes  | 🏗️ |
 | Configuration       | 🏗️ |
 | Headless/Portable   | 🏗️ |
-| Wildcards           | ⏳  |
+| Wildcards           | ✔️ |
 | Ecosystem           | ⏳  |
 | Async/Await         | ⏳  |
 | Debugging           | ⏳  |
-| NuGet Release       | ⏳  |
+| NuGet Release       | 🏗️ |
 
 ### What is it?
 
