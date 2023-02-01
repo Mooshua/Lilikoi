@@ -2,18 +2,27 @@
 update-build-number: true
 mode: Mainline
 branches:
-  edge:
-    regex: ^edge%
+  main:
+    regex: ^master$|^main$
+    label: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    source-branches: [ 'develop', 'release' ]
+    tracks-release-branches: false
+    is-release-branch: false
+    is-mainline: true
+    pre-release-weight: 55000
+  develop:
+    regex: ^dev(elop)?(ment)?$
+    label: prerelease
+    increment: Patch
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: true
     source-branches: []
-    label: edge.{BranchName}
+    tracks-release-branches: true
     is-release-branch: false
     is-mainline: false
-    increment: None
-  stable:
-    regex: ^stable%
-    source-branches: [ 'edge' ]
-    is-mainline: true
-    is-release-branch: true
-    increment: Patch
+    pre-release-weight: 0
 ignore:
   sha: []
