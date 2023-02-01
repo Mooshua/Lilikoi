@@ -1,7 +1,10 @@
-# Lilikoi
 <div style="text-align: center;">
-![Lilikoi Logo](/Assets/LilikoiBox1080.png)
+<img src="https://raw.githubusercontent.com/Mooshua/Lilikoi/main/Assets/LilikoiBox1080.png" width="256">
+<h1>Lilikoi</h1>
 </div>
+
+
+
 | Main   | [![main](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml) |
 |--------| --- |
 | Dev    | [![dev](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=dev)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml) |
