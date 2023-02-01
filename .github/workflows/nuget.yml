@@ -13,6 +13,7 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       FRAMEWORK: 'netstandard2.0'
+      TEST_FRAMEWORK: 'net7.0'
 
     steps:
 
@@ -28,13 +29,13 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build Lilikoi.Tests --framework $FRAMEWORK --configuration $BUILD_CONFIG --no-restore 
-          /p:Version=${{ steps.gitversion.outputs.NuGetVersionV2 }} 
-          /p:AssemblyVersion=${{ steps.gitversion.outputs.NuGetVersionV2 }} 
-          /p:InformationalVersion=${{ steps.gitversion.outputs.NuGetVersionV2 }}
+        run: dotnet build Lilikoi --framework $FRAMEWORK --configuration $BUILD_CONFIG --no-restore
+
+      - name: Build Tests
+        run: dotnet build Lilikoi.Tests --framework $TEST_FRAMEWORK --configuration $BUILD_CONFIG --no-restore
 
       - name: Test
-        run: dotnet test Lilikoi.Tests --framework $FRAMEWORK --configuration $BUILD_CONFIG --no-build --no-restore --verbosity normal
+        run: dotnet test Lilikoi.Tests --framework $TEST_FRAMEWORK --configuration $BUILD_CONFIG --no-build --no-restore --verbosity normal
 
       - name: Pack
         run: dotnet pack --configuration $BUILD_CONFIG --no-build --no-restore
