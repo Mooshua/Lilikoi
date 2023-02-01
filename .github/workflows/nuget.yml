@@ -50,5 +50,8 @@ jobs:
           path: ./artifacts/*.nupkg
           if-no-files-found: error
 
-      - name: Publish
+      - name: Publish to GitHub
         run: nuget push ./artifacts/*.nupkg -Source 'https://nuget.pkg.github.com/Mooshua/index.json' -ApiKey ${{secrets.GITHUB_TOKEN}}
+
+      - name: Publish to NuGet
+        run: nuget push ./artifacts/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}
