@@ -13,14 +13,14 @@ namespace Lilikoi.Tests.Injections.AllMethodsCalled;
 
 public class AllMethodsCalledHost
 {
-	public AllMethodsCalledTest Test { get; set; }
 
-	[AllMethodsCalled]
-	public AllMethodsCalledInject Inject { get; set; }
+	[AllMethodsCalled] public AllMethodsCalledInject Inject;
 
-	public object Entry()
+	public object Entry(AllMethodsCalledTest.AllMethodsCalledCounter test, [AllMethodsCalledParameter] object param)
 	{
-		Test.EntryCalled = true;
+		test.EntryCalled = true;
+
+		Assert.IsNotNull(param);
 
 		Assert.IsNotNull(Inject);
 		Assert.IsTrue(Inject.IsNotNull());

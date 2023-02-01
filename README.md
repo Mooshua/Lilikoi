@@ -1,22 +1,30 @@
 # Lilikoi
 A C# framework for frameworks
 
-[![edge](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=edge)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml)
-[![stable](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=stable)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml)
+| Main   | [![main](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml) |
+|--------| --- |
+| Stable | [![stable](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=stable)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml) |
 
 > **Warning**: Lilikoi is in active, early development and should not be used unless you accept the risk that everything may change or break.
 
+> **Note**: Lilikoi requires the .NET 7 SDK in order to be compiled, but can be used (and is tested on) on any .NET Standard 2.0 platform.
+
 ### Status
 
-| Feature | Status |
-| ------- | ------ |
-| Property Injection | ✔️ |
-| Parameter Injection | 🏗️ |
-| Hooks ("Wraps") | 🏗️ |
-| Contexts ("Mounts") | ⏳ |
-| Builder Attributes | ⏳ |
-| Configuration | ⏳ |
-| NuGet Release | ⏳ |
+| Feature             | Status |
+|---------------------|----|
+| Field Injection     | ✔️ |
+| Parameter Injection | ️️✔️ |
+| Hooks ("Wraps")     | ✔️ |
+| Contexts ("Mounts") | ✔️ |
+| Builder Attributes  | 🏗️ |
+| Configuration       | 🏗️ |
+| Headless/Portable   | 🏗️ |
+| Wildcards           | ✔️ |
+| Ecosystem           | ⏳  |
+| Async/Await         | ⏳  |
+| Debugging           | ⏳  |
+| NuGet Release       | 🏗️ |
 
 ### What is it?
 
@@ -26,8 +34,6 @@ This allows programmers to write framework agnostic code that runs anywhere Lili
 
 Lilikoi consists of "Containers", which contain a class ("Host") and a method defined on that class (the "Entry Point").
 Using C# reflection APIs, a method is created which injects values into an instance of the host class and then executes the entry point.
-
-The possibilities of a framework using Lilikoi are endless. 
 
 ```cs
 public class SampleInjectionAttribute : MkTypedInjectionAttribute<SampleClass>
@@ -42,7 +48,7 @@ public class SampleInjectionAttribute : MkTypedInjectionAttribute<SampleClass>
 class Program
 {
     [SampleInjection]
-    public SampleClass InjectedClass { get; set; }
+    public SampleClass InjectedClass;
   
     //  Entry point
     public Task Entry()
@@ -52,6 +58,12 @@ class Program
 }
 ```
 
+### Headless
+
+Like injecting things but don't want a full framework? 
+Lilikoi's headless injectors build minimal `Action<T>`s which behave
+similarly to the full framework, giving you full control over the when and where.
+
 ### Performance
 
 Lilikoi is designed with performance in mind, so that projects of any scale can benefit from it's paradigms.
@@ -60,8 +72,16 @@ In order to maximize performance and prevent diving into .NET reflection, Liliko
 which behave just like a normal method.
 
 Expression trees are no golden ticket to performanceville, 
-but proper runtime code generation makes Lilikoi's overhead as low as **40ns** 
-(yes, nanoseconds) per injection.
+but proper runtime code generation makes Lilikoi's overhead as low as **40ns** per injection
+
+| Framework      | Task              | Speed    |
+|:---------------|:------------------|----------|
+| .NET CLR       | Inject            | 45 ns    |
+| .NET CLR       | Inject *(Debug)*  | 325 ns   |
+| .NET Framework | Inject            | 65 ns    |
+| .NET CLR       | Compile           | 0.330 ms |
+| .NET CLR       | Compile *(Debug)* | 0.015 ms |
+| .NET Framework | Compile           | 0.460 ms |
 
 ### What could finished Lilikoi look like?
 
@@ -78,13 +98,13 @@ public class ApiController
     /// DbContext is instantiated by a generic new() injector attribute
     /// EF Core will take care of the rest.
     [New]
-    public ApiContext Db { get; set; }
+    public ApiContext Db;
     
     /// You can imagine anything to go here--Because anything can!
     /// Lilikoi should be customizable to your heart's content.
     /// No more arbitrary framework restrictions!
     [ApiService]
-    public UserService Users { get; set; }
+    public UserService Users;
 
     /// POSTAttribute is a "builder" attribute
     /// with a method (similar to Inject()) that describes how to build the container to Lilikoi.

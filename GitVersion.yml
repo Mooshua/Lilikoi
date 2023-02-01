@@ -1,0 +1,19 @@
+﻿label-pre-release-weight: 0
+update-build-number: true
+mode: Mainline
+branches:
+  edge:
+    regex: ^edge%
+    source-branches: []
+    label: edge.{BranchName}
+    is-release-branch: false
+    is-mainline: false
+    increment: None
+  stable:
+    regex: ^stable%
+    source-branches: [ 'edge' ]
+    is-mainline: true
+    is-release-branch: true
+    increment: Patch
+ignore:
+  sha: []

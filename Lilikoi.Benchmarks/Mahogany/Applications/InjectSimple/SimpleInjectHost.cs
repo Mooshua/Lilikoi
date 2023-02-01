@@ -9,15 +9,14 @@
 //
 //
 //       ========================
-using Lilikoi.Core.Builder.Public;
+using Lilikoi.Compiler.Public;
 
 namespace Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
 
 public class SimpleInjectHost
 {
 
-	[SimpleInjector]
-	public Simple Injected { get; set; }
+	[SimpleInjector] public Simple Injected;
 
 	public bool Execute()
 	{
