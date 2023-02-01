@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
-      - name: Build
+      - name: Build Lilikoi
         run: dotnet build Lilikoi --framework $FRAMEWORK --configuration $BUILD_CONFIG --no-restore
 
       - name: Build Tests
@@ -40,8 +40,8 @@ jobs:
       - name: Test
         run: dotnet test Lilikoi.Tests --framework $TEST_FRAMEWORK --configuration $BUILD_CONFIG --no-build --no-restore --verbosity normal
 
-      - name: Pack
-        run: dotnet pack --configuration $BUILD_CONFIG --no-build --no-restore
+      - name: Pack Lilikoi
+        run: dotnet pack Lilikoi --configuration $BUILD_CONFIG --no-build --no-restore
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v3

@@ -14,12 +14,18 @@ jobs:
         framework-version: [ 'net47', 'net48', 'net6.0', 'net7.0' ]
 
     steps:
-      - uses: actions/checkout@v3
+
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
           dotnet-quality: 'ga'
+          
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Install dependencies
         run: dotnet restore
       - name: Build for ${{ matrix.framework-version }}
