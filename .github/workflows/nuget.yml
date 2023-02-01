@@ -1,0 +1,50 @@
+﻿# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Lilikoi.NuGet
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      BUILD_CONFIG: 'Release'
+      FRAMEWORK: 'netstandard2.0'
+
+    steps:
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+          dotnet-quality: 'ga'
+
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build Lilikoi.Tests --framework $FRAMEWORK --configuration $BUILD_CONFIG --no-restore 
+          /p:Version=${{ steps.gitversion.outputs.NuGetVersionV2 }} 
+          /p:AssemblyVersion=${{ steps.gitversion.outputs.NuGetVersionV2 }} 
+          /p:InformationalVersion=${{ steps.gitversion.outputs.NuGetVersionV2 }}
+
+      - name: Test
+        run: dotnet test Lilikoi.Tests --framework $FRAMEWORK --configuration $BUILD_CONFIG --no-build --no-restore --verbosity normal
+
+      - name: Pack
+        run: dotnet pack --configuration $BUILD_CONFIG --no-build --no-restore
+
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: nuget_packages
+          path: artifacts\*.nupkg
+          if-no-files-found: error
+
+      - name: Publish
+        run: nuget push artifacts\*.nupkg -Source 'https://nuget.pkg.github.com/Mooshua/index.json' -ApiKey ${{secrets.GITHUB_TOKEN}}

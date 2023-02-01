@@ -7,10 +7,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lilikoi.Benchmarks", "Lilikoi.Benchmarks\Lilikoi.Benchmarks.csproj", "{4DC59046-57CE-476F-9456-F2279AC08A28}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{FB17EF84-9208-47AC-921F-680CB1DAD8BA}"
-	ProjectSection(SolutionItems) = preProject
-		Package.Lilikoi\Package.Lilikoi.msbuildproj = Package.Lilikoi\Package.Lilikoi.msbuildproj
-		Package.Lilikoi\Package.Lilikoi.Core.msbuildproj = Package.Lilikoi\Package.Lilikoi.Core.msbuildproj
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

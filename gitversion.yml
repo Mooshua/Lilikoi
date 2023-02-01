@@ -1,0 +1,10 @@
+﻿branches:
+  edge:
+    regex: ^edge%
+    source-branches: []
+  stable:
+    regex: ^stable%
+    source-branches: [ 'edge' ]
+    is-mainline: true
+ignore:
+  sha: []
