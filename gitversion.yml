@@ -1,13 +1,22 @@
-﻿branches:
+﻿label-pre-release-weight: 0
+update-build-number: true
+mode: Mainline
+branches:
   edge:
     regex: ^edge%
     source-branches: []
-    mode: ContinuousDeployment
+    label: alpha
+    prevent-increment-of-merged-branch-version: false
+    tracks-release-branches: true
+    track-merge-target: true
+    is-release-branch: false
+    is-mainline: false
     increment: None
   stable:
     regex: ^stable%
     source-branches: [ 'edge' ]
     is-mainline: true
+    is-release-branch: true
     increment: Patch
 ignore:
   sha: []
