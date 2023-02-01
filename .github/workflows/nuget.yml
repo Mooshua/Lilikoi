@@ -11,9 +11,6 @@ jobs:
     runs-on: windows-latest
 
     env:
-      BUILD_CONFIG: 'Release'
-      FRAMEWORK: 'netstandard2.0'
-      TEST_FRAMEWORK: 'net7.0'
 
     steps:
 
@@ -32,16 +29,16 @@ jobs:
         run: dotnet restore
 
       - name: Build Lilikoi
-        run: dotnet build Lilikoi --framework $FRAMEWORK --configuration $BUILD_CONFIG --no-restore
+        run: dotnet build Lilikoi --framework netstandard2.0 --configuration Release --no-restore
 
       - name: Build Tests
-        run: dotnet build Lilikoi.Tests --framework $TEST_FRAMEWORK --configuration $BUILD_CONFIG --no-restore
+        run: dotnet build Lilikoi.Tests --framework net7.0 --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test Lilikoi.Tests --framework $TEST_FRAMEWORK --configuration $BUILD_CONFIG --no-build --no-restore --verbosity normal
+        run: dotnet test Lilikoi.Tests --framework net7.0 --configuration Release --no-build --no-restore --verbosity normal
 
       - name: Pack Lilikoi
-        run: dotnet pack Lilikoi --configuration $BUILD_CONFIG --no-build --no-restore
+        run: dotnet pack Lilikoi --configuration Release --no-build --no-restore
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v3
