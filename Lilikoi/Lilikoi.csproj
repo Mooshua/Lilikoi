@@ -27,12 +27,16 @@
         
         <!-- GitVersion -->
         <GitVersion_NoFetchEnabled>false</GitVersion_NoFetchEnabled>
+        <GitVersion_NoCacheEnabled>true</GitVersion_NoCacheEnabled>
         <GitVersion_CommandLineArguments></GitVersion_CommandLineArguments>
 
         <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
         <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
         <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
         <PackageOutputPath>$(SolutionDir)artifacts/</PackageOutputPath>
+        
+        <WriteVersionIntoBuildLog>true</WriteVersionIntoBuildLog>
+        <UpdateVersionProperties>true</UpdateVersionProperties>
     </PropertyGroup>
     
     <ItemGroup>
