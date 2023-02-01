@@ -47,8 +47,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: nuget_packages
-          path: artifacts\*.nupkg
+          path: ./artifacts/*.nupkg
           if-no-files-found: error
 
       - name: Publish
-        run: nuget push artifacts\*.nupkg -Source 'https://nuget.pkg.github.com/Mooshua/index.json' -ApiKey ${{secrets.GITHUB_TOKEN}}
+        run: nuget push ./artifacts/*.nupkg -Source 'https://nuget.pkg.github.com/Mooshua/index.json' -ApiKey ${{secrets.GITHUB_TOKEN}}
