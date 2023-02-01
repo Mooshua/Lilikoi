@@ -15,6 +15,9 @@
         <PackageTags>declarative ioc dependencyinjection di lilikoi lk</PackageTags>
         <PackageIcon>LilikoiBox1080.png</PackageIcon>
         <PackageIconUrl>https://alfred.mooshua.net/public/lilikoi/LilikoiBox1080.png</PackageIconUrl>
+
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         
         <RepositoryUrl>https://github.com/Mooshua/Lilikoi</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
@@ -41,6 +44,9 @@
     
     <ItemGroup>
         <None Include="..\Assets\LilikoiBox1080.png" Pack="true" PackagePath="\" />
+        <None Include="..\LICENSE.md" Pack="true" PackagePath="\"/>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+
     </ItemGroup>
     
     <ItemGroup>
