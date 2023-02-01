@@ -26,7 +26,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         
         <!-- GitVersion -->
-        <GitVersion_NoFetchEnabled>true</GitVersion_NoFetchEnabled>
+        <GitVersion_NoFetchEnabled>false</GitVersion_NoFetchEnabled>
         <GitVersion_CommandLineArguments></GitVersion_CommandLineArguments>
 
         <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
