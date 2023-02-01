@@ -2,9 +2,12 @@
   edge:
     regex: ^edge%
     source-branches: []
+    mode: ContinuousDeployment
+    increment: None
   stable:
     regex: ^stable%
     source-branches: [ 'edge' ]
     is-mainline: true
+    increment: Patch
 ignore:
   sha: []
