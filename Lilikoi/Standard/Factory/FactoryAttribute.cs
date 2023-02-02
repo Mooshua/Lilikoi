@@ -1,9 +1,8 @@
 ﻿//       ========================
-//       Lilikoi::MountAttribute.cs
-//       Distributed under the MIT License.
+//       Lilikoi::FactoryAttribute.cs
 //
-// ->    Created: 23.12.2022
-// ->    Bumped: 23.12.2022
+// ->    Created: 01.02.2023
+// ->    Bumped: 01.02.2023
 //
 // ->    Purpose:
 //
@@ -14,15 +13,15 @@ using Lilikoi.Context;
 
 namespace Lilikoi.Standard;
 
-public class MountAttribute : LkInjectionAttribute
+public class FactoryAttribute : LkInjectionAttribute
 {
 	public override bool IsInjectable<TInjectable>(Mount mount)
 	{
-		return mount.Has<TInjectable>();
+		return mount.Has<IFactory<TInjectable>>();
 	}
 
 	public override TInjectable Inject<TInjectable>(Mount context)
 	{
-		return context.Get<TInjectable>()!;
+		return context.Get<IFactory<TInjectable>>().Create();
 	}
 }
