@@ -13,6 +13,7 @@
 
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Compiler.Mahogany;
+using Lilikoi.Context;
 
 #endregion
 
@@ -22,15 +23,14 @@ public class LilikoiCompiler
 {
 	internal MahoganyCompiler Internal { get; set; }
 
+	internal Mount Smuggler { get; } = new Mount();
+
 	internal List<LkWrapBuilderAttribute> ImplicitWraps = new List<LkWrapBuilderAttribute>();
-	internal List<LkParameterBuilderAttribute> ImplicitWildcards = new List<LkParameterBuilderAttribute>();
+	internal List<(LkParameterBuilderAttribute, Type)> ImplicitWildcards = new List<(LkParameterBuilderAttribute, Type)>();
 
 	public LilikoiMutator Mutator()
 	{
-		return new LilikoiMutator()
-		{
-			Compiler = this
-		};
+		return new LilikoiMutator(Smuggler, this);
 	}
 
 	public LilikoiContainer Finish()
@@ -43,13 +43,16 @@ public class LilikoiCompiler
 			Internal.ImplicitWrap(implicitWrap);
 		}
 		Internal.WrapsFor();
+
+		foreach (var (implicitWildcard, type) in ImplicitWildcards)
+		{
+			Internal.ImplicitWildcard(implicitWildcard, type);
+		}
+
 		Internal.ParametersFor();
 
 		Internal.Apex();
 
-		return new LilikoiContainer()
-		{
-			Body = Internal.Method.Lambda()
-		};
+		return new LilikoiContainer(Smuggler, Internal.Method.Lambda());
 	}
 }

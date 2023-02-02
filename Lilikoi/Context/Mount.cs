@@ -17,6 +17,16 @@ public class Mount
 {
 	private TypeDictionary dictionary = new TypeDictionary();
 
+	public Mount()
+	{
+
+	}
+
+	public Mount(Mount other)
+	{
+		dictionary = other.dictionary;
+	}
+
 	public virtual void Store<T>(T value)
 		where T : class
 	{

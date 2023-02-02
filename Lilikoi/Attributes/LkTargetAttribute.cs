@@ -17,6 +17,11 @@ namespace Lilikoi.Attributes;
 public abstract class LkTargetAttribute : LkTargetBuilderAttribute
 {
 
+	public sealed override LkTargetAttribute Build(Mount mount)
+	{
+		return this.MemberwiseClone() as LkTargetAttribute;
+	}
+
 	/// <summary>
 	/// Determine if this method should be included in the UserContext's scan.
 	/// </summary>
