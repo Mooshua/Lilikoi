@@ -23,12 +23,12 @@ public class NewAttribute : LkInjectionAttribute
 		ConstructorParameters = constructor;
 	}
 
-	public override bool IsInjectable<TInjectable>(Mount mount)
+	public override bool IsInjectable<TInjectable>(Context.Mount mount)
 	{
 		return Activator.CreateInstance(typeof(TInjectable), ConstructorParameters) as TInjectable is not null;
 	}
 
-	public override TInjectable Inject<TInjectable>(Mount context)
+	public override TInjectable Inject<TInjectable>(Context.Mount context)
 	{
 		var instance = Activator.CreateInstance(typeof(TInjectable), ConstructorParameters) as TInjectable;
 

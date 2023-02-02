@@ -20,7 +20,7 @@ public abstract class LkTargetBuilderAttribute : Attribute
 	/// Create an instance of LkTargetAttribute that will be consumed by Lilikoi.
 	/// </summary>
 	/// <returns></returns>
-	public abstract LkTargetAttribute Build();
+	public abstract LkTargetAttribute Build(Mount mount);
 
 	/// <summary>
 	/// Declare if the built TargetAttribute will be able to accept a context with the type "TUserContext".

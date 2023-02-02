@@ -9,39 +9,30 @@
 //
 //
 //       ========================
-#region
-
 using System.Linq.Expressions;
 
-#endregion
+using Lilikoi.Context;
 
 namespace Lilikoi.Compiler.Public;
 
-public class LilikoiContainer
+public class LilikoiContainer : Mount
 {
-	internal LambdaExpression Body { get; set; }
+	internal LilikoiContainer(Mount self, LambdaExpression body) : base(self)
+	{
+		Body = body;
+	}
 
-/*#if DEBUG
+	private LambdaExpression Body { get; set; }
+
+	private Delegate Memoized { get; set; }
 
 	public TOut Run<THost, TIn, TOut>(THost host, TIn input)
 	{
-		return (Body.Compile(true) as Func<THost, TIn, TOut>)(host, input);
-	}
+		if (Memoized is null)
+			Memoized = Compile<THost, TIn, TOut>();
 
-	public Func<THost, TIn, TOut> Compile<THost, TIn, TOut>() => Body.Compile(true) as Func<THost, TIn, TOut>;
-
-	public override string ToString()
-	{
-		return ((Expression)Body).ToReadableString(opt => { return opt; });
-	}
-#endif*/
-
-#if !DEBUG
-	public TOut Run<THost, TIn, TOut>(THost host, TIn input)
-	{
-		return (Body.Compile(false) as Func<THost, TIn, TOut>)(host, input);
+		return (Memoized as Func<THost, TIn, TOut>)(host, input);
 	}
 
 	public Func<THost, TIn, TOut> Compile<THost, TIn, TOut>() => Body.Compile(false) as Func<THost, TIn, TOut>;
-#endif
 }
