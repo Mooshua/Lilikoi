@@ -1,18 +1,18 @@
 ﻿//       ========================
 //       Lilikoi.Tests::WildcardTest.cs
-//
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 02.02.2023
-// ->    Bumped: 02.02.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
-using Lilikoi.Attributes;
+#region
+
 using Lilikoi.Attributes.Static;
 using Lilikoi.Attributes.Typed;
 using Lilikoi.Compiler.Public;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Tests.Mutator.Wildcards;
 
@@ -56,12 +56,10 @@ public class WildcardTest
 
 	public class WildcardHost
 	{
-
 		[Wildcard]
 		public string Entry(string thing)
 		{
 			return thing;
 		}
-
 	}
 }

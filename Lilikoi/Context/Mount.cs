@@ -1,25 +1,24 @@
 ﻿//       ========================
-//       Lilikoi.Core::InvocationContext.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::Mount.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Collection;
+
+#endregion
 
 namespace Lilikoi.Context;
 
 public class Mount
 {
-	private TypeDictionary dictionary = new TypeDictionary();
+	private TypeDictionary dictionary = new();
 
 	public Mount()
 	{
-
 	}
 
 	public Mount(Mount other)
@@ -40,5 +39,8 @@ public class Mount
 		return dictionary.Get<T>();
 	}
 
-	public virtual bool Has<T>() => dictionary.Has<T>();
+	public virtual bool Has<T>()
+	{
+		return dictionary.Has<T>();
+	}
 }

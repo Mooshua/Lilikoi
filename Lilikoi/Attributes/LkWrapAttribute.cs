@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MkWrapAttribute.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::LkWrapAttribute.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -29,7 +25,7 @@ public abstract class LkWrapAttribute : LkWrapBuilderAttribute
 	/// <returns></returns>
 	public sealed override LkWrapAttribute Build(Mount mount)
 	{
-		return this.MemberwiseClone() as LkWrapAttribute;
+		return MemberwiseClone() as LkWrapAttribute;
 	}
 
 	public abstract WrapResult<TOutput> Before<TInput, TOutput>(Mount mount, ref TInput input)
@@ -58,12 +54,12 @@ public abstract class LkWrapAttribute : LkWrapBuilderAttribute
 
 		public static WrapResult<TUnderlying> Continue()
 		{
-			return new();
+			return new WrapResult<TUnderlying>();
 		}
 
 		public static WrapResult<TUnderlying> Stop(TUnderlying value)
 		{
-			return new()
+			return new WrapResult<TUnderlying>
 			{
 				stop = true,
 				stopWithValue = value
@@ -73,7 +69,7 @@ public abstract class LkWrapAttribute : LkWrapBuilderAttribute
 		public WrapResult<TNew> Cast<TNew>()
 			where TNew : class
 		{
-			return new()
+			return new WrapResult<TNew>
 			{
 				stop = stop,
 				stopWithValue = stopWithValue as TNew

@@ -1,14 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MahoganyBlockStack.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::MahoganyBlockStack.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//		 Block stack to ensure the pyramid is executed in the same order climbing both up and down.
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 

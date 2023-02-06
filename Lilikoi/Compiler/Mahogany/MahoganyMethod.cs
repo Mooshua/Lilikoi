@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MahoganyMethod.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::MahoganyMethod.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 24.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -23,10 +19,9 @@ namespace Lilikoi.Compiler.Mahogany;
 
 public class MahoganyMethod
 {
+	public List<ParameterExpression> Temporaries = new();
 
 	public LabelTarget HaltTarget { get; set; }
-
-	public List<ParameterExpression> Temporaries = new();
 
 	/// <summary>
 	///     A list of parameters that are to be injected into the method, indexed by the parameter they

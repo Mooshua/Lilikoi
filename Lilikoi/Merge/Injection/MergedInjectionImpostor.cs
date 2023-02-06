@@ -1,26 +1,27 @@
 ﻿//       ========================
-//       Lilikoi::MergedInjectionActor.cs
-//
+//       Lilikoi::MergedInjectionImpostor.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 01.02.2023
-// ->    Bumped: 01.02.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Attributes;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Merge.Injection;
 
 public class MergedInjectionImpostor : LkInjectionAttribute
 {
-	protected InjectionMerger Merged { get; }
-
 	public MergedInjectionImpostor(InjectionMerger merged)
 	{
 		Merged = merged;
 	}
+
+	protected InjectionMerger Merged { get; }
 
 	public override bool IsInjectable<TInjectable>(Mount mount)
 	{

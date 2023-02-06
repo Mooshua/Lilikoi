@@ -1,16 +1,17 @@
 ﻿//       ========================
-//       Lilikoi.Tests::SmuggleHost.cs
-//
+//       Lilikoi.Tests::SmuggleTest.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 02.02.2023
-// ->    Bumped: 02.02.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Attributes.Static;
 using Lilikoi.Compiler.Public;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Tests.Mutator.Smuggling;
 
@@ -44,12 +45,10 @@ public class SmuggleTest
 
 	public class SmuggleHost
 	{
-
 		[Smuggle]
 		public object Entry()
 		{
 			return this;
 		}
-
 	}
 }

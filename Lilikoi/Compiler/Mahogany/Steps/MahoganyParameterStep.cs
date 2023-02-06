@@ -1,20 +1,19 @@
 ﻿//       ========================
-//       Lilikoi.Core::MahoganyParameterStep.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::MahoganyParameterStep.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
 
 using System.Linq.Expressions;
 using System.Reflection;
 
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Compiler.Mahogany.Generator;
+
+#endregion
 
 namespace Lilikoi.Compiler.Mahogany.Steps;
 

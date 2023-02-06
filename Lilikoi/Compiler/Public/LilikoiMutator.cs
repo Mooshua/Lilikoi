@@ -1,16 +1,16 @@
 ﻿//       ========================
-//       Lilikoi.Core::LilikoiMutator.cs
-//
+//       Lilikoi::LilikoiMutator.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 31.01.2023
-// ->    Bumped: 31.01.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
 
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Compiler.Public;
 
@@ -24,7 +24,7 @@ public class LilikoiMutator : Mount
 	internal LilikoiCompiler Compiler { get; set; }
 
 	/// <summary>
-	/// Add an implicit wrap to this container
+	///     Add an implicit wrap to this container
 	/// </summary>
 	/// <param name="value"></param>
 	/// <returns></returns>
@@ -35,8 +35,8 @@ public class LilikoiMutator : Mount
 	}
 
 	/// <summary>
-	/// Add an implicit wrap to this container.
-	/// If a null value is provided, the default constructor is used.
+	///     Add an implicit wrap to this container.
+	///     If a null value is provided, the default constructor is used.
 	/// </summary>
 	/// <param name="value"></param>
 	/// <typeparam name="TWrap"></typeparam>
@@ -52,36 +52,36 @@ public class LilikoiMutator : Mount
 	}
 
 	/// <summary>
-	/// Add a parameter wildcard to this container.
+	///     Add a parameter wildcard to this container.
 	/// </summary>
 	/// <param name="value"></param>
 	/// <returns></returns>
 	public LilikoiMutator Wildcard<TType>(LkParameterBuilderAttribute value)
 	{
-		Compiler.ImplicitWildcards.Add( (value, typeof(TType)) );
+		Compiler.ImplicitWildcards.Add((value, typeof(TType)));
 		return this;
 	}
 
 	/// <summary>
-	/// Add a parameter wildcard to this container.
-	/// If a null value is provided, the default constructor is used.
+	///     Add a parameter wildcard to this container.
+	///     If a null value is provided, the default constructor is used.
 	/// </summary>
 	/// <param name="value"></param>
 	/// <typeparam name="TParameter"></typeparam>
 	/// <returns></returns>
 	public LilikoiMutator Wildcard<TType, TParameter>(TParameter value = null)
-	where TParameter: LkParameterBuilderAttribute, new()
+		where TParameter : LkParameterBuilderAttribute, new()
 	{
 		if (value is null)
 			value = new TParameter();
 
-		Compiler.ImplicitWildcards.Add( (value, typeof(TType)) );
+		Compiler.ImplicitWildcards.Add((value, typeof(TType)));
 		return this;
 	}
 
 	/// <summary>
-	/// Get the parameter type of a function by the parameter number
-	/// Used for type routing
+	///     Get the parameter type of a function by the parameter number
+	///     Used for type routing
 	/// </summary>
 	/// <param name="paramNum"></param>
 	/// <returns></returns>

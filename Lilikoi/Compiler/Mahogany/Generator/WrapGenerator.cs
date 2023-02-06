@@ -1,14 +1,11 @@
 ﻿//       ========================
-//       Lilikoi.Core::WrapGenerator.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::WrapGenerator.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
 
 using System.Linq.Expressions;
 using System.Reflection;
@@ -17,21 +14,22 @@ using Lilikoi.Attributes;
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Context;
 
+#endregion
+
 namespace Lilikoi.Compiler.Mahogany.Generator;
 
 internal static class WrapGenerator
 {
+	public const string WRAPRESULT_STOP = nameof(LkWrapAttribute.WrapResult<LkWrapAttribute>.stop);
+	public const string WRAPRESULT_VALUE = nameof(LkWrapAttribute.WrapResult<LkWrapAttribute>.stopWithValue);
 
 	internal static MethodInfo MkWrapBuilderAttribute_Build = typeof(LkWrapBuilderAttribute).GetMethod("Build");
 
 	public static MethodInfo MkWrapAttribute_Before = typeof(LkWrapAttribute).GetMethod("Before");
 	public static MethodInfo MkWrapAttribute_After = typeof(LkWrapAttribute).GetMethod("After");
 
-	public const string WRAPRESULT_STOP = nameof(LkWrapAttribute.WrapResult<LkWrapAttribute>.stop);
-	public const string WRAPRESULT_VALUE = nameof(LkWrapAttribute.WrapResult<LkWrapAttribute>.stopWithValue);
-
 	/// <summary>
-	/// Create an expression which creates an MkWrapAttribute.
+	///     Create an expression which creates an MkWrapAttribute.
 	/// </summary>
 	/// <param name="builderAttribute"></param>
 	/// <returns></returns>
@@ -41,11 +39,14 @@ internal static class WrapGenerator
 	}
 
 	/// <summary>
-	/// Create a redirectable "before" wrap which can modify the input or halt execution altogether.
-	/// This wrap can jump to the "end" label provided in the builder.
+	///     Create a redirectable "before" wrap which can modify the input or halt execution altogether.
+	///     This wrap can jump to the "end" label provided in the builder.
 	/// </summary>
 	/// <param name="builder"></param>
-	/// <param name="attribute">An expression which represents the MkWrapAttribute in use for this ececution.</param>
+	/// <param name="attribute">
+	///     An expression which represents the MkWrapAttribute in use for this
+	///     ececution.
+	/// </param>
 	/// <param name="inputSource"></param>
 	/// <param name="input"></param>
 	/// <param name="output"></param>
@@ -65,10 +66,10 @@ internal static class WrapGenerator
 		var guard =
 			Expression.Block(
 				setter,
-			Expression.IfThen(
-			Expression.IsTrue(Expression.Field(result, WRAPRESULT_STOP)),
-			Expression.Return(method.HaltTarget, Expression.Field(result, WRAPRESULT_VALUE))
-			));
+				Expression.IfThen(
+					Expression.IsTrue(Expression.Field(result, WRAPRESULT_STOP)),
+					Expression.Return(method.HaltTarget, Expression.Field(result, WRAPRESULT_VALUE))
+					));
 
 		return Expression.Block(
 			guard,
@@ -76,9 +77,12 @@ internal static class WrapGenerator
 	}
 
 	/// <summary>
-	/// Create an "after" filter which can modify the output.
+	///     Create an "after" filter which can modify the output.
 	/// </summary>
-	/// <param name="attribute">An expression which represents the MkWrapAttribute in use for this ececution.</param>
+	/// <param name="attribute">
+	///     An expression which represents the MkWrapAttribute in use for this
+	///     ececution.
+	/// </param>
 	/// <param name="outputSource"></param>
 	/// <param name="output"></param>
 	/// <returns></returns>
@@ -88,13 +92,11 @@ internal static class WrapGenerator
 
 		var method = MkWrapAttribute_After.MakeGenericMethod(output);
 
-		return Expression.Call(attribute, method, mountSource,  outputSource);
+		return Expression.Call(attribute, method, mountSource, outputSource);
 	}
 
 	internal static Expression After(MahoganyMethod method, Expression attribute)
 	{
-		return After(attribute,  method.Named(MahoganyConstants.MOUNT_VAR), method.Named(MahoganyConstants.OUTPUT_VAR), method.Result);
+		return After(attribute, method.Named(MahoganyConstants.MOUNT_VAR), method.Named(MahoganyConstants.OUTPUT_VAR), method.Result);
 	}
-
-
 }

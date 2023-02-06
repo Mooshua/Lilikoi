@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MilikoMethod.cs
-//       Distributed under the MIT License.
+//       Lilikoi::LilikoiMethod.cs
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -38,7 +34,7 @@ public class LilikoiMethod
 				Host = method.DeclaringType,
 				NamedVariables = new Dictionary<string, ParameterExpression>()
 				{
-					{ MahoganyConstants.HOST_VAR, Expression.Parameter(method.DeclaringType, MahoganyConstants.HOST_VAR) },
+					{ MahoganyConstants.HOST_VAR, Expression.Parameter(method.DeclaringType, MahoganyConstants.HOST_VAR) }
 				}
 			}
 		};

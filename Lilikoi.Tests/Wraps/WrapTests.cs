@@ -1,56 +1,22 @@
 ﻿//       ========================
-//       Lilikoi.Tests::RespectsWrapResultTest.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi.Tests::WrapTests.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 24.12.2022
-// ->    Bumped: 24.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Compiler.Public;
 using Lilikoi.Context;
-using Lilikoi.Tests.Injections.AllMethodsCalled;
 using Lilikoi.Tests.Wraps.Invocations;
+
+#endregion
 
 namespace Lilikoi.Tests.Wraps;
 
 public class WrapTests
 {
-	public class DummyHost
-	{
-		[HaltWrap]
-		public string ShouldHalt()
-		{
-			Assert.Fail("Entry point invoked");
-
-			return "Entry";
-		}
-
-		[ContinueWrap]
-		public string ShouldContinue()
-		{
-
-			return "Entry";
-		}
-
-		[ModifyWrap]
-		public string ShouldModify()
-		{
-
-			return "Entry";
-		}
-
-		[MutateInputWrap]
-		public string ShouldModifyInput(string input)
-		{
-			Assert.AreEqual(input, "Modified");
-			Assert.Pass("Modified entry");
-			return "Entry";
-		}
-	}
-
 	[Test]
 	public void Halts()
 	{
@@ -127,4 +93,34 @@ public class WrapTests
 		Assert.Fail("Reached exit point without passing");
 	}
 
+	public class DummyHost
+	{
+		[HaltWrap]
+		public string ShouldHalt()
+		{
+			Assert.Fail("Entry point invoked");
+
+			return "Entry";
+		}
+
+		[ContinueWrap]
+		public string ShouldContinue()
+		{
+			return "Entry";
+		}
+
+		[ModifyWrap]
+		public string ShouldModify()
+		{
+			return "Entry";
+		}
+
+		[MutateInputWrap]
+		public string ShouldModifyInput(string input)
+		{
+			Assert.AreEqual(input, "Modified");
+			Assert.Pass("Modified entry");
+			return "Entry";
+		}
+	}
 }

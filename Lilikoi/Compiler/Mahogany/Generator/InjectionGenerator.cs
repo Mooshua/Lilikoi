@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::InjectionGenerator.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::InjectionGenerator.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 26.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -62,13 +58,16 @@ internal static class InjectionGenerator
 	}
 
 	/// <summary>
-	/// Returns a binary expression that sets the property on the source to the injected value
+	///     Returns a binary expression that sets the property on the source to the injected value
 	/// </summary>
 	/// <param name="attribute">An expression that evaluates to the built attribute object.</param>
 	/// <param name="source">An expression that resolves to the object the result will be assigned to.</param>
 	/// <param name="property">The property that will be assigned.</param>
 	/// <param name="method">The compiler context, used for mount named variable.</param>
-	/// <returns>An expression that injects the value from <paramref name="attribute"/> and assigns it to <see cref="property"/></returns>
+	/// <returns>
+	///     An expression that injects the value from <paramref name="attribute" /> and assigns it to
+	///     <see cref="property" />
+	/// </returns>
 	public static Expression InjectValueAsProperty(
 		MahoganyMethod method,
 		Expression attribute,
