@@ -54,25 +54,6 @@ public class WrapTests
 	[Test]
 	public void Halts()
 	{
-		var method = typeof(DummyHost).GetMethod("ShouldContinue");
-
-		var build = LilikoiMethod.FromMethodInfo(method)
-			.Input<object>()
-			.Output<string>()
-			.Mount(new Mount())
-			.Build()
-			.Finish();
-
-		Console.WriteLine(build.ToString());
-
-		var output = build.Run<DummyHost, object, string>(new DummyHost(), new object());
-
-		Assert.AreEqual(output, "Entry");
-	}
-
-	[Test]
-	public void Continues()
-	{
 		var method = typeof(DummyHost).GetMethod("ShouldHalt");
 
 		var build = LilikoiMethod.FromMethodInfo(method)
@@ -86,7 +67,26 @@ public class WrapTests
 
 		var output = build.Run<DummyHost, object, string>(new DummyHost(), new object());
 
-		Assert.AreEqual(output, "Before");
+		Assert.AreEqual("Before", output);
+	}
+
+	[Test]
+	public void Continues()
+	{
+		var method = typeof(DummyHost).GetMethod("ShouldContinue");
+
+		var build = LilikoiMethod.FromMethodInfo(method)
+			.Input<object>()
+			.Output<string>()
+			.Mount(new Mount())
+			.Build()
+			.Finish();
+
+		Console.WriteLine(build.ToString());
+
+		var output = build.Run<DummyHost, object, string>(new DummyHost(), new object());
+
+		Assert.Fail("Reached exit point without passing");
 	}
 
 	[Test]
@@ -105,7 +105,7 @@ public class WrapTests
 
 		var output = build.Run<DummyHost, object, string>(new DummyHost(), new object());
 
-		Assert.AreEqual(output, "After");
+		Assert.AreEqual("After", output);
 	}
 
 	[Test]
@@ -123,6 +123,8 @@ public class WrapTests
 		Console.WriteLine(build.ToString());
 
 		var output = build.Run<DummyHost, string, string>(new DummyHost(), "Input");
+
+		Assert.Fail("Reached exit point without passing");
 	}
 
 }

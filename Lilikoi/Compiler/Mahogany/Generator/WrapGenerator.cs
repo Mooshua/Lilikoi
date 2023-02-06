@@ -71,9 +71,8 @@ internal static class WrapGenerator
 			));
 
 		return Expression.Block(
-			invocation,
 			guard,
-			invocation);
+			result);
 	}
 
 	/// <summary>

@@ -28,6 +28,6 @@ public class ContinueWrapAttribute : LkWrapAttribute
 
 	public override void After<TOutput>(Mount mount, ref TOutput output)
 	{
-		Assert.Pass();
+		Assert.Pass("Reached after");
 	}
 }

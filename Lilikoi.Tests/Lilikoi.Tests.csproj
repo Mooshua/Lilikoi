@@ -25,4 +25,9 @@
         <ProjectReference Include="..\Lilikoi\Lilikoi.csproj" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Folder Include="Parameters" />
+    </ItemGroup>
+
 </Project>

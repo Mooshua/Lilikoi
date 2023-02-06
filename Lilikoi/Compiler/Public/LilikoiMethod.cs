@@ -33,7 +33,7 @@ public class LilikoiMethod
 			{
 				Parameters = method.GetParameters().Select(x => x.ParameterType).ToList(),
 				Return = method.ReturnType,
-				HaltTarget = Expression.Label(method.ReturnType),
+				HaltTarget = Expression.Label(method.ReturnType, "Halt"),
 				Entry = method,
 				Host = method.DeclaringType,
 				NamedVariables = new Dictionary<string, ParameterExpression>()
@@ -53,6 +53,7 @@ public class LilikoiMethod
 	{
 		Implementation.Input = typeof(TInput);
 		Implementation.NamedVariables.Add(MahoganyConstants.INPUT_VAR, Expression.Parameter(typeof(TInput), MahoganyConstants.INPUT_VAR));
+		Implementation.Wildcards.Add(typeof(TInput), Implementation.Named(MahoganyConstants.INPUT_VAR));
 
 		return this;
 	}

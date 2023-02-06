@@ -1,8 +1,7 @@
-<div style="text-align: center;">
+<center>
 <img src="https://raw.githubusercontent.com/Mooshua/Lilikoi/main/Assets/LilikoiBox1080.png" width="256">
 <h1>Lilikoi</h1>
-</div>
-
+</center>
 
 
 | Main   | [![main](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/Mooshua/Lilikoi/actions/workflows/tests.yml) |
@@ -29,6 +28,15 @@
 | Async/Await         | ⏳  |
 | Debugging           | ⏳  |
 | NuGet Release       | 🏗️ |
+
+### Documentation
+
+Documentation is a work in progress, but here's what we have so far:
+
+- **[Overview](./Docs/overview.md)** -- *Read me first!*
+- **[Mounts](./Docs/mounts.md)**
+- **[Containers](./Docs/containers.md)**
+- **[Attributes](./Docs/attributes.md)**
 
 ### What is it?
 

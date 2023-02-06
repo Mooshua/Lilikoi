@@ -22,9 +22,9 @@ using Lilikoi.Context;
 namespace Lilikoi.Benchmarks.Micro;
 
 
-[SimpleJob(RuntimeMoniker.Net47)]
+//[SimpleJob(RuntimeMoniker.Net47)]
 [SimpleJob(RuntimeMoniker.Net48)]
-[SimpleJob(RuntimeMoniker.Net60)]
+//[SimpleJob(RuntimeMoniker.Net60)]
 [SimpleJob(RuntimeMoniker.Net70)]
 [Q1Column, MeanColumn, MedianColumn, Q3Column, StdDevColumn, StdErrorColumn]
 [MemoryDiagnoser(true)]
@@ -33,7 +33,7 @@ public class MountBenchmark
 {
 	public Mount Mount = new Mount();
 
-	[Params(5, 15)]
+	[Params(0, 5, 15)]
 	public int Fodder;
 
 	[GlobalSetup]
@@ -43,13 +43,15 @@ public class MountBenchmark
 
 		Type[] fodder = new[]
 		{
-
-			typeof(LilikoiMutator),
-			typeof(LilikoiCompiler),
-			typeof(LilikoiMethod),
-			typeof(LilikoiContainer),
-
 			typeof(Dictionary<String, String>),
+			typeof(Dictionary<String, int>),
+			typeof(Dictionary<String, long>),
+			typeof(Dictionary<String, DateTime>),
+			typeof(Dictionary<String, object>),
+			typeof(Dictionary<String, double>),
+			typeof(Dictionary<String, float>),
+
+
 			typeof(List<string>),
 			typeof(List<int>),
 			typeof(List<long>),

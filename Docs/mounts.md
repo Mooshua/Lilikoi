@@ -2,7 +2,7 @@
 
 Mounts are a powerful type dictionary that is designed to allow for a wide array
 of software to store and read their own opaque states without colliding with
-other software in the same environments.
+other software in the same environment.
 
 Mounts are present throughout many stages in the lifecycle of a Lilikoi container:
  - Creation/Compilation

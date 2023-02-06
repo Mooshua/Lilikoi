@@ -12,6 +12,7 @@
 #region
 
 using Lilikoi.Attributes.Builders;
+using Lilikoi.Attributes.Static;
 using Lilikoi.Compiler.Mahogany;
 using Lilikoi.Context;
 
@@ -33,8 +34,20 @@ public class LilikoiCompiler
 		return new LilikoiMutator(Smuggler, this);
 	}
 
+	private void Mutators()
+	{
+		var mutators = MahoganyCompiler.MutatorsForMethod(Internal.Method.Entry);
+
+		foreach (LkMutatorAttribute lilikoiMutator in mutators)
+		{
+			lilikoiMutator.Mutate(Mutator());
+		}
+	}
+
 	public LilikoiContainer Finish()
 	{
+		Mutators();
+
 		Internal.ParameterSafety();
 		Internal.InjectionsFor(Internal.Method.Host);
 

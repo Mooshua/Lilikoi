@@ -15,8 +15,10 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using Lilikoi.Attributes.Builders;
+using Lilikoi.Attributes.Static;
 using Lilikoi.Compiler.Mahogany.Generator;
 using Lilikoi.Compiler.Mahogany.Steps;
+using Lilikoi.Compiler.Public;
 
 #endregion
 
@@ -116,14 +118,15 @@ public class MahoganyCompiler
 	/// <param name="runtimeMethod"></param>
 	/// <returns></returns>
 	/// <exception cref="Exception"></exception>
-	public static List<Expression> ParameterFillingForMethod(
+	public static Expression[] ParameterFillingForMethod(
 		Dictionary<ParameterInfo, ParameterExpression> param,
 		Dictionary<Type, ParameterExpression> wildcards,
 		MethodInfo runtimeMethod)
 	{
-		var fill = new Dictionary<int, Expression>();
+		var parameters = runtimeMethod.GetParameters();
+		var fill = new Expression[parameters.Length];
 
-		foreach (var parameterInfo in runtimeMethod.GetParameters())
+		foreach (var parameterInfo in parameters)
 		{
 			if (param.ContainsKey(parameterInfo))
 			{
@@ -139,12 +142,8 @@ public class MahoganyCompiler
 
 			throw new Exception($"No wildcard or parameter injection available for parameter at position {parameterInfo.Position} of method {runtimeMethod.Name} with type {parameterInfo.ParameterType.FullName}");
 		}
-		var expressions = fill.Select(kv => (kv.Key, kv.Value))
-			.ToList();
 
-		expressions.Sort((a, b) => a.Key.CompareTo(b.Key));
-
-		return expressions.Select(obj => obj.Value).ToList();
+		return fill;
 	}
 /*
 	public static List<object> WrapStepBuilder(MethodInfo method)
@@ -180,6 +179,11 @@ public class MahoganyCompiler
 		return steps;
 	}
 	*/
+
+	public static List<LkMutatorAttribute> MutatorsForMethod(MethodInfo methodInfo)
+	{
+		return methodInfo.GetCustomAttributes().OfType<LkMutatorAttribute>().ToList();
+	}
 
 	#endregion
 
@@ -243,18 +247,15 @@ public class MahoganyCompiler
 
 	public void Apex()
 	{
-		var filled = ParameterFillingForMethod(Method.MethodInjects, new Dictionary<Type, ParameterExpression>()
-		{
-			{ Method.Input, Method.Named(MahoganyConstants.INPUT_VAR) }
-		}, Method.Entry);
+		var filled = ParameterFillingForMethod(Method.MethodInjects, Method.Wildcards, Method.Entry);
 
 		Stack.Apex(
 			Expression.Block(
-				new[] { Method.Named(MahoganyConstants.OUTPUT_VAR) },
 				Expression.Assign(Method.Named(MahoganyConstants.OUTPUT_VAR),
 					Expression.Call(Method.Named(MahoganyConstants.HOST_VAR), Method.Entry, filled))
 				)
 			);
+
 	}
 
 	#endregion
