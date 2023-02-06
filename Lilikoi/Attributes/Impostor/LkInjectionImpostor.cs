@@ -1,15 +1,16 @@
 ﻿//       ========================
 //       Lilikoi::LkInjectionImpostor.cs
-//
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 01.02.2023
-// ->    Bumped: 01.02.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Attributes.Impostor;
 

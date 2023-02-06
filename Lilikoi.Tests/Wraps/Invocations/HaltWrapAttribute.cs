@@ -1,16 +1,16 @@
 ﻿//       ========================
 //       Lilikoi.Tests::HaltWrapAttribute.cs
-//       Distributed under the MIT License.
-//
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 24.12.2022
-// ->    Bumped: 24.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Attributes;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Tests.Wraps.Invocations;
 

@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MilikoMethod.cs
-//       Distributed under the MIT License.
+//       Lilikoi::LilikoiMethod.cs
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -33,12 +29,12 @@ public class LilikoiMethod
 			{
 				Parameters = method.GetParameters().Select(x => x.ParameterType).ToList(),
 				Return = method.ReturnType,
-				HaltTarget = Expression.Label(method.ReturnType),
+				HaltTarget = Expression.Label(method.ReturnType, "Halt"),
 				Entry = method,
 				Host = method.DeclaringType,
 				NamedVariables = new Dictionary<string, ParameterExpression>()
 				{
-					{ MahoganyConstants.HOST_VAR, Expression.Parameter(method.DeclaringType, MahoganyConstants.HOST_VAR) },
+					{ MahoganyConstants.HOST_VAR, Expression.Parameter(method.DeclaringType, MahoganyConstants.HOST_VAR) }
 				}
 			}
 		};
@@ -53,6 +49,7 @@ public class LilikoiMethod
 	{
 		Implementation.Input = typeof(TInput);
 		Implementation.NamedVariables.Add(MahoganyConstants.INPUT_VAR, Expression.Parameter(typeof(TInput), MahoganyConstants.INPUT_VAR));
+		Implementation.Wildcards.Add(typeof(TInput), Implementation.Named(MahoganyConstants.INPUT_VAR));
 
 		return this;
 	}

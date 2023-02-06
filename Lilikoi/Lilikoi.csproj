@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <LangVersion>11</LangVersion>
         <RootNamespace>Lilikoi</RootNamespace>
-        
+
         <!-- NuGet name -->
         <PackageId>Lilikoi</PackageId>
 
@@ -18,7 +18,7 @@
 
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        
+
         <RepositoryUrl>https://github.com/Mooshua/Lilikoi</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
 
@@ -27,7 +27,7 @@
         <Deterministic>false</Deterministic>
 
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        
+
         <!-- GitVersion -->
         <GitVersion_NoFetchEnabled>false</GitVersion_NoFetchEnabled>
         <GitVersion_NoCacheEnabled>true</GitVersion_NoCacheEnabled>
@@ -37,23 +37,23 @@
         <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
         <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
         <PackageOutputPath>$(SolutionDir)artifacts/</PackageOutputPath>
-        
+
         <WriteVersionIntoBuildLog>true</WriteVersionIntoBuildLog>
         <UpdateVersionProperties>true</UpdateVersionProperties>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <None Include="..\Assets\LilikoiBox1080.png" Pack="true" PackagePath="\" />
-        <None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
-        <None Include="..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\Assets\LilikoiBox1080.png" Pack="true" PackagePath="\"/>
+        <None Include="..\LICENSE.md" Pack="true" PackagePath="\"/>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
 
     </ItemGroup>
-    
+
     <ItemGroup>
-      <PackageReference Include="GitVersion.MsBuild" Version="6.0.0-alpha.1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
+        <PackageReference Include="GitVersion.MsBuild" Version="6.0.0-alpha.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

@@ -1,14 +1,11 @@
 ﻿//       ========================
-//       Lilikoi.Core::LilikoiInjector.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::LilikoiInjector.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 23.12.2022
-// ->    Bumped: 23.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
 
 using System.Linq.Expressions;
 using System.Reflection;
@@ -18,18 +15,23 @@ using Lilikoi.Compiler.Mahogany;
 using Lilikoi.Compiler.Mahogany.Generator;
 using Lilikoi.Context;
 
+#endregion
+
 namespace Lilikoi.Compiler.Public.Utilities;
 
 public static class LilikoiInjector
 {
+	public delegate void Dejector<T>(T obj);
+
+	public delegate void Injector<T>(T obj);
+
 	internal static void InjectsForClass(List<Expression> injects, List<Expression> dejects, List<ParameterExpression> variables, ParameterExpression host, ParameterExpression mount, Mount mountVal, Type type)
 	{
-		foreach (FieldInfo fieldInfo in type.GetFields())
-		foreach (LkInjectionBuilderAttribute attribute in
+		foreach (var fieldInfo in type.GetFields())
+		foreach (var attribute in
 		         fieldInfo.GetCustomAttributes()
 			         .OfType<LkInjectionBuilderAttribute>())
 		{
-
 			MahoganyValidator.ValidateInjection(attribute, fieldInfo, mountVal);
 
 			var setter = CommonGenerator.ToVariable(
@@ -49,15 +51,15 @@ public static class LilikoiInjector
 		}
 	}
 
-	internal static Injector<THost> InjectorForClass<THost>( Mount mount )
+	internal static Injector<THost> InjectorForClass<THost>(Mount mount)
 	{
 		var host = typeof(THost);
-		List<Expression> body = new List<Expression>();
-		List<Expression> dejectBody = new List<Expression>();
+		List<Expression> body = new();
+		List<Expression> dejectBody = new();
 
-		List<ParameterExpression> variables = new List<ParameterExpression>();
-		ParameterExpression hostVar = Expression.Parameter(host, "__host");
-		ParameterExpression mountVar = Expression.Parameter(typeof(Mount), "__mount");
+		List<ParameterExpression> variables = new();
+		var hostVar = Expression.Parameter(host, "__host");
+		var mountVar = Expression.Parameter(typeof(Mount), "__mount");
 
 		body.Add(Expression.Assign(mountVar, Expression.Constant(mount)));
 
@@ -80,12 +82,12 @@ public static class LilikoiInjector
 	internal static Dejector<THost> DejectorForClass<THost>(Mount mount)
 	{
 		var host = typeof(THost);
-		List<Expression> injectBody = new List<Expression>();
-		List<Expression> body = new List<Expression>();
+		List<Expression> injectBody = new();
+		List<Expression> body = new();
 
-		List<ParameterExpression> variables = new List<ParameterExpression>();
-		ParameterExpression hostVar = Expression.Parameter(host, "__host");
-		ParameterExpression mountVar = Expression.Parameter(typeof(Mount), "__mount");
+		List<ParameterExpression> variables = new();
+		var hostVar = Expression.Parameter(host, "__host");
+		var mountVar = Expression.Parameter(typeof(Mount), "__mount");
 
 		body.Add(Expression.Assign(mountVar, Expression.Constant(mount)));
 
@@ -105,31 +107,27 @@ public static class LilikoiInjector
 #endif
 	}
 
-	public delegate void Injector<T>(T obj);
-
-	public delegate void Dejector<T>(T obj);
-
 
 	public static Injector<ToInject> CreateInjector<ToInject>(Mount mount)
-		where ToInject: class
+		where ToInject : class
 	{
 		return InjectorForClass<ToInject>(mount);
 	}
 
 	public static Injector<ToInject> CreateInjector<ToInject>()
-		where ToInject: class
+		where ToInject : class
 	{
 		return CreateInjector<ToInject>(new Mount());
 	}
 
 	public static Dejector<ToInject> CreateDejector<ToInject>(Mount mount)
-		where ToInject: class
+		where ToInject : class
 	{
 		return DejectorForClass<ToInject>(mount);
 	}
 
 	public static Dejector<ToInject> CreateDejector<ToInject>()
-		where ToInject: class
+		where ToInject : class
 	{
 		return DejectorForClass<ToInject>(new Mount());
 	}

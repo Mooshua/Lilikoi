@@ -1,15 +1,15 @@
 ﻿//       ========================
-//       Lilikoi.Core::LkMutatorAttribute.cs
-//
+//       Lilikoi::LkMutatorAttribute.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 31.01.2023
-// ->    Bumped: 31.01.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
 
 using Lilikoi.Compiler.Public;
+
+#endregion
 
 namespace Lilikoi.Attributes.Static;
 

@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MkTypedWrapAttribute.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::LkTypedWrapAttribute.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -30,7 +26,6 @@ public abstract class LkTypedWrapAttribute<TIn, TOut> : LkWrapAttribute
 {
 	public sealed override WrapResult<TOutput> Before<TInput, TOutput>(Mount mount, ref TInput input)
 	{
-
 		var casted = input as TIn;
 
 		if (casted is null)
@@ -52,7 +47,7 @@ public abstract class LkTypedWrapAttribute<TIn, TOut> : LkWrapAttribute
 	public sealed override bool IsWrappable<TInput, TOutput>(Mount mount)
 	{
 		return typeof(TIn).IsAssignableFrom(typeof(TInput)) &&
-			typeof(TOut).IsAssignableFrom(typeof(TOutput));
+		       typeof(TOut).IsAssignableFrom(typeof(TOutput));
 	}
 
 	#region Abstract

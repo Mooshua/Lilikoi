@@ -1,17 +1,16 @@
 ﻿//       ========================
 //       Lilikoi::InjectionMerger.cs
-//
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 01.02.2023
-// ->    Bumped: 01.02.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
-using System.Runtime.CompilerServices;
+#region
 
 using Lilikoi.Attributes;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Merge.Injection;
 
@@ -21,7 +20,7 @@ public class InjectionMerger
 	private Dictionary<Type, Func<Mount, object>> merged = new();
 
 	/// <summary>
-	/// Add this initializer to this merged injection
+	///     Add this initializer to this merged injection
 	/// </summary>
 	/// <param name="initializer"></param>
 	/// <typeparam name="TAs"></typeparam>
@@ -33,19 +32,21 @@ public class InjectionMerger
 		if (merged.ContainsKey(typeof(TAs)))
 			throw new InvalidOperationException($"Already contains injection handler for {typeof(TAs).Name}");
 
-		merged.Add(typeof(TAs), initializer as Func<Mount, object> );
+		merged.Add(typeof(TAs), initializer as Func<Mount, object>);
 
 		return this;
 	}
 
 	/// <summary>
-	/// Add this class to this merged injection
+	///     Add this class to this merged injection
 	/// </summary>
 	/// <typeparam name="TAs"></typeparam>
 	/// <returns></returns>
 	public InjectionMerger And<TAs>()
 		where TAs : class, new()
-		=> And<TAs>(mount => new TAs());
+	{
+		return And<TAs>(mount => new TAs());
+	}
 
 	public InjectionMerger And(LkInjectionAttribute attribute)
 	{
@@ -60,44 +61,36 @@ public class InjectionMerger
 	}
 
 	internal bool Has<TAs>(Mount mount)
-		where TAs: class
+		where TAs : class
 	{
 		foreach (var attribute in attributes)
-		{
 			if (attribute.IsInjectable<TAs>(mount))
 				return true;
-		}
 
 		return merged.ContainsKey(typeof(TAs));
 	}
 
 	internal TAs? Inject<TAs>(Mount mount)
-		where TAs: class
+		where TAs : class
 	{
 		foreach (var attribute in attributes)
-		{
 			if (attribute.IsInjectable<TAs>(mount))
 				return attribute.Inject<TAs>(mount);
-		}
 
 		if (merged.TryGetValue(typeof(TAs), out var func))
-		{
 			return func(mount) as TAs;
-		}
 
 		return null;
 	}
 
 	internal void Deject<TAs>(Mount mount, TAs value)
-		where TAs: class
+		where TAs : class
 	{
 		foreach (var attribute in attributes)
-		{
 			if (attribute.IsInjectable<TAs>(mount))
 			{
 				attribute.Deject(mount, value);
 				return;
 			}
-		}
 	}
 }

@@ -1,21 +1,20 @@
 ﻿//       ========================
-//       Lilikoi.Benchmarks::InjectHellHost.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi.Benchmarks::SimpleInjectHost.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Compiler.Public;
+
+#endregion
 
 namespace Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
 
 public class SimpleInjectHost
 {
-
 	[SimpleInjector] public Simple Injected;
 
 	public bool Execute()
@@ -32,5 +31,4 @@ public class SimpleInjectHost
 			.Finish()
 			.Compile<SimpleInjectHost, bool, bool>();
 	}
-
 }

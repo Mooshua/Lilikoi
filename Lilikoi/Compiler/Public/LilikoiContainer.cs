@@ -1,17 +1,17 @@
 ﻿//       ========================
-//       Lilikoi.Core::MilikoContainer.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::LilikoiContainer.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using System.Linq.Expressions;
 
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Compiler.Public;
 
@@ -34,5 +34,8 @@ public class LilikoiContainer : Mount
 		return (Memoized as Func<THost, TIn, TOut>)(host, input);
 	}
 
-	public Func<THost, TIn, TOut> Compile<THost, TIn, TOut>() => Body.Compile(false) as Func<THost, TIn, TOut>;
+	public Func<THost, TIn, TOut> Compile<THost, TIn, TOut>()
+	{
+		return Body.Compile(false) as Func<THost, TIn, TOut>;
+	}
 }

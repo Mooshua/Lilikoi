@@ -1,40 +1,37 @@
 ﻿//       ========================
 //       Lilikoi.Benchmarks::Mount.cs
-//
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 01.02.2023
-// ->    Bumped: 01.02.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 
-using Lilikoi.Attributes;
-using Lilikoi.Attributes.Builders;
-using Lilikoi.Attributes.Typed;
-using Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
-using Lilikoi.Compiler.Public;
-using Lilikoi.Compiler.Public.Utilities;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Benchmarks.Micro;
 
-
-[SimpleJob(RuntimeMoniker.Net47)]
+//[SimpleJob(RuntimeMoniker.Net47)]
 [SimpleJob(RuntimeMoniker.Net48)]
-[SimpleJob(RuntimeMoniker.Net60)]
+//[SimpleJob(RuntimeMoniker.Net60)]
 [SimpleJob(RuntimeMoniker.Net70)]
-[Q1Column, MeanColumn, MedianColumn, Q3Column, StdDevColumn, StdErrorColumn]
+[Q1Column]
+[MeanColumn]
+[MedianColumn]
+[Q3Column]
+[StdDevColumn]
+[StdErrorColumn]
 [MemoryDiagnoser(true)]
 //[EventPipeProfiler(EventPipeProfile.CpuSampling)]
 public class MountBenchmark
 {
-	public Mount Mount = new Mount();
-
-	[Params(5, 15)]
-	public int Fodder;
+	[Params(0, 5, 15)] public int Fodder;
+	public Mount Mount = new();
 
 	[GlobalSetup]
 	public void Setup()
@@ -43,13 +40,15 @@ public class MountBenchmark
 
 		Type[] fodder = new[]
 		{
+			typeof(Dictionary<string, string>),
+			typeof(Dictionary<string, int>),
+			typeof(Dictionary<string, long>),
+			typeof(Dictionary<string, DateTime>),
+			typeof(Dictionary<string, object>),
+			typeof(Dictionary<string, double>),
+			typeof(Dictionary<string, float>),
 
-			typeof(LilikoiMutator),
-			typeof(LilikoiCompiler),
-			typeof(LilikoiMethod),
-			typeof(LilikoiContainer),
 
-			typeof(Dictionary<String, String>),
 			typeof(List<string>),
 			typeof(List<int>),
 			typeof(List<long>),
@@ -58,16 +57,14 @@ public class MountBenchmark
 			typeof(List<double>),
 			typeof(List<float>),
 			typeof(List<char>),
-			typeof(List<byte>),
-
+			typeof(List<byte>)
 		};
 
-		for (int i = 0; i < Fodder; i++)
+		for (var i = 0; i < Fodder; i++)
 		{
 			Console.WriteLine(fodder[i].FullName);
 			Mount.Store(Activator.CreateInstance(fodder[i]));
 		}
-
 	}
 
 	[Benchmark]

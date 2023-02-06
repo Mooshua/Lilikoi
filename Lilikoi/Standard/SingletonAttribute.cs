@@ -1,16 +1,16 @@
 ﻿//       ========================
-//       Lilikoi::MountAttribute.cs
-//       Distributed under the MIT License.
+//       Lilikoi::SingletonAttribute.cs
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 23.12.2022
-// ->    Bumped: 23.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Attributes;
 using Lilikoi.Context;
+
+#endregion
 
 namespace Lilikoi.Standard;
 

@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MahoganyMethod.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::MahoganyMethod.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 24.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -23,10 +19,9 @@ namespace Lilikoi.Compiler.Mahogany;
 
 public class MahoganyMethod
 {
+	public List<ParameterExpression> Temporaries = new();
 
 	public LabelTarget HaltTarget { get; set; }
-
-	public List<ParameterExpression> Temporaries = new();
 
 	/// <summary>
 	///     A list of parameters that are to be injected into the method, indexed by the parameter they
@@ -77,20 +72,28 @@ public class MahoganyMethod
 	public LambdaExpression Lambda()
 	{
 		var func = typeof(Func<,,>).MakeGenericType(Host, Input, Result);
+		var internalVariables = new[]
+		{
+			//Named(MahoganyConstants.HOST_VAR), Named(MahoganyConstants.INPUT_VAR),
+			Named(MahoganyConstants.OUTPUT_VAR)
+		};
 
-		return Expression.Lambda(
-			func,
-			Expression.Block(Temporaries.ToArray(), Expression.Block(
-				new[]
-				{
-					//Named(MahoganyConstants.HOST_VAR), Named(MahoganyConstants.INPUT_VAR),
-					Named(MahoganyConstants.OUTPUT_VAR)
-				},
-				Expression.Block(Expression.Block(Unordered), Expression.Block(Body)), Expression.Label(HaltTarget, Named(MahoganyConstants.OUTPUT_VAR))
-				//,  Named(MahoganyConstants.OUTPUT_VAR)
-				)),
+		var parameters = new[]
+		{
 			Named(MahoganyConstants.HOST_VAR),
-			Named(MahoganyConstants.INPUT_VAR));
+			Named(MahoganyConstants.INPUT_VAR)
+		};
+
+		var internalBody = Expression.Block(Expression.Block(Unordered), Expression.Block(Body));
+
+		var lambdaBody = Expression.Block(
+			internalVariables,
+			Expression.Block(Temporaries.ToArray(), internalBody),
+			Expression.Return(HaltTarget, Named(MahoganyConstants.OUTPUT_VAR)),
+			Expression.Label(HaltTarget, Named(MahoganyConstants.OUTPUT_VAR))
+			);
+
+		return Expression.Lambda(lambdaBody, "LilikoiContainer", parameters);
 	}
 
 	#region Containerized

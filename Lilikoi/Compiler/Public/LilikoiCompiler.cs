@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MilikoCompiler.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::LilikoiCompiler.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -21,33 +17,40 @@ namespace Lilikoi.Compiler.Public;
 
 public class LilikoiCompiler
 {
+	internal List<(LkParameterBuilderAttribute, Type)> ImplicitWildcards = new();
+
+	internal List<LkWrapBuilderAttribute> ImplicitWraps = new();
+
 	internal MahoganyCompiler Internal { get; set; }
 
-	internal Mount Smuggler { get; } = new Mount();
-
-	internal List<LkWrapBuilderAttribute> ImplicitWraps = new List<LkWrapBuilderAttribute>();
-	internal List<(LkParameterBuilderAttribute, Type)> ImplicitWildcards = new List<(LkParameterBuilderAttribute, Type)>();
+	internal Mount Smuggler { get; } = new();
 
 	public LilikoiMutator Mutator()
 	{
 		return new LilikoiMutator(Smuggler, this);
 	}
 
+	private void Mutators()
+	{
+		var mutators = MahoganyCompiler.MutatorsForMethod(Internal.Method.Entry);
+
+		foreach (var lilikoiMutator in mutators)
+			lilikoiMutator.Mutate(Mutator());
+	}
+
 	public LilikoiContainer Finish()
 	{
+		Mutators();
+
 		Internal.ParameterSafety();
 		Internal.InjectionsFor(Internal.Method.Host);
 
 		foreach (var implicitWrap in ImplicitWraps)
-		{
 			Internal.ImplicitWrap(implicitWrap);
-		}
 		Internal.WrapsFor();
 
 		foreach (var (implicitWildcard, type) in ImplicitWildcards)
-		{
 			Internal.ImplicitWildcard(implicitWildcard, type);
-		}
 
 		Internal.ParametersFor();
 

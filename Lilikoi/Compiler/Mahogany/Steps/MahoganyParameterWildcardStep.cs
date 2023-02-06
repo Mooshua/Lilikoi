@@ -1,19 +1,18 @@
 ﻿//       ========================
-//       Lilikoi.Core::MahoganyParameterWildcardStep.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::MahoganyParameterWildcardStep.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 03.01.2023
-// ->    Bumped: 03.01.2023
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
 
 using System.Linq.Expressions;
 
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Compiler.Mahogany.Generator;
+
+#endregion
 
 namespace Lilikoi.Compiler.Mahogany.Steps;
 
