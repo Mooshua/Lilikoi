@@ -12,7 +12,7 @@ using Lilikoi.Context;
 
 #endregion
 
-namespace Lilikoi.Standard;
+namespace Lilikoi.Standard.Factory;
 
 public class FactoryAttribute : LkInjectionAttribute
 {
@@ -23,6 +23,11 @@ public class FactoryAttribute : LkInjectionAttribute
 
 	public override TInjectable Inject<TInjectable>(Mount context)
 	{
-		return context.Get<IFactory<TInjectable>>().Create();
+		var factory = context.Get<IFactory<TInjectable>>();
+
+		if (factory is null)
+			throw new InvalidOperationException($"No factory for type {typeof(TInjectable).FullName} exists.");
+
+		return factory.Create();
 	}
 }
