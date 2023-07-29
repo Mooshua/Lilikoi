@@ -5,6 +5,8 @@
 // ->    Created: 01.02.2023
 // ->    Bumped: 06.02.2023
 //       ========================
+using Lilikoi.Standard.Factory;
+
 namespace Lilikoi.Standard.Extensions;
 
 public static class RegistrationExtensions

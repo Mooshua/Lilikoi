@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::LilikoiMutator.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 31.01.2023
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -44,8 +44,7 @@ public class LilikoiMutator : Mount
 	public LilikoiMutator Implicit<TWrap>(TWrap value = null)
 		where TWrap : LkWrapBuilderAttribute, new()
 	{
-		if (value is null)
-			value = new TWrap();
+		value ??= new TWrap();
 
 		Compiler.ImplicitWraps.Add(value);
 		return this;
@@ -68,12 +67,12 @@ public class LilikoiMutator : Mount
 	/// </summary>
 	/// <param name="value"></param>
 	/// <typeparam name="TParameter"></typeparam>
+	/// <typeparam name="TType"></typeparam>
 	/// <returns></returns>
 	public LilikoiMutator Wildcard<TType, TParameter>(TParameter value = null)
 		where TParameter : LkParameterBuilderAttribute, new()
 	{
-		if (value is null)
-			value = new TParameter();
+		value ??= new TParameter();
 
 		Compiler.ImplicitWildcards.Add((value, typeof(TType)));
 		return this;
@@ -94,4 +93,14 @@ public class LilikoiMutator : Mount
 
 		return parameters[paramNum];
 	}
+
+	/// <summary>
+	/// Get the number of parameters on the host function
+	/// </summary>
+	public int Parameters => Compiler.Internal.Method.Parameters.Count;
+
+	/// <summary>
+	/// The return type of the underlying function
+	/// </summary>
+	public Type Result => Compiler.Internal.Method.Return;
 }

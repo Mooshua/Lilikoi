@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::Scanner.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 31.01.2023
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -53,7 +53,53 @@ public static class Scanner
 		List<LilikoiContainer> containers = new();
 
 		foreach (var type in assembly.GetTypes())
+			containers.AddRange(Scan<TUserContext, TInput, TOutput>(context, type, sourceMount));
+
+		return containers;
+	}
+
+	/// <summary>
+	/// Scan the provided generic type for Lilikoi Containers.
+	/// Use the last parameter to supply a mount for each container.
+	/// </summary>
+	/// <param name="context"></param>
+	/// <param name="sourceMount"></param>
+	/// <typeparam name="TUserContext"></typeparam>
+	/// <typeparam name="TInput"></typeparam>
+	/// <typeparam name="TOutput"></typeparam>
+	/// <typeparam name="TType"></typeparam>
+	/// <returns></returns>
+	public static List<LilikoiContainer> Scan<TUserContext, TInput, TOutput, TType>(TUserContext context, Func<Mount> sourceMount)
+		where TUserContext : Mount
+		=> Scan<TUserContext, TInput, TOutput>(context, typeof(TType), sourceMount);
+
+	public static List<LilikoiContainer> Scan<TUserContext, TInput, TOutput>(TUserContext context, Type type, Func<Mount> sourceMount)
+		where TUserContext : Mount
+	{
+		List<LilikoiContainer> containers = new();
+
 		foreach (var methodInfo in type.GetMethods())
+			containers.AddRange(Scan<TUserContext, TInput, TOutput>(context, methodInfo, sourceMount));
+
+		return containers;
+	}
+
+	/// <summary>
+	/// Scan an individual method for lilikoi containers.
+	/// Note that if there are multiple target attributes then there can be multiple containers returned.
+	/// </summary>
+	/// <param name="context"></param>
+	/// <param name="methodInfo"></param>
+	/// <param name="sourceMount"></param>
+	/// <typeparam name="TUserContext"></typeparam>
+	/// <typeparam name="TInput"></typeparam>
+	/// <typeparam name="TOutput"></typeparam>
+	/// <returns></returns>
+	public static List<LilikoiContainer> Scan<TUserContext, TInput, TOutput>(TUserContext context, MethodInfo methodInfo, Func<Mount> sourceMount)
+		where TUserContext : Mount
+	{
+		List<LilikoiContainer> containers = new();
+
 		foreach (LkTargetBuilderAttribute attribute in methodInfo.GetCustomAttributes()
 			         .Where(attribute => attribute
 				         .GetType()
@@ -75,7 +121,6 @@ public static class Scanner
 
 				containers.Add(compiler.Finish());
 			}
-
 		return containers;
 	}
 }
