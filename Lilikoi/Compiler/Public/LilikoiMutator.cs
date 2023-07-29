@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::LilikoiMutator.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 31.01.2023
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -94,4 +94,14 @@ public class LilikoiMutator : Mount
 
 		return parameters[paramNum];
 	}
+
+	/// <summary>
+	/// Get the number of parameters on the host function
+	/// </summary>
+	public int Paramters => Compiler.Internal.Method.Parameters.Count;
+
+	/// <summary>
+	/// The return type of the underlying function
+	/// </summary>
+	public Type Result => Compiler.Internal.Method.Return;
 }

@@ -25,18 +25,7 @@ public class LilikoiMethod
 	{
 		return new LilikoiMethod()
 		{
-			Implementation = new MahoganyMethod()
-			{
-				Parameters = method.GetParameters().Select(x => x.ParameterType).ToList(),
-				Return = method.ReturnType,
-				HaltTarget = Expression.Label(method.ReturnType, "Halt"),
-				Entry = method,
-				Host = method.DeclaringType,
-				NamedVariables = new Dictionary<string, ParameterExpression>()
-				{
-					{ MahoganyConstants.HOST_VAR, Expression.Parameter(method.DeclaringType, MahoganyConstants.HOST_VAR) }
-				}
-			}
+			Implementation = new MahoganyMethod(method)
 		};
 	}
 
