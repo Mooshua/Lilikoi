@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Benchmarks::SimpleInjectHost.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -22,13 +22,13 @@ public class SimpleInjectHost
 		return Injected.Execute();
 	}
 
-	public static Func<SimpleInjectHost, bool, bool> Build()
+	public static Func<bool, bool> Build()
 	{
 		return LilikoiMethod.FromMethodInfo(typeof(SimpleInjectHost).GetMethod(nameof(Execute)))
 			.Input<bool>()
 			.Output<bool>()
 			.Build()
 			.Finish()
-			.Compile<SimpleInjectHost, bool, bool>();
+			.Compile<bool, bool>();
 	}
 }

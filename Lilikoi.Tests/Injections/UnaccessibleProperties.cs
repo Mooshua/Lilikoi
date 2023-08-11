@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Tests::UnaccessibleProperties.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 24.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -33,7 +33,7 @@ public class UnaccessibleProperties
 
 		Console.WriteLine(build.ToString());
 
-		build.Run<Host, string, string>(new Host(), "Input");
+		build.Run<string, string>( "Input");
 
 		Assert.Fail("Entry point not executed");
 	}

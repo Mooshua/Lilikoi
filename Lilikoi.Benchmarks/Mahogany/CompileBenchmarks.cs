@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Benchmarks::CompileBenchmarks.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -23,7 +23,7 @@ namespace Lilikoi.Benchmarks.Mahogany;
 public class CompileBenchmarks
 {
 	[Benchmark()]
-	public Func<SimpleInjectHost, bool, bool> Simple()
+	public Func<bool, bool> Simple()
 	{
 		return SimpleInjectHost.Build();
 	}

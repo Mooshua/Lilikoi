@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::LilikoiContainer.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -26,16 +26,16 @@ public class LilikoiContainer : Mount
 
 	private Delegate Memoized { get; set; }
 
-	public TOut Run<THost, TIn, TOut>(THost host, TIn input)
+	public TOut Run<TIn, TOut>(TIn input)
 	{
 		if (Memoized is null)
-			Memoized = Compile<THost, TIn, TOut>();
+			Memoized = Compile<TIn, TOut>();
 
-		return (Memoized as Func<THost, TIn, TOut>)(host, input);
+		return (Memoized as Func<TIn, TOut>)(input);
 	}
 
-	public Func<THost, TIn, TOut> Compile<THost, TIn, TOut>()
+	public Func<TIn, TOut> Compile<TIn, TOut>()
 	{
-		return Body.Compile(false) as Func<THost, TIn, TOut>;
+		return Body.Compile(false) as Func<TIn, TOut>;
 	}
 }

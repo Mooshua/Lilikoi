@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Tests::SelfInject.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 24.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -34,7 +34,7 @@ public class SelfInject
 
 		Console.WriteLine(build.ToString());
 
-		var output = build.Run<Host, object, string>(new Host(), new object());
+		var output = build.Run<object, string>( new object());
 
 		Assert.Fail("Did not evaluate Assert.Pass() in WrapWithInjectionAttribute.");
 	}

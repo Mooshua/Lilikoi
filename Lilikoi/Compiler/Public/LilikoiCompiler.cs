@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::LilikoiCompiler.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -42,7 +42,9 @@ public class LilikoiCompiler
 	{
 		Mutators();
 
+		Internal.HostFor();
 		Internal.ParameterSafety();
+
 		Internal.InjectionsFor(Internal.Method.Host);
 
 		foreach (var implicitWrap in ImplicitWraps)
