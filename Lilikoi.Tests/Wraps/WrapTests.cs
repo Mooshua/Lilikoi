@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Tests::WrapTests.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 24.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -31,7 +31,7 @@ public class WrapTests
 
 		Console.WriteLine(build.ToString());
 
-		var output = build.Run<DummyHost, object, string>(new DummyHost(), new object());
+		var output = build.Run<object, string>(new object());
 
 		Assert.AreEqual("Before", output);
 	}
@@ -50,7 +50,7 @@ public class WrapTests
 
 		Console.WriteLine(build.ToString());
 
-		var output = build.Run<DummyHost, object, string>(new DummyHost(), new object());
+		var output = build.Run<object, string>( new object());
 
 		Assert.Fail("Reached exit point without passing");
 	}
@@ -69,7 +69,7 @@ public class WrapTests
 
 		Console.WriteLine(build.ToString());
 
-		var output = build.Run<DummyHost, object, string>(new DummyHost(), new object());
+		var output = build.Run< object, string>(new object());
 
 		Assert.AreEqual("After", output);
 	}
@@ -88,7 +88,7 @@ public class WrapTests
 
 		Console.WriteLine(build.ToString());
 
-		var output = build.Run<DummyHost, string, string>(new DummyHost(), "Input");
+		var output = build.Run<string, string>("Input");
 
 		Assert.Fail("Reached exit point without passing");
 	}

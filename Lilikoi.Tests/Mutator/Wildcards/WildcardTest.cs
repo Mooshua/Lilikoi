@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Tests::WildcardTest.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 02.02.2023
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -33,7 +33,7 @@ public class WildcardTest
 			.Finish();
 
 		var host = new WildcardHost();
-		var value = container.Run<WildcardHost, object, string>(host, host);
+		var value = container.Run<object, string>(host);
 
 		Assert.AreEqual(WILDCARD_VALUE, value);
 	}

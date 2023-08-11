@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::MahoganyCompiler.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -229,6 +229,12 @@ public class MahoganyCompiler
 			var expression = mahoganyParameterStep.Generate();
 			Stack.Push(expression, Expression.Empty());
 		}
+	}
+
+	public void HostFor()
+	{
+		var step = new MahoganyCreateHostStep(Method);
+		Stack.Push(step.Generate(), Expression.Empty());
 	}
 
 	public void ParameterSafety()

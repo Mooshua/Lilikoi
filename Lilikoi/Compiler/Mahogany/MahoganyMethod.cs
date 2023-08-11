@@ -90,13 +90,13 @@ public class MahoganyMethod
 		var func = typeof(Func<,,>).MakeGenericType(Host, Input, Result);
 		var internalVariables = new[]
 		{
-			//Named(MahoganyConstants.HOST_VAR), Named(MahoganyConstants.INPUT_VAR),
+			// Named(MahoganyConstants.INPUT_VAR),
+			Named(MahoganyConstants.HOST_VAR),
 			Named(MahoganyConstants.OUTPUT_VAR)
 		};
 
 		var parameters = new[]
 		{
-			Named(MahoganyConstants.HOST_VAR),
 			Named(MahoganyConstants.INPUT_VAR)
 		};
 

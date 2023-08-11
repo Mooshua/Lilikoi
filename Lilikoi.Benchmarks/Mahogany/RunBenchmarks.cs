@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Benchmarks::RunBenchmarks.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -25,8 +25,7 @@ namespace Lilikoi.Benchmarks.Mahogany;
 [MemoryDiagnoser(true)]
 public class RunBenchmarks
 {
-	public Func<SimpleInjectHost, bool, bool> SimpleContainer;
-	public SimpleInjectHost SimpleHost = new();
+	public Func<bool, bool> SimpleContainer;
 
 	[GlobalSetup]
 	public void Setup()
@@ -37,6 +36,6 @@ public class RunBenchmarks
 	[Benchmark()]
 	public bool Simple()
 	{
-		return SimpleContainer(SimpleHost, true);
+		return SimpleContainer(true);
 	}
 }
