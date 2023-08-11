@@ -62,6 +62,18 @@ public class LilikoiMutator : Mount
 	}
 
 	/// <summary>
+	/// Add a parameter wildcard to this container for the provided type
+	/// </summary>
+	/// <param name="value"></param>
+	/// <param name="type"></param>
+	/// <returns></returns>
+	public LilikoiMutator Wildcard(LkParameterBuilderAttribute value, Type type)
+	{
+		Compiler.ImplicitWildcards.Add((value, type));
+		return this;
+	}
+
+	/// <summary>
 	///     Add a parameter wildcard to this container.
 	///     If a null value is provided, the default constructor is used.
 	/// </summary>
@@ -75,6 +87,23 @@ public class LilikoiMutator : Mount
 		value ??= new TParameter();
 
 		Compiler.ImplicitWildcards.Add((value, typeof(TType)));
+		return this;
+	}
+
+	/// <summary>
+	///     Add a parameter wildcard to this container for the specified type.
+	///     If a null value is provided, the default constructor is used.
+	/// </summary>
+	/// <param name="value"></param>
+	/// <typeparam name="TParameter"></typeparam>
+	/// <typeparam name="TType"></typeparam>
+	/// <returns></returns>
+	public LilikoiMutator Wildcard<TParameter>(Type type, TParameter value = null)
+		where TParameter : LkParameterBuilderAttribute, new()
+	{
+		value ??= new TParameter();
+
+		Compiler.ImplicitWildcards.Add((value, type));
 		return this;
 	}
 
