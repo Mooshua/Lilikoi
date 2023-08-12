@@ -36,8 +36,9 @@ public class AllMethodsCalledTest
 
 		Console.WriteLine(build.ToString());
 
-		build.Run<AllMethodsCalledCounter, object>(Instance);
+		var value = build.Run<AllMethodsCalledCounter, string>(Instance);
 
+		Assert.NotNull(value);
 
 		Assert.IsTrue(Instance.InjectCalled, "Injection was not invoked");
 		Assert.IsTrue(Instance.EntryCalled, "Entry was not invoked");

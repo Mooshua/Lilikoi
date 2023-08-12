@@ -48,6 +48,8 @@ public class LilikoiMethod
 		Implementation.Result = typeof(TOutput);
 		Implementation.NamedVariables.Add(MahoganyConstants.OUTPUT_VAR, Expression.Parameter(typeof(TOutput), MahoganyConstants.OUTPUT_VAR));
 
+		if (!Implementation.Result.IsAssignableFrom(Implementation.Return))
+			throw new InvalidCastException($"Cannot cast to .Output<T>() result of {typeof(TOutput).FullName} from container host return of {Implementation.Return.FullName}");
 
 		return this;
 	}
