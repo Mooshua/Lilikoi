@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Tests::AllMethodsCalledHost.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -11,7 +11,7 @@ public class AllMethodsCalledHost
 {
 	[AllMethodsCalled] public AllMethodsCalledInject Inject;
 
-	public object Entry(AllMethodsCalledTest.AllMethodsCalledCounter test, [AllMethodsCalledParameter] object param)
+	public string Entry(AllMethodsCalledTest.AllMethodsCalledCounter test, [AllMethodsCalledParameter] object param)
 	{
 		test.EntryCalled = true;
 
@@ -20,6 +20,6 @@ public class AllMethodsCalledHost
 		Assert.IsNotNull(Inject);
 		Assert.IsTrue(Inject.IsNotNull());
 
-		return new object();
+		return "Okay!";
 	}
 }

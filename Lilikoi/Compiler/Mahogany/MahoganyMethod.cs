@@ -105,8 +105,8 @@ public class MahoganyMethod
 		var lambdaBody = Expression.Block(
 			internalVariables,
 			Expression.Block(Temporaries.ToArray(), internalBody),
-			Expression.Return(HaltTarget, Named(MahoganyConstants.OUTPUT_VAR)),
-			Expression.Label(HaltTarget, Named(MahoganyConstants.OUTPUT_VAR))
+			Expression.Return(HaltTarget, Expression.TypeAs( Named(MahoganyConstants.OUTPUT_VAR), Return ) ),
+			Expression.Label(HaltTarget, Expression.TypeAs( Named(MahoganyConstants.OUTPUT_VAR), Return ) )
 			);
 
 		return Expression.Lambda(lambdaBody, "LilikoiContainer", parameters);

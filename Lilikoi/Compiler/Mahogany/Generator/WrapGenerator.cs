@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::WrapGenerator.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -68,7 +68,8 @@ internal static class WrapGenerator
 				setter,
 				Expression.IfThen(
 					Expression.IsTrue(Expression.Field(result, WRAPRESULT_STOP)),
-					Expression.Return(method.HaltTarget, Expression.Field(result, WRAPRESULT_VALUE))
+					Expression.Return(method.HaltTarget,
+						Expression.TypeAs( Expression.Field(result, WRAPRESULT_VALUE), method.Return) )
 					));
 
 		return Expression.Block(
