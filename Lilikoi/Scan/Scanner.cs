@@ -31,7 +31,7 @@ public static class Scanner
 	/// <typeparam name="TOutput"></typeparam>
 	/// <returns></returns>
 	public static List<LilikoiContainer> Scan<TUserContext, TInput, TOutput>(TUserContext context, Assembly assembly, Mount mount)
-		where TUserContext : Mount
+		where TUserContext : IMount
 	{
 		return Scan<TUserContext, TInput, TOutput>(context, assembly, () => mount);
 	}
@@ -48,7 +48,7 @@ public static class Scanner
 	/// <typeparam name="TOutput"></typeparam>
 	/// <returns></returns>
 	public static List<LilikoiContainer> Scan<TUserContext, TInput, TOutput>(TUserContext context, Assembly assembly, Func<Mount> sourceMount)
-		where TUserContext : Mount
+		where TUserContext : IMount
 	{
 		List<LilikoiContainer> containers = new();
 
@@ -70,11 +70,11 @@ public static class Scanner
 	/// <typeparam name="TType"></typeparam>
 	/// <returns></returns>
 	public static List<LilikoiContainer> Scan<TUserContext, TInput, TOutput, TType>(TUserContext context, Func<Mount> sourceMount)
-		where TUserContext : Mount
+		where TUserContext : IMount
 		=> Scan<TUserContext, TInput, TOutput>(context, typeof(TType), sourceMount);
 
 	public static List<LilikoiContainer> Scan<TUserContext, TInput, TOutput>(TUserContext context, Type type, Func<Mount> sourceMount)
-		where TUserContext : Mount
+		where TUserContext : IMount
 	{
 		List<LilikoiContainer> containers = new();
 
@@ -96,7 +96,7 @@ public static class Scanner
 	/// <typeparam name="TOutput"></typeparam>
 	/// <returns></returns>
 	public static List<LilikoiContainer> Scan<TUserContext, TInput, TOutput>(TUserContext context, MethodInfo methodInfo, Func<Mount> sourceMount)
-		where TUserContext : Mount
+		where TUserContext : IMount
 	{
 		List<LilikoiContainer> containers = new();
 

@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::LkTargetAttribute.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 31.01.2023
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -30,7 +30,7 @@ public abstract class LkTargetAttribute : LkTargetBuilderAttribute
 	/// <typeparam name="TUserContext"></typeparam>
 	/// <returns></returns>
 	public virtual bool IsTargetedBy<TUserContext>(TUserContext context, LilikoiMutator mutator)
-		where TUserContext : Mount
+		where TUserContext : IMount
 	{
 		return true;
 	}
@@ -43,5 +43,5 @@ public abstract class LkTargetAttribute : LkTargetBuilderAttribute
 	/// <param name="mutator"></param>
 	/// <typeparam name="TUserContext"></typeparam>
 	public abstract void Target<TUserContext>(TUserContext context, LilikoiMutator mutator)
-		where TUserContext : Mount;
+		where TUserContext : IMount;
 }
