@@ -3,7 +3,7 @@
 Lilikoi is designed to replace expensive reflection logic and deliver a consistent API surface
 from the perspective of both framework and framework consumer.
 
-Lilikoi provides APIs for frameworks to define declarative helpers, such as parameter injection
+Lilikoi provides APIs for event producers to define declarative helpers, such as parameter injection
 and before/after hooks (called wraps). Additionally, users can specify arbitrary types in the
 parameters of their entry point, and Lilikoi will resolve those parameters to a wildcard injection
 if one is available.
@@ -26,7 +26,7 @@ scaffolded to replace repetitive imperative logic.
 - **Parameter** injection is for values that are *expected* to change both value and behavior between invocations,
   depending on the input value for the container.
 - **Wildcards** are similar to parameter injection, but are detected by the parameter type and not an attribute.
-  They have no explicit usage
+  They have no explicit usage, and can be assigned by the target and mutator attributes.
 
 ## Other Attributes
 
@@ -37,6 +37,10 @@ scaffolded to replace repetitive imperative logic.
 - **Mutators** allow you to hook into the Lilikoi container compiler and add your own wraps and wildcards.
   Mutators can be used to add advanced functionality to containers, and even smuggle metadata from the compilation process
   to the final container object using the provided mount interface.
+
+- **Targets** are used by the Scanner APIs to find containers within assemblies and types.
+  Targets are not required to make containers, but make the process of creating them
+  significantly easier and more consistent.
 
 ## Headless
 Lilikoi has some APIs, called "Headless" APIs, which are designed to be used without the full framework.

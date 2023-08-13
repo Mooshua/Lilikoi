@@ -8,6 +8,7 @@
 #region
 
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
 
 using Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
 
@@ -15,7 +16,9 @@ using Lilikoi.Benchmarks.Mahogany.Applications.InjectSimple;
 
 namespace Lilikoi.Benchmarks.Mahogany;
 
-[SimpleJob()]
+[SimpleJob(RuntimeMoniker.Net48)]
+[SimpleJob(RuntimeMoniker.Net60)]
+[SimpleJob(RuntimeMoniker.Net70)]
 [Q1Column]
 [MeanColumn]
 [MedianColumn]
@@ -25,7 +28,7 @@ namespace Lilikoi.Benchmarks.Mahogany;
 [MemoryDiagnoser(true)]
 public class RunBenchmarks
 {
-	public Func<bool, bool> SimpleContainer;
+	public Func<object, object> SimpleContainer;
 
 	[GlobalSetup]
 	public void Setup()
@@ -34,8 +37,8 @@ public class RunBenchmarks
 	}
 
 	[Benchmark()]
-	public bool Simple()
+	public object Simple()
 	{
-		return SimpleContainer(true);
+		return SimpleContainer("Hello?");
 	}
 }

@@ -23,7 +23,7 @@ namespace Lilikoi.Benchmarks.Mahogany;
 public class CompileBenchmarks
 {
 	[Benchmark()]
-	public Func<bool, bool> Simple()
+	public Func<object, object> Simple()
 	{
 		return SimpleInjectHost.Build();
 	}

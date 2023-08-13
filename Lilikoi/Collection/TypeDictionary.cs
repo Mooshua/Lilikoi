@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::TypeDictionary.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -39,9 +39,10 @@ public class TypeDictionary
 	}
 
 	public bool Has<TValue>()
-	{
-		return _underlying.ContainsKey(typeof(TValue));
-	}
+		=> Has(typeof(TValue));
+
+	public bool Has(Type t)
+		=> _underlying.ContainsKey(t);
 
 	public void Set<TValue>(TValue obj)
 	{
@@ -50,6 +51,19 @@ public class TypeDictionary
 
 		_underlying[typeof(TValue)] = obj;
 	}
+
+	public TBase? Super<TBase>(Type super)
+		where TBase: class
+	{
+		if (!typeof(TBase).IsAssignableFrom(super))
+			return null;
+
+		if (!_underlying.ContainsKey(super))
+			return null;
+
+		return _underlying[super] as TBase;
+	}
+
 
 	public void Lock(out Padlock.Key key)
 	{
