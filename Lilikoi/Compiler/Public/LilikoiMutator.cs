@@ -7,6 +7,8 @@
 //       ========================
 #region
 
+using System.Reflection;
+
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Context;
 
@@ -132,4 +134,15 @@ public class LilikoiMutator : Mount
 	/// The return type of the underlying function
 	/// </summary>
 	public Type Result => Compiler.Internal.Method.Return;
+
+	/// <summary>
+	/// The entry point that the mutator is applying to
+	/// </summary>
+	public MethodInfo Method => Compiler.Internal.Method.Entry;
+
+	/// <summary>
+	/// The host that the entry point belongs to.
+	/// Note that this is the same as Method.DeclaringType
+	/// </summary>
+	public Type Host => Compiler.Internal.Method.Host;
 }

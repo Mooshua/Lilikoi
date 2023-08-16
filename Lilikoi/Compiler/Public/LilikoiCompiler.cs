@@ -45,11 +45,11 @@ public class LilikoiCompiler
 		Internal.HostFor();
 		Internal.ParameterSafety();
 
-		Internal.InjectionsFor(Internal.Method.Host);
-
 		foreach (var implicitWrap in ImplicitWraps)
 			Internal.ImplicitWrap(implicitWrap);
 		Internal.WrapsFor();
+
+		Internal.InjectionsFor(Internal.Method.Host);
 
 		foreach (var (implicitWildcard, type) in ImplicitWildcards)
 			Internal.ImplicitWildcard(implicitWildcard, type);
