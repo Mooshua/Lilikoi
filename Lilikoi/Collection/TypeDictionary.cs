@@ -57,15 +57,15 @@ public class TypeDictionary
 		if (mutable.IsLocked())
 			throw new Exception("Locked.");
 
-		_underlying[typeof(TValue)] = null!;
+		_underlying.Remove(typeof(TValue));
 	}
 	
-	public void Remove(Type t)
+	public void Remove(Type type)
 	{
 		if (mutable.IsLocked())
 			throw new Exception("Locked.");
 
-		_underlying[t] = null!;
+		_underlying.Remove(type);
 	}
 
 	public TBase? Super<TBase>(Type super)
