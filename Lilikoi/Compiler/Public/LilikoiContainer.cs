@@ -1,47 +1,41 @@
 ﻿//       ========================
-//       Lilikoi.Core::MilikoContainer.cs
-//       Distributed under the MIT License.
+//       Lilikoi::LilikoiContainer.cs
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
 using System.Linq.Expressions;
 
+using Lilikoi.Context;
+
 #endregion
 
 namespace Lilikoi.Compiler.Public;
 
-public class LilikoiContainer
+public class LilikoiContainer : Mount
 {
-	internal LambdaExpression Body { get; set; }
-
-/*#if DEBUG
-
-	public TOut Run<THost, TIn, TOut>(THost host, TIn input)
+	internal LilikoiContainer(Mount self, LambdaExpression body) : base(self)
 	{
-		return (Body.Compile(true) as Func<THost, TIn, TOut>)(host, input);
+		Body = body;
 	}
 
-	public Func<THost, TIn, TOut> Compile<THost, TIn, TOut>() => Body.Compile(true) as Func<THost, TIn, TOut>;
+	private LambdaExpression Body { get; set; }
 
-	public override string ToString()
-	{
-		return ((Expression)Body).ToReadableString(opt => { return opt; });
-	}
-#endif*/
+	private Delegate Memoized { get; set; }
 
-#if !DEBUG
-	public TOut Run<THost, TIn, TOut>(THost host, TIn input)
+	public TOut Run<TIn, TOut>(TIn input)
 	{
-		return (Body.Compile(false) as Func<THost, TIn, TOut>)(host, input);
+		if (Memoized is null)
+			Memoized = Compile<TIn, TOut>();
+
+		return (Memoized as Func<TIn, TOut>)(input);
 	}
 
-	public Func<THost, TIn, TOut> Compile<THost, TIn, TOut>() => Body.Compile(false) as Func<THost, TIn, TOut>;
-#endif
+	public Func<TIn, TOut> Compile<TIn, TOut>()
+	{
+		return Body.Compile(false) as Func<TIn, TOut>;
+	}
 }

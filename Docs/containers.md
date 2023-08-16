@@ -29,10 +29,12 @@ A "mount" is a type-keyed dictionary which is passed to all invocations of the s
 A mount can be used for configuration, injecting values, or for storing factories to be used by attributes.
 
 It is **highly recommended** (and may soon become a requirement) that all input types derive from the `Mount` type
-so that programmers have ways to hurl opaque data around the entry point of a container.
+so that users and libraries have ways to hurl opaque data around the entry point of a container.
 
 > **Idea**: If you use parameter injection, you really don't need any other input type than `Mount`.
 > By using parameter attributes, you can bundle all of your input into a mount and retrieve it for the entry point invocation.
+
+
 
 ## Steps
 
@@ -42,3 +44,4 @@ so that programmers have ways to hurl opaque data around the entry point of a co
 4. Entry point
 5. Wrap after execution
 7. Dejection of host
+8. Casting of entry return and wrap return into container result

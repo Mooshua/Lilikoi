@@ -1,13 +1,9 @@
 ﻿//       ========================
 //       Lilikoi.Tests::AllMethodsCalledAttribute.cs
-//       Distributed under the MIT License.
-//
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -20,7 +16,6 @@ namespace Lilikoi.Tests.Injections.AllMethodsCalled;
 
 public class AllMethodsCalledAttribute : LkTypedInjectionAttribute<AllMethodsCalledInject>
 {
-
 	public override AllMethodsCalledInject Inject(Mount context)
 	{
 		AllMethodsCalledTest.Instance.InjectCalled = true;

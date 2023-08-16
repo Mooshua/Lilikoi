@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        framework-version: [ 'net47', 'net48', 'net6.0', 'net7.0' ]
+        framework-version: [ 'net6.0', 'net7.0' ]
 
     steps:
 

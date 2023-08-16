@@ -1,13 +1,9 @@
 ﻿//       ========================
 //       Lilikoi.Tests::AllMethodsCalledTest.cs
-//       Distributed under the MIT License.
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -23,15 +19,6 @@ namespace Lilikoi.Tests.Injections.AllMethodsCalled;
 public class AllMethodsCalledTest
 {
 	public static AllMethodsCalledCounter Instance;
-
-	public class AllMethodsCalledCounter
-	{
-		public bool DejectCalled = false;
-		public bool EntryCalled = false;
-
-		public bool InjectCalled = false;
-		public bool ParameterCalled = false;
-	}
 
 	[Test]
 	public void AllMethodsCalled()
@@ -49,12 +36,22 @@ public class AllMethodsCalledTest
 
 		Console.WriteLine(build.ToString());
 
-		build.Run<AllMethodsCalledHost, AllMethodsCalledCounter, object>(new AllMethodsCalledHost(), Instance);
+		var value = build.Run<AllMethodsCalledCounter, string>(Instance);
 
+		Assert.NotNull(value);
 
 		Assert.IsTrue(Instance.InjectCalled, "Injection was not invoked");
 		Assert.IsTrue(Instance.EntryCalled, "Entry was not invoked");
 		Assert.IsTrue(Instance.DejectCalled, "Deject was not invoked");
 		Assert.IsTrue(Instance.ParameterCalled, "Parameter was not invoked");
+	}
+
+	public class AllMethodsCalledCounter
+	{
+		public bool DejectCalled = false;
+		public bool EntryCalled = false;
+
+		public bool InjectCalled = false;
+		public bool ParameterCalled = false;
 	}
 }

@@ -1,13 +1,9 @@
 ﻿//       ========================
 //       Lilikoi.Tests::HelloWorldHost.cs
-//       Distributed under the MIT License.
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -15,7 +11,7 @@
 
 namespace Lilikoi.Tests.HelloWorld;
 
-public class HelloWorldHost
+public class HelloWorldHost : IDisposable
 {
 	[Console] public ConsoleInj ConsoleImpl;
 
@@ -24,5 +20,9 @@ public class HelloWorldHost
 		ConsoleImpl.Log("Hello!");
 
 		return ConsoleImpl;
+	}
+
+	public void Dispose()
+	{
 	}
 }

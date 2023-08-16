@@ -1,18 +1,15 @@
 ﻿//       ========================
-//       Lilikoi.Core::MilikoCompiler.cs
-//       Distributed under the MIT License.
+//       Lilikoi::LilikoiCompiler.cs
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Compiler.Mahogany;
+using Lilikoi.Context;
 
 #endregion
 
@@ -20,36 +17,47 @@ namespace Lilikoi.Compiler.Public;
 
 public class LilikoiCompiler
 {
+	internal List<(LkParameterBuilderAttribute, Type)> ImplicitWildcards = new();
+
+	internal List<LkWrapBuilderAttribute> ImplicitWraps = new();
+
 	internal MahoganyCompiler Internal { get; set; }
 
-	internal List<LkWrapBuilderAttribute> ImplicitWraps = new List<LkWrapBuilderAttribute>();
-	internal List<LkParameterBuilderAttribute> ImplicitWildcards = new List<LkParameterBuilderAttribute>();
+	internal Mount Smuggler { get; } = new();
 
 	public LilikoiMutator Mutator()
 	{
-		return new LilikoiMutator()
-		{
-			Compiler = this
-		};
+		return new LilikoiMutator(Smuggler, this);
+	}
+
+	private void Mutators()
+	{
+		var mutators = MahoganyCompiler.MutatorsForMethod(Internal.Method.Entry);
+
+		foreach (var lilikoiMutator in mutators)
+			lilikoiMutator.Mutate(Mutator());
 	}
 
 	public LilikoiContainer Finish()
 	{
+		Mutators();
+
+		Internal.HostFor();
 		Internal.ParameterSafety();
-		Internal.InjectionsFor(Internal.Method.Host);
 
 		foreach (var implicitWrap in ImplicitWraps)
-		{
 			Internal.ImplicitWrap(implicitWrap);
-		}
 		Internal.WrapsFor();
+
+		Internal.InjectionsFor(Internal.Method.Host);
+
+		foreach (var (implicitWildcard, type) in ImplicitWildcards)
+			Internal.ImplicitWildcard(implicitWildcard, type);
+
 		Internal.ParametersFor();
 
 		Internal.Apex();
 
-		return new LilikoiContainer()
-		{
-			Body = Internal.Method.Lambda()
-		};
+		return new LilikoiContainer(Smuggler, Internal.Method.Lambda());
 	}
 }

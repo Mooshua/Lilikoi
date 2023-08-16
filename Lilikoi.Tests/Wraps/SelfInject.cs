@@ -1,14 +1,12 @@
 ﻿//       ========================
-//       Lilikoi.Tests::RespectsNonStandardReturns.cs
-//       Distributed under the MIT License.
+//       Lilikoi.Tests::SelfInject.cs
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 24.12.2022
-// ->    Bumped: 24.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
+
 using Lilikoi.Attributes;
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Compiler.Public;
@@ -16,10 +14,31 @@ using Lilikoi.Compiler.Public.Utilities;
 using Lilikoi.Context;
 using Lilikoi.Tests.HelloWorld;
 
+#endregion
+
 namespace Lilikoi.Tests.Wraps;
 
 public class SelfInject
 {
+	[Test]
+	public void BasicSelfInject()
+	{
+		var method = typeof(Host).GetMethod("Entry");
+
+		var build = LilikoiMethod.FromMethodInfo(method)
+			.Input<object>()
+			.Output<string>()
+			.Mount(new Mount())
+			.Build()
+			.Finish();
+
+		Console.WriteLine(build.ToString());
+
+		var output = build.Run<object, string>( new object());
+
+		Assert.Fail("Did not evaluate Assert.Pass() in WrapWithInjectionAttribute.");
+	}
+
 	public class NonStandardReturn : LkWrapBuilderAttribute
 	{
 		public override LkWrapAttribute Build(Mount mount)
@@ -60,30 +79,10 @@ public class SelfInject
 
 	public class Host
 	{
-
 		[NonStandardReturn]
 		public string Entry()
 		{
 			return "Entry";
 		}
-	}
-
-	[Test]
-	public void BasicSelfInject()
-	{
-		var method = typeof(Host).GetMethod("Entry");
-
-		var build = LilikoiMethod.FromMethodInfo(method)
-			.Input<object>()
-			.Output<string>()
-			.Mount(new Mount())
-			.Build()
-			.Finish();
-
-		Console.WriteLine(build.ToString());
-
-		var output = build.Run<Host, object, string>(new Host(), new object());
-
-		Assert.Fail("Did not evaluate Assert.Pass() in WrapWithInjectionAttribute.");
 	}
 }

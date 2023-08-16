@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MkWrapBuilderAttribute.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::LkWrapBuilderAttribute.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -29,5 +25,4 @@ public abstract class LkWrapBuilderAttribute : Attribute
 	/// <typeparam name="TOutput"></typeparam>
 	/// <returns></returns>
 	public abstract bool IsWrappable<TInput, TOutput>(Mount mount);
-
 }

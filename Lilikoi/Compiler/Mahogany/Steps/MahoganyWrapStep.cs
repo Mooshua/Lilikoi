@@ -1,19 +1,18 @@
 ﻿//       ========================
-//       Lilikoi.Core::MahoganyWrapStep.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::MahoganyWrapStep.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 24.12.2022
-// ->    Bumped: 24.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
+#region
 
 using System.Linq.Expressions;
 
 using Lilikoi.Attributes.Builders;
 using Lilikoi.Compiler.Mahogany.Generator;
+
+#endregion
 
 namespace Lilikoi.Compiler.Mahogany.Steps;
 
@@ -33,7 +32,7 @@ public class MahoganyWrapStep
 	{
 		var setter =
 			Method.AsVariable(
-				 WrapGenerator.Builder(Builder, Method.Mount), out var instance);
+				WrapGenerator.Builder(Builder, Method.Mount), out var instance);
 
 		//var injects = MahoganyCompiler.InjectStepBuilder(Actual, Method);
 
@@ -48,7 +47,7 @@ public class MahoganyWrapStep
 				setter,
 				//enterInj,
 				WrapGenerator.Before(Method, instance)
-			);
+				);
 		var exit =
 			Expression.Block(
 				//exitInj,

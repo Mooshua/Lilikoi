@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MkInjectionAttribute.cs
-//       Distributed under the MIT License.
-//
+//       Lilikoi::LkInjectionAttribute.cs
+//       (c) 2023. Distributed under the MIT License
+// 
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -32,7 +28,7 @@ public abstract class LkInjectionAttribute : LkInjectionBuilderAttribute
 	/// <returns></returns>
 	public sealed override LkInjectionAttribute Build(Mount mount)
 	{
-		return this.MemberwiseClone() as LkInjectionAttribute;
+		return MemberwiseClone() as LkInjectionAttribute;
 	}
 
 	/// <summary>

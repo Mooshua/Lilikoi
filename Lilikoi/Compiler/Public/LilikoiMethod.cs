@@ -1,13 +1,9 @@
 ﻿//       ========================
-//       Lilikoi.Core::MilikoMethod.cs
-//       Distributed under the MIT License.
+//       Lilikoi::LilikoiMethod.cs
+//       (c) 2023. Distributed under the MIT License
 //
 // ->    Created: 22.12.2022
-// ->    Bumped: 22.12.2022
-//
-// ->    Purpose:
-//
-//
+// ->    Bumped: 06.02.2023
 //       ========================
 #region
 
@@ -29,18 +25,7 @@ public class LilikoiMethod
 	{
 		return new LilikoiMethod()
 		{
-			Implementation = new MahoganyMethod()
-			{
-				Parameters = method.GetParameters().Select(x => x.ParameterType).ToList(),
-				Return = method.ReturnType,
-				HaltTarget = Expression.Label(method.ReturnType),
-				Entry = method,
-				Host = method.DeclaringType,
-				NamedVariables = new Dictionary<string, ParameterExpression>()
-				{
-					{ MahoganyConstants.HOST_VAR, Expression.Parameter(method.DeclaringType, MahoganyConstants.HOST_VAR) },
-				}
-			}
+			Implementation = new MahoganyMethod(method)
 		};
 	}
 
@@ -53,6 +38,7 @@ public class LilikoiMethod
 	{
 		Implementation.Input = typeof(TInput);
 		Implementation.NamedVariables.Add(MahoganyConstants.INPUT_VAR, Expression.Parameter(typeof(TInput), MahoganyConstants.INPUT_VAR));
+		Implementation.Wildcards.Add(typeof(TInput), Implementation.Named(MahoganyConstants.INPUT_VAR));
 
 		return this;
 	}
@@ -62,6 +48,8 @@ public class LilikoiMethod
 		Implementation.Result = typeof(TOutput);
 		Implementation.NamedVariables.Add(MahoganyConstants.OUTPUT_VAR, Expression.Parameter(typeof(TOutput), MahoganyConstants.OUTPUT_VAR));
 
+		if (!Implementation.Result.IsAssignableFrom(Implementation.Return))
+			throw new InvalidCastException($"Cannot cast to .Output<T>() result of {typeof(TOutput).FullName} from container host return of {Implementation.Return.FullName}");
 
 		return this;
 	}
