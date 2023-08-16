@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::Mount.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -13,7 +13,7 @@ using Lilikoi.Collection;
 
 namespace Lilikoi.Context;
 
-public class Mount
+public class Mount : IMount
 {
 	private TypeDictionary dictionary = new();
 
@@ -26,21 +26,28 @@ public class Mount
 		dictionary = other.dictionary;
 	}
 
+	/// <inheritdoc />
 	public virtual void Store<T>(T value)
 		where T : class
-	{
-		dictionary.Set(value);
-	}
+		=> dictionary.Set(value);
 
+
+	/// <inheritdoc />
 	public virtual T? Get<T>()
 		where T : class
+		=> dictionary.Get<T>();
 
-	{
-		return dictionary.Get<T>();
-	}
 
+	/// <inheritdoc />
+	public virtual T? Super<T>(Type super) where T : class
+		=> dictionary.Super<T>(super);
+
+	/// <inheritdoc />
 	public virtual bool Has<T>()
-	{
-		return dictionary.Has<T>();
-	}
+		=> dictionary.Has<T>();
+
+	/// <inheritdoc />
+	public virtual bool Has(Type t)
+		=> dictionary.Has(t);
+
 }

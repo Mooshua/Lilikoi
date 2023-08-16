@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi.Benchmarks::Simple.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 22.12.2022
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -27,8 +27,8 @@ public class Simple
 	}
 
 	[MethodImpl(MethodImplOptions.NoInlining)]
-	public bool Execute()
+	public object Execute()
 	{
-		return 1 == 0; // Random.Shared.Next() == Value;
+		return "Hello, World!";
 	}
 }

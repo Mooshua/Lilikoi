@@ -1,7 +1,7 @@
 ﻿//       ========================
 //       Lilikoi::LkTargetBuilderAttribute.cs
 //       (c) 2023. Distributed under the MIT License
-// 
+//
 // ->    Created: 31.01.2023
 // ->    Bumped: 06.02.2023
 //       ========================
@@ -29,5 +29,5 @@ public abstract class LkTargetBuilderAttribute : Attribute
 	/// <typeparam name="TUserContext"></typeparam>
 	/// <returns></returns>
 	public abstract bool IsTargetable<TUserContext>()
-		where TUserContext : Mount;
+		where TUserContext : IMount;
 }

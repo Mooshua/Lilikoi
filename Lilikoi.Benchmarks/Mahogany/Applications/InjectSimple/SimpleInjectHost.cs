@@ -8,6 +8,7 @@
 #region
 
 using Lilikoi.Compiler.Public;
+using Lilikoi.Context;
 
 #endregion
 
@@ -17,18 +18,19 @@ public class SimpleInjectHost
 {
 	[SimpleInjector] public Simple Injected;
 
-	public bool Execute()
+	public object Execute()
 	{
 		return Injected.Execute();
 	}
 
-	public static Func<bool, bool> Build()
+	public static Func<object, object> Build()
 	{
 		return LilikoiMethod.FromMethodInfo(typeof(SimpleInjectHost).GetMethod(nameof(Execute)))
-			.Input<bool>()
-			.Output<bool>()
+			.Mount(new Mount())
+			.Input<object>()
+			.Output<object>()
 			.Build()
 			.Finish()
-			.Compile<bool, bool>();
+			.Compile<object, object>();
 	}
 }

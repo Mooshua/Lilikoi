@@ -44,3 +44,4 @@ so that users and libraries have ways to hurl opaque data around the entry point
 4. Entry point
 5. Wrap after execution
 7. Dejection of host
+8. Casting of entry return and wrap return into container result

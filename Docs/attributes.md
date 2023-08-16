@@ -152,8 +152,9 @@ The presence of a builder attribute should do two things:
 Wraps allow you to execute before or after the entry point which modifies the input or output, or prevents the entry point
 from running altogether.
 
-> **Warning**: Wraps *do not* support property injection by default. 
->
+> [!IMPORTANT]
+> Wraps *do not* support property injection by default.
+> 
 > You can use `LilikoiInjector.Inject(mount, this)` and `LilikoiInjector.Deject(mount, this)` to emulate standard injection in the before and after methods, respectively.
 > 
 > (If you do this, it is **highly** recommended to call `Deject` at the end of your `After` function as the injections may rely on this to prevent leaks.)
