@@ -39,6 +39,20 @@ public interface IMount
 		where T : class;
 
 	/// <summary>
+	/// Remove the object referred to by typeof(T)
+	/// </summary>
+	/// <param name="value"></param>
+	/// <typeparam name="T"></typeparam>
+	void Remove<T>(T value)
+		where T : class;
+
+	/// <summary>
+	/// Remove the object referred to by T
+	/// </summary>
+	/// <param name="type"></param>
+	void Remove(Type type);
+
+	/// <summary>
 	/// Check if an object exists in the mount
 	/// </summary>
 	/// <typeparam name="T"></typeparam>

@@ -51,6 +51,22 @@ public class TypeDictionary
 
 		_underlying[typeof(TValue)] = obj;
 	}
+	
+	public void Remove<TValue>(TValue obj)
+	{
+		if (mutable.IsLocked())
+			throw new Exception("Locked.");
+
+		_underlying.Remove(typeof(TValue));
+	}
+	
+	public void Remove(Type type)
+	{
+		if (mutable.IsLocked())
+			throw new Exception("Locked.");
+
+		_underlying.Remove(type);
+	}
 
 	public TBase? Super<TBase>(Type super)
 		where TBase: class
@@ -63,6 +79,7 @@ public class TypeDictionary
 
 		return _underlying[super] as TBase;
 	}
+	
 
 
 	public void Lock(out Padlock.Key key)

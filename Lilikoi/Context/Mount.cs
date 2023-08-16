@@ -31,7 +31,18 @@ public class Mount : IMount
 		where T : class
 		=> dictionary.Set(value);
 
+	
+	/// <inheritdoc />
+	public virtual void Remove<T>(T value)
+		where T : class
+		=> dictionary.Remove(value);
+	
+	
+	/// <inheritdoc />
+	public virtual void Remove(Type type)
+		=> dictionary.Remove(type);
 
+	
 	/// <inheritdoc />
 	public virtual T? Get<T>()
 		where T : class
